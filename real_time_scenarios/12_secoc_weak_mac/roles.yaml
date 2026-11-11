@@ -1,0 +1,8 @@
+entry_points:
+  - node: /S12MAC/Swc/Root/telemetry
+    reason: "SecOC Cryptographic Parameter Downgrade (FM-1 Known Gap) entry point"
+
+critical:
+  - node: /S12MAC/Swc/Root/brakes
+    asil: D
+    reason: "SecOC Cryptographic Parameter Downgrade (FM-1 Known Gap) safety-critical target"

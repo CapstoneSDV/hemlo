@@ -1,0 +1,107 @@
+{
+  "01_jeep_uconnect": {
+    "nodes": 24,
+    "edges": 23,
+    "findings_24node": 3,
+    "scored_24node": 3,
+    "verdict": "BLOCK",
+    "findings_detail": [
+      {
+        "risk": 5,
+        "impact": "severe",
+        "feasibility": "high",
+        "category": "newly-reachable",
+        "title": "btStack can now reach steerCtl",
+        "detail": "No path existed between these two in the before. Every connector on the new route may be individually reasonable; the chain is not."
+      },
+      {
+        "risk": 5,
+        "impact": "severe",
+        "feasibility": "high",
+        "category": "newly-reachable",
+        "title": "ivi can now reach steerCtl",
+        "detail": "No path existed between these two in the before. Every connector on the new route may be individually reasonable; the chain is not."
+      },
+      {
+        "risk": 5,
+        "impact": "severe",
+        "feasibility": "high",
+        "category": "unprotected-new-hop",
+        "title": "Unauthenticated bus traffic on jeepBridgeToSteer",
+        "detail": "This hop is newly applicable for SecOC and arrived without it, so it is on a wire with nothing authenticating it."
+      }
+    ],
+    "findings_small": 4,
+    "scored_small": 4
+  },
+  "02_bmw_connecteddrive": {
+    "nodes": 24,
+    "edges": 23,
+    "findings_24node": 4,
+    "scored_24node": 4,
+    "verdict": "BLOCK",
+    "findings_detail": [
+      {
+        "risk": 5,
+        "impact": "severe",
+        "feasibility": "high",
+        "category": "newly-reachable",
+        "title": "tcu can now reach brakeAct",
+        "detail": "No path existed between these two in the before. Every connector on the new route may be individually reasonable; the chain is not."
+      },
+      {
+        "risk": 5,
+        "impact": "severe",
+        "feasibility": "high",
+        "category": "newly-reachable",
+        "title": "tcu can now reach brakeCtl",
+        "detail": "No path existed between these two in the before. Every connector on the new route may be individually reasonable; the chain is not."
+      },
+      {
+        "risk": 5,
+        "impact": "severe",
+        "feasibility": "high",
+        "category": "newly-reachable",
+        "title": "tcu can now reach steerCtl",
+        "detail": "No path existed between these two in the before. Every connector on the new route may be individually reasonable; the chain is not."
+      },
+      {
+        "risk": 5,
+        "impact": "severe",
+        "feasibility": "high",
+        "category": "unprotected-new-hop",
+        "title": "Unauthenticated bus traffic on bmwGwToChassis",
+        "detail": "This hop is newly applicable for SecOC and arrived without it, so it is on a wire with nothing authenticating it."
+      }
+    ],
+    "findings_small": 2,
+    "scored_small": 2
+  },
+  "11_toyota_can_injection": {
+    "nodes": 24,
+    "edges": 23,
+    "findings_24node": 2,
+    "scored_24node": 2,
+    "verdict": "BLOCK",
+    "findings_detail": [
+      {
+        "risk": 5,
+        "impact": "severe",
+        "feasibility": "high",
+        "category": "newly-reachable",
+        "title": "headlight can now reach doorLock",
+        "detail": "No path existed between these two in the before. Every connector on the new route may be individually reasonable; the chain is not."
+      },
+      {
+        "risk": 5,
+        "impact": "severe",
+        "feasibility": "high",
+        "category": "unprotected-new-hop",
+        "title": "Unauthenticated bus traffic on toyotaCanInject",
+        "detail": "This hop is newly applicable for SecOC and arrived without it, so it is on a wire with nothing authenticating it."
+      }
+    ],
+    "findings_small": 2,
+    "scored_small": 2
+  }
+}

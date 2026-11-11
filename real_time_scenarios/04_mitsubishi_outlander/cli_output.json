@@ -1,0 +1,28 @@
+{
+  "scenario": "04_mitsubishi_outlander",
+  "title": "Mitsubishi Outlander PHEV Wi-Fi module weak PSK -> GSM module fix",
+  "verdict": "FLAG",
+  "exit_code": 1,
+  "total_nodes": 27,
+  "total_edges": 24,
+  "findings_count": 2,
+  "findings": [
+    {
+      "category": "component-added",
+      "title": "New component gsm",
+      "detail": "",
+      "risk": 4,
+      "impact": "severe",
+      "feasibility": "medium"
+    },
+    {
+      "category": "newly-reachable",
+      "title": "gsm can now reach alarm",
+      "detail": "No path existed between these two in the before. Every connector on the new route may be individually reasonable; the chain is not.",
+      "risk": 1,
+      "impact": "negligible",
+      "feasibility": "very-low"
+    }
+  ],
+  "expected_verdict": "FLAG"
+}

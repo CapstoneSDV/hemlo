@@ -1,0 +1,36 @@
+{
+  "scenario": "09_supply_chain_sdk",
+  "title": "Third-party supplier SDK bundled into an infotainment feature update",
+  "verdict": "BLOCK",
+  "exit_code": 3,
+  "total_nodes": 28,
+  "total_edges": 25,
+  "findings_count": 3,
+  "findings": [
+    {
+      "category": "unprotected-new-hop",
+      "title": "Unauthenticated bus traffic on sdktogw",
+      "detail": "This hop is newly applicable for SecOC and arrived without it, so it is on a wire with nothing authenticating it.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    },
+    {
+      "category": "component-added",
+      "title": "New component sdk",
+      "detail": "",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    },
+    {
+      "category": "newly-reachable",
+      "title": "sdk can now reach body",
+      "detail": "No path existed between these two in the before. Every connector on the new route may be individually reasonable; the chain is not.",
+      "risk": 1,
+      "impact": "negligible",
+      "feasibility": "very-low"
+    }
+  ],
+  "expected_verdict": "BLOCK"
+}

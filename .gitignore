@@ -1,0 +1,74 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Pytest & coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Generated execution outputs and temporary runs
+demo_out/
+out/
+scenario_runs/
+scenarios/
+*.dot
+*.png
+*.pdf
+*.svg
+!docs/*.png
+!docs/*.pdf
+!docs/*.svg
+
+# Temporary / Scratch files
+*.tmp
+*.log
+temp/
+scratch/
+
+# Node / Next.js
+node_modules/
+.next/
+tmp_uploads/
+*.tsbuildinfo
+
+# IDE & OS metadata
+.vscode/
+.idea/
+.antigravity/
+.DS_Store
+Thumbs.db

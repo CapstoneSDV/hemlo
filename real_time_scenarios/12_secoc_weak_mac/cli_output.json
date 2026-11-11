@@ -1,0 +1,11 @@
+{
+  "scenario": "12_secoc_weak_mac",
+  "title": "SecOC Cryptographic Parameter Downgrade (FM-1 Known Gap)",
+  "verdict": "PASS",
+  "exit_code": 0,
+  "total_nodes": 27,
+  "total_edges": 24,
+  "findings_count": 0,
+  "findings": [],
+  "expected_verdict": "PASS"
+}

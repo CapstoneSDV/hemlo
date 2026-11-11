@@ -1,0 +1,22 @@
+critical:
+- asil: D
+  node: /B/Swc/ScenarioB/brakeAct
+  reason: service brake actuation, unintended deceleration hazard
+- asil: D
+  node: /B/Swc/ScenarioB/brakeCtl
+  reason: brake force arbitration, inherits the actuator hazard
+- asil: B
+  node: /B/Swc/ScenarioB/adas
+  reason: trajectory planning, bounded downstream by TrajectoryGuard
+- asil: D
+  node: /S01UCON/Swc/Root/steer
+  reason: Jeep Cherokee / Uconnect remote exploit (2015) safety-critical target
+entry_points:
+- node: /B/Swc/ScenarioB/btStack
+  reason: Bluetooth pairing and media parsing surface, proximate attacker
+- node: /B/Swc/ScenarioB/ivi
+  reason: USB media import and Wi-Fi hotspot on the head unit
+- node: /S01UCON/Swc/Root/tel
+  reason: Jeep Cherokee / Uconnect remote exploit (2015) entry point
+- node: /S01UCON/Swc/Root/ivi
+  reason: Jeep Cherokee / Uconnect remote exploit (2015) entry point

@@ -1,0 +1,8 @@
+entry_points:
+  - node: /S11INJE/Swc/Root/headlight
+    reason: "Toyota / Lexus Headlight CAN Injection Attack (2023) entry point"
+
+critical:
+  - node: /S11INJE/Swc/Root/immob
+    asil: D
+    reason: "Toyota / Lexus Headlight CAN Injection Attack (2023) safety-critical target"

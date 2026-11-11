@@ -1,0 +1,8 @@
+entry_points:
+  - node: /S10API/Swc/Root/portal
+    reason: "Kia Telematics / Dealer Portal Web API Remote Exploit (2024) entry point"
+
+critical:
+  - node: /S10API/Swc/Root/body
+    asil: D
+    reason: "Kia Telematics / Dealer Portal Web API Remote Exploit (2024) safety-critical target"

@@ -1,0 +1,28 @@
+{
+  "scenario": "11_toyota_can_injection",
+  "title": "Toyota / Lexus Headlight CAN Injection Attack (2023)",
+  "verdict": "BLOCK",
+  "exit_code": 3,
+  "total_nodes": 27,
+  "total_edges": 24,
+  "findings_count": 2,
+  "findings": [
+    {
+      "category": "secoc-removed",
+      "title": "SecOC removed from gw -> immob",
+      "detail": "This hop crossed a bus with SecOC in the before and no longer does. Any device on the bus can now forge it.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    },
+    {
+      "category": "secoc-removed",
+      "title": "SecOC removed from headlight -> gw",
+      "detail": "This hop crossed a bus with SecOC in the before and no longer does. Any device on the bus can now forge it.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    }
+  ],
+  "expected_verdict": "BLOCK"
+}

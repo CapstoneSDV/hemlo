@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARXML SecDiff — Pipeline Stepper & Security Gate</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Cytoscape.js for interactive topology and attack path visualization -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            background: 'hsl(240 10% 3.9%)',
+            foreground: 'hsl(0 0% 98%)',
+            card: 'hsl(240 10% 4.9%)',
+            'card-foreground': 'hsl(0 0% 98%)',
+            popover: 'hsl(240 10% 4.9%)',
+            'popover-foreground': 'hsl(0 0% 98%)',
+            primary: 'hsl(0 0% 98%)',
+            'primary-foreground': 'hsl(240 5.9% 10%)',
+            secondary: 'hsl(240 3.7% 15.9%)',
+            'secondary-foreground': 'hsl(0 0% 98%)',
+            muted: 'hsl(240 3.7% 15.9%)',
+            'muted-foreground': 'hsl(240 5% 64.9%)',
+            accent: 'hsl(240 3.7% 15.9%)',
+            'accent-foreground': 'hsl(0 0% 98%)',
+            destructive: 'hsl(0 62.8% 30.6%)',
+            'destructive-foreground': 'hsl(0 0% 98%)',
+            border: 'hsl(240 3.7% 15.9%)',
+            input: 'hsl(240 3.7% 15.9%)',
+            ring: 'hsl(240 4.9% 83.9%)',
+          },
+          borderRadius: {
+            lg: '0.5rem',
+            md: 'calc(0.5rem - 2px)',
+            sm: 'calc(0.5rem - 4px)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
+    #cy { width: 100%; height: 560px; background: #09090b; border-radius: 0.5rem; }
+  </style>
+</head>
+<body class="bg-background text-foreground min-h-screen flex flex-col antialiased">
+
+  <!-- Header -->
+  <header class="border-b border-border bg-card/60 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="h-9 w-9 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+          <i data-lucide="shield-alert" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-semibold leading-none tracking-tight">ARXML SecDiff</h1>
+          <p class="text-xs text-muted-foreground mt-0.5">Automated Cybersecurity Regression & Release Gate</p>
+        </div>
+      </div>
+
+      <!-- Mode & Scenario Selector / Custom Upload -->
+      <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-2">
+          <label for="scenarioSelect" class="text-xs font-medium text-muted-foreground">Scenario:</label>
+          <select id="scenarioSelect" class="bg-secondary text-secondary-foreground text-xs rounded-md border border-border px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-ring max-w-xs truncate">
+            <option value="" disabled selected>Loading scenarios...</option>
+          </select>
+        </div>
+
+        <button onclick="openUploadModal()" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-border bg-card hover:bg-accent hover:text-accent-foreground h-8 px-3 py-1.5 transition-colors shadow-sm">
+          <i data-lucide="folder-open" class="w-3.5 h-3.5 mr-1.5 text-blue-400"></i> Browse Local Files
+        </button>
+
+        <button id="runBtn" class="inline-flex items-center justify-center rounded-md text-xs font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-8 px-4 py-2 transition-colors shadow">
+          <i data-lucide="play" class="w-3.5 h-3.5 mr-1.5 fill-current"></i> Run Pipeline
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Pipeline Stepper Ribbon -->
+  <nav class="border-b border-border bg-secondary/30 px-6 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2 w-full overflow-x-auto py-1">
+        
+        <!-- Step 1 Button -->
+        <button onclick="goToStep(1)" id="stepBtn1" class="step-nav-btn flex items-center space-x-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all bg-primary text-primary-foreground shadow-sm">
+          <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-current text-[10px] font-bold">1</span>
+          <span>Parse & Index</span>
+        </button>
+        <i data-lucide="chevron-right" class="w-4 h-4 text-muted-foreground shrink-0"></i>
+
+        <!-- Step 2 Button -->
+        <button onclick="goToStep(2)" id="stepBtn2" class="step-nav-btn flex items-center space-x-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all text-muted-foreground hover:text-foreground hover:bg-secondary">
+          <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border text-[10px] font-bold">2</span>
+          <span>Graph Build</span>
+        </button>
+        <i data-lucide="chevron-right" class="w-4 h-4 text-muted-foreground shrink-0"></i>
+
+        <!-- Step 3 Button -->
+        <button onclick="goToStep(3)" id="stepBtn3" class="step-nav-btn flex items-center space-x-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all text-muted-foreground hover:text-foreground hover:bg-secondary">
+          <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border text-[10px] font-bold">3</span>
+          <span>SecOC Annotation</span>
+        </button>
+        <i data-lucide="chevron-right" class="w-4 h-4 text-muted-foreground shrink-0"></i>
+
+        <!-- Step 4 Button -->
+        <button onclick="goToStep(4)" id="stepBtn4" class="step-nav-btn flex items-center space-x-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all text-muted-foreground hover:text-foreground hover:bg-secondary">
+          <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border text-[10px] font-bold">4</span>
+          <span>Diff & Reachability</span>
+        </button>
+        <i data-lucide="chevron-right" class="w-4 h-4 text-muted-foreground shrink-0"></i>
+
+        <!-- Step 5 Button -->
+        <button onclick="goToStep(5)" id="stepBtn5" class="step-nav-btn flex items-center space-x-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all text-muted-foreground hover:text-foreground hover:bg-secondary">
+          <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border text-[10px] font-bold">5</span>
+          <span>Gate Decision</span>
+        </button>
+      </div>
+
+      <!-- Bidirectional Step Navigation Controls -->
+      <div class="flex items-center space-x-2 ml-4 shrink-0">
+        <button id="prevBtn" onclick="prevStep()" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-border bg-card hover:bg-accent hover:text-accent-foreground h-8 px-3 transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5 mr-1"></i> Prev Step
+        </button>
+        <button id="nextBtn" onclick="nextStep()" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-border bg-card hover:bg-accent hover:text-accent-foreground h-8 px-3 transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+          Next Step <i data-lucide="arrow-right" class="w-3.5 h-3.5 ml-1"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main View Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-6">
+
+    <!-- Loading State -->
+    <div id="loadingState" class="hidden flex flex-col items-center justify-center py-20 text-muted-foreground">
+      <i data-lucide="loader-2" class="w-8 h-8 animate-spin text-blue-500 mb-3"></i>
+      <p class="text-sm">Executing pipeline stages...</p>
+    </div>
+
+    <!-- STAGE 1: PARSE & INDEX -->
+    <section id="stageView1" class="stage-view space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs font-semibold text-muted-foreground mb-1">
+            Stage 1 / 5
+          </div>
+          <h2 class="text-xl font-bold tracking-tight">ARXML AST Parsing & Path Indexing</h2>
+          <p class="text-sm text-muted-foreground">Recursively walks the AUTOSAR XML DOM into an absolute-path element hash index.</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="inline-flex items-center rounded-md bg-emerald-500/10 px-2 py-1 text-xs font-medium text-emerald-400 ring-1 ring-inset ring-emerald-500/20">
+            <i data-lucide="check-circle" class="w-3.5 h-3.5 mr-1"></i> Unresolved Refs: 0
+          </span>
+        </div>
+      </div>
+
+      <!-- Entity Counts Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="rounded-lg border border-border bg-card p-4 shadow-sm">
+          <p class="text-xs font-medium text-muted-foreground">Prototypes (Nodes)</p>
+          <div class="mt-2 flex items-baseline justify-between">
+            <span class="text-2xl font-bold" id="statPrototypes">28</span>
+            <span class="text-xs text-muted-foreground">Before: <span id="statPrototypesBef">28</span></span>
+          </div>
+        </div>
+        <div class="rounded-lg border border-border bg-card p-4 shadow-sm">
+          <p class="text-xs font-medium text-muted-foreground">Assembly Connectors</p>
+          <div class="mt-2 flex items-baseline justify-between">
+            <span class="text-2xl font-bold" id="statConnectors">25</span>
+            <span class="text-xs text-muted-foreground">Before: <span id="statConnectorsBef">23</span></span>
+          </div>
+        </div>
+        <div class="rounded-lg border border-border bg-card p-4 shadow-sm">
+          <p class="text-xs font-medium text-muted-foreground">ECU Instances</p>
+          <div class="mt-2 flex items-baseline justify-between">
+            <span class="text-2xl font-bold" id="statEcus">11</span>
+            <span class="text-xs text-muted-foreground">Hardware Domains</span>
+          </div>
+        </div>
+        <div class="rounded-lg border border-border bg-card p-4 shadow-sm">
+          <p class="text-xs font-medium text-muted-foreground">Network PDUs</p>
+          <div class="mt-2 flex items-baseline justify-between">
+            <span class="text-2xl font-bold" id="statPdus">16</span>
+            <span class="text-xs text-muted-foreground">I-PDU & Secured</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Component-to-ECU Table -->
+      <div class="rounded-lg border border-border bg-card shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-border flex items-center justify-between">
+          <h3 class="text-sm font-semibold">Indexed Component Prototypes & Host Bindings</h3>
+          <span class="text-xs text-muted-foreground">Extracted from <code class="text-zinc-300">SWC-TO-ECU-MAPPING</code></span>
+        </div>
+        <div class="max-h-72 overflow-y-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-muted/50 text-muted-foreground uppercase tracking-wider sticky top-0">
+              <tr>
+                <th class="px-4 py-2 font-medium">Prototype Name</th>
+                <th class="px-4 py-2 font-medium">Mapped Host ECU</th>
+                <th class="px-4 py-2 font-medium">AUTOSAR Path</th>
+              </tr>
+            </thead>
+            <tbody id="prototypeTableBody" class="divide-y divide-border font-mono">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 2: TOPOLOGICAL GRAPH BUILD -->
+    <section id="stageView2" class="stage-view hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs font-semibold text-muted-foreground mb-1">
+            Stage 2 / 5
+          </div>
+          <h2 class="text-xl font-bold tracking-tight">Topological Graph Construction</h2>
+          <p class="text-sm text-muted-foreground">Builds the MultiDiGraph <span class="font-mono text-zinc-300">G = (V, E)</span> with high-contrast color-coded nodes and edges.</p>
+        </div>
+        <div class="flex space-x-2">
+          <button onclick="toggleGraphVersion('updated')" id="graphBtnUpdated" class="px-3 py-1 rounded text-xs font-medium bg-primary text-primary-foreground">After Snapshot</button>
+          <button onclick="toggleGraphVersion('before')" id="graphBtnBefore" class="px-3 py-1 rounded text-xs font-medium bg-secondary text-secondary-foreground">Before Snapshot</button>
+        </div>
+      </div>
+
+      <!-- Graph Legend Bar -->
+      <div class="flex flex-wrap items-center gap-4 p-3 rounded-lg border border-border bg-card text-xs">
+        <span class="font-semibold text-muted-foreground">Graph Legend:</span>
+        <div class="flex items-center space-x-1.5">
+          <span class="w-3.5 h-3.5 rounded bg-[#b6d7f4] border border-[#2b6cb0] inline-block"></span>
+          <span class="text-zinc-200">Entry Point (Wireless / OBD)</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <span class="w-3.5 h-3.5 rounded bg-[#f4b6b6] border border-[#c53030] inline-block"></span>
+          <span class="text-zinc-200">Safety Target (ASIL-D / Actuator)</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <span class="w-3.5 h-3.5 rounded bg-[#e8e8e8] border border-[#718096] inline-block"></span>
+          <span class="text-zinc-200">Standard SwC</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <span class="w-6 h-0.5 bg-[#2e7d32] inline-block"></span>
+          <span class="text-emerald-400">Authenticated (SecOC)</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <span class="w-6 h-0.5 bg-[#c62828] border-b border-dashed border-[#c62828] inline-block"></span>
+          <span class="text-rose-400">Unprotected Bus</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <span class="w-6 h-0.5 bg-[#9e9e9e] inline-block"></span>
+          <span class="text-zinc-400">RTE Local</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <span class="w-6 h-1 bg-[#ff9800] inline-block"></span>
+          <span class="text-amber-400 font-bold">Attack Route Hop</span>
+        </div>
+      </div>
+
+      <!-- Graph Canvas and Edge Details -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 rounded-lg border border-border bg-card p-3 shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-2 px-1">
+            <span class="text-xs font-medium text-muted-foreground flex items-center">
+              <i data-lucide="network" class="w-3.5 h-3.5 mr-1.5 text-blue-400"></i> High-Contrast Interactive Network Canvas
+            </span>
+            <span class="text-[11px] text-muted-foreground" id="graphStats">28 Nodes | 25 Edges</span>
+          </div>
+          <div id="cy"></div>
+        </div>
+
+        <div class="rounded-lg border border-border bg-card p-4 shadow-sm flex flex-col h-[590px]">
+          <h3 class="text-sm font-semibold mb-2">Connectors Edge List</h3>
+          <p class="text-xs text-muted-foreground mb-3">Edges constructed from ASSEMBLY-SW-CONNECTOR elements.</p>
+          <div class="flex-1 overflow-y-auto space-y-2 pr-1" id="edgeList">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 3: SECOC WIRE ANNOTATION -->
+    <section id="stageView3" class="stage-view hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs font-semibold text-muted-foreground mb-1">
+            Stage 3 / 5
+          </div>
+          <h2 class="text-xl font-bold tracking-tight">3-Valued SecOC Wire Annotation</h2>
+          <p class="text-sm text-muted-foreground">Every connector is traced through SystemSignals and PDUs to determine its physical wire security.</p>
+        </div>
+      </div>
+
+      <!-- 3 State Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="rounded-lg border border-border bg-card p-4 shadow-sm border-l-4 border-l-zinc-500">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-zinc-400">RTE_LOCAL (None)</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 font-mono" id="statRteLocal">16</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-2">Connectors stay on the same physical ECU. No physical wire frame is generated, so SecOC is not applicable.</p>
+        </div>
+        <div class="rounded-lg border border-border bg-card p-4 shadow-sm border-l-4 border-l-emerald-500">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-emerald-400">AUTHENTICATED (True)</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-mono" id="statAuthenticated">4</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-2">Bus traffic packaged into an I-PDU wrapped by a SECURED-I-PDU with cryptographic freshness and MAC.</p>
+        </div>
+        <div class="rounded-lg border border-border bg-card p-4 shadow-sm border-l-4 border-l-rose-500">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-rose-400">UNPROTECTED (False)</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-rose-950 text-rose-300 font-mono" id="statUnprotected">5</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-2">Cross-ECU bus traffic without a SecOC wrapper. Raw payload vulnerable to frame injection/spoofing.</p>
+        </div>
+      </div>
+
+      <!-- Communication Wire Matrix -->
+      <div class="rounded-lg border border-border bg-card shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-border flex items-center justify-between">
+          <h3 class="text-sm font-semibold">Vehicle Communication Security Matrix</h3>
+          <span class="text-xs text-muted-foreground">Resolved hop-by-hop from ARXML signal mappings</span>
+        </div>
+        <div class="max-h-96 overflow-y-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-muted/50 text-muted-foreground uppercase tracking-wider sticky top-0">
+              <tr>
+                <th class="px-4 py-2 font-medium">Connector</th>
+                <th class="px-4 py-2 font-medium">Source $\to$ Target</th>
+                <th class="px-4 py-2 font-medium">Wire Boundary</th>
+                <th class="px-4 py-2 font-medium">Security State</th>
+                <th class="px-4 py-2 font-medium">Carrying PDUs</th>
+              </tr>
+            </thead>
+            <tbody id="secocTableBody" class="divide-y divide-border font-mono">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 4: DIFF & REACHABILITY -->
+    <section id="stageView4" class="stage-view hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs font-semibold text-muted-foreground mb-1">
+            Stage 4 / 5
+          </div>
+          <h2 class="text-xl font-bold tracking-tight">Dual-Graph Diff & Transitive Attack Reachability</h2>
+          <p class="text-sm text-muted-foreground">Executes DFS graph reachability from untrusted entry points to safety-critical ASIL-D targets.</p>
+        </div>
+      </div>
+
+      <!-- Roles & Seeds Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="rounded-lg border border-border bg-card p-4 shadow-sm">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-blue-400 mb-2 flex items-center">
+            <i data-lucide="radio" class="w-3.5 h-3.5 mr-1.5"></i> Untrusted Entry Points (S)
+          </h3>
+          <div id="entryPointsList" class="flex flex-wrap gap-2">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <div class="rounded-lg border border-border bg-card p-4 shadow-sm">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-rose-400 mb-2 flex items-center">
+            <i data-lucide="shield-alert" class="w-3.5 h-3.5 mr-1.5"></i> Safety-Critical Targets (T)
+          </h3>
+          <div id="criticalTargetsList" class="flex flex-wrap gap-2">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Discovered Attack Paths -->
+      <div class="rounded-lg border border-border bg-card p-5 shadow-sm space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-semibold">Newly Opened Attack Chains ($\Delta R$)</h3>
+          <span class="text-xs text-rose-400 font-mono font-medium" id="newPathsCount">2 new transitive paths discovered</span>
+        </div>
+        <div id="attackPathsContainer" class="space-y-3">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 5: ISO 21434 RISK SCORING & GATE DECISION -->
+    <section id="stageView5" class="stage-view hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs font-semibold text-muted-foreground mb-1">
+            Stage 5 / 5
+          </div>
+          <h2 class="text-xl font-bold tracking-tight">ISO/SAE 21434 Risk Scoring & Release Gate</h2>
+          <p class="text-sm text-muted-foreground">Synthesizes safety impact (ASIL) and attack feasibility into a formal release gate verdict.</p>
+        </div>
+      </div>
+
+      <!-- Verdict Hero Banner -->
+      <div id="verdictBanner" class="rounded-xl border p-6 flex items-center justify-between shadow-lg transition-all">
+        <div class="flex items-center space-x-4">
+          <div id="verdictIconBox" class="h-12 w-12 rounded-lg flex items-center justify-center text-white">
+            <i id="verdictIcon" data-lucide="ban" class="w-7 h-7"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span id="verdictText" class="text-2xl font-black tracking-wider uppercase">BLOCK</span>
+              <span id="exitCodeBadge" class="text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 font-mono">exit code: 2</span>
+            </div>
+            <p id="verdictSummary" class="text-xs text-muted-foreground mt-1">Release rejected: Safety-critical ASIL-D actuators are reachable via unprotected bus hops.</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-6">
+          <div class="text-right">
+            <p class="text-xs text-muted-foreground">Risk Level 5 (Severe)</p>
+            <p id="statRisk5" class="text-xl font-bold text-rose-400 font-mono">2</p>
+          </div>
+          <div class="text-right border-l border-border pl-6">
+            <p class="text-xs text-muted-foreground">Total Findings</p>
+            <p id="statTotalFindings" class="text-xl font-bold text-foreground font-mono">4</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Findings List -->
+      <div class="rounded-lg border border-border bg-card p-5 shadow-sm space-y-4">
+        <h3 class="text-sm font-semibold">Audit Findings & Evidence Trace</h3>
+        <div id="findingsContainer" class="space-y-3">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Upload Modal -->
+  <div id="uploadModal" class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+    <div class="bg-card border border-border rounded-xl max-w-xl w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between pb-2 border-b border-border">
+        <h3 class="text-base font-semibold flex items-center">
+          <i data-lucide="folder-open" class="w-4 h-4 mr-2 text-blue-400"></i> Browse & Upload Local ARXML Files
+        </h3>
+        <button onclick="closeUploadModal()" class="text-muted-foreground hover:text-foreground">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-medium mb-1 text-foreground">Before ARXML (Baseline Release):</label>
+          <input type="file" id="beforeFileInput" accept=".arxml,.xml" class="w-full bg-secondary border border-border rounded p-1.5 text-zinc-300">
+        </div>
+
+        <div>
+          <label class="block font-medium mb-1 text-foreground">After ARXML (Proposed Update):</label>
+          <input type="file" id="afterFileInput" accept=".arxml,.xml" class="w-full bg-secondary border border-border rounded p-1.5 text-zinc-300">
+        </div>
+
+        <div>
+          <label class="block font-medium mb-1 text-foreground">Roles Config (YAML - Optional):</label>
+          <input type="file" id="rolesFileInput" accept=".yaml,.yml" class="w-full bg-secondary border border-border rounded p-1.5 text-zinc-300">
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-3 border-t border-border">
+        <button onclick="closeUploadModal()" class="px-3 py-1.5 rounded-md text-xs border border-border bg-secondary text-secondary-foreground hover:bg-secondary/80">Cancel</button>
+        <button onclick="submitCustomUpload()" class="px-4 py-1.5 rounded-md text-xs font-medium bg-blue-600 text-white hover:bg-blue-500">Run Custom Files</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-border py-4 px-6 text-center text-xs text-muted-foreground bg-card/40">
+    ARXML SecDiff Pipeline GUI &bull; Automated ISO/SAE 21434 & ASIL Automotive Security Verification
+  </footer>
+
+  <!-- App Logic -->
+  <script>
+    let currentStep = 1;
+    let pipelineData = null;
+    let cyInstance = null;
+    let activeGraphVersion = 'updated';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+      try {
+        await loadScenarios();
+        await triggerPipelineRun();
+      } catch (e) {
+        console.error('Startup error:', e);
+        showLoading(false);
+      }
+    });
+
+    async function loadScenarios() {
+      try {
+        const res = await fetch('/api/scenarios');
+        const scenarios = await res.json();
+        const select = document.getElementById('scenarioSelect');
+        select.innerHTML = '';
+        scenarios.forEach(sc => {
+          const opt = document.createElement('option');
+          opt.value = sc.id;
+          opt.textContent = `${sc.id}: ${sc.title}`;
+          select.appendChild(opt);
+        });
+        if (scenarios.length > 0) {
+          select.value = scenarios[0].id;
+        }
+        select.addEventListener('change', () => triggerPipelineRun());
+        document.getElementById('runBtn').addEventListener('click', () => triggerPipelineRun());
+      } catch (err) {
+        console.error('Failed to load scenarios:', err);
+        const select = document.getElementById('scenarioSelect');
+        select.innerHTML = '<option value="">Error loading scenarios</option>';
+      }
+    }
+
+    async function triggerPipelineRun() {
+      const scenarioId = document.getElementById('scenarioSelect').value || '01_jeep_uconnect';
+      showLoading(true);
+      try {
+        const res = await fetch(`/api/run?scenario=${scenarioId}`);
+        pipelineData = await res.json();
+        renderAllStages(pipelineData);
+        goToStep(currentStep);
+      } catch (err) {
+        alert('Pipeline execution failed: ' + err.message);
+      } finally {
+        showLoading(false);
+      }
+    }
+
+    function openUploadModal() {
+      document.getElementById('uploadModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeUploadModal() {
+      document.getElementById('uploadModal').classList.add('hidden');
+    }
+
+    async function submitCustomUpload() {
+      const beforeFile = document.getElementById('beforeFileInput').files[0];
+      const afterFile = document.getElementById('afterFileInput').files[0];
+      const rolesFile = document.getElementById('rolesFileInput').files[0];
+
+      if (!beforeFile || !afterFile) {
+        alert('Please select both Before and After ARXML files.');
+        return;
+      }
+
+      showLoading(true);
+      closeUploadModal();
+
+      try {
+        const beforeText = await beforeFile.text();
+        const afterText = await afterFile.text();
+        const rolesText = rolesFile ? await rolesFile.text() : '';
+
+        const res = await fetch('/api/upload-and-run', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            before_content: beforeText,
+            after_content: afterText,
+            roles_content: rolesText
+          })
+        });
+
+        pipelineData = await res.json();
+        if (pipelineData.error) {
+          throw new Error(pipelineData.error);
+        }
+
+        // Add custom indicator to dropdown
+        const select = document.getElementById('scenarioSelect');
+        let customOpt = select.querySelector('option[value="custom_upload"]');
+        if (!customOpt) {
+          customOpt = document.createElement('option');
+          customOpt.value = 'custom_upload';
+          select.prepend(customOpt);
+        }
+        customOpt.textContent = `Custom: ${beforeFile.name} -> ${afterFile.name}`;
+        select.value = 'custom_upload';
+
+        renderAllStages(pipelineData);
+        goToStep(currentStep);
+      } catch (err) {
+        alert('Custom file run failed: ' + err.message);
+      } finally {
+        showLoading(false);
+      }
+    }
+
+    function showLoading(show) {
+      document.getElementById('loadingState').classList.toggle('hidden', !show);
+      document.querySelectorAll('.stage-view').forEach(el => {
+        if (show) el.classList.add('hidden');
+      });
+    }
+
+    function goToStep(step) {
+      currentStep = step;
+      document.querySelectorAll('.stage-view').forEach(el => el.classList.add('hidden'));
+      const activeView = document.getElementById(`stageView${step}`);
+      if (activeView) activeView.classList.remove('hidden');
+
+      // Update Nav Buttons
+      for (let i = 1; i <= 5; i++) {
+        const btn = document.getElementById(`stepBtn${i}`);
+        const badge = btn.querySelector('span');
+        if (i === step) {
+          btn.className = 'step-nav-btn flex items-center space-x-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all bg-primary text-primary-foreground shadow-sm';
+          badge.className = 'flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-current text-[10px] font-bold';
+        } else if (i < step) {
+          btn.className = 'step-nav-btn flex items-center space-x-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all text-emerald-400 hover:bg-secondary';
+          badge.className = 'flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-emerald-400 text-[10px] font-bold text-emerald-400';
+        } else {
+          btn.className = 'step-nav-btn flex items-center space-x-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all text-muted-foreground hover:text-foreground hover:bg-secondary';
+          badge.className = 'flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border text-[10px] font-bold';
+        }
+      }
+
+      // Prev / Next button state
+      document.getElementById('prevBtn').disabled = (step === 1);
+      document.getElementById('nextBtn').disabled = (step === 5);
+
+      if (step === 2) {
+        setTimeout(initOrUpdateCytoscape, 100);
+      }
+      lucide.createIcons();
+    }
+
+    function prevStep() {
+      if (currentStep > 1) goToStep(currentStep - 1);
+    }
+
+    function nextStep() {
+      if (currentStep < 5) goToStep(currentStep + 1);
+    }
+
+    function renderAllStages(data) {
+      if (!data) return;
+
+      // Stage 1
+      const s1 = data.stage1_parse;
+      document.getElementById('statPrototypes').textContent = s1.updated.prototypes;
+      document.getElementById('statPrototypesBef').textContent = s1.before.prototypes;
+      document.getElementById('statConnectors').textContent = s1.updated.assembly_connectors;
+      document.getElementById('statConnectorsBef').textContent = s1.before.assembly_connectors;
+      document.getElementById('statEcus').textContent = s1.updated.ecus;
+      document.getElementById('statPdus').textContent = s1.updated.pdus;
+
+      const tbodyProto = document.getElementById('prototypeTableBody');
+      tbodyProto.innerHTML = '';
+      s1.updated.prototype_list.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-muted/30 transition-colors';
+        tr.innerHTML = `
+          <td class="px-4 py-2 font-medium text-foreground">${p.short_name}</td>
+          <td class="px-4 py-2 text-zinc-400"><span class="px-1.5 py-0.5 rounded bg-secondary text-[11px]">${p.ecu.split('/').pop()}</span></td>
+          <td class="px-4 py-2 text-muted-foreground truncate max-w-xs">${p.path}</td>
+        `;
+        tbodyProto.appendChild(tr);
+      });
+
+      // Stage 2
+      renderEdgeList(data.stage2_graph.updated.edges);
+
+      // Stage 3
+      const s3 = data.stage3_secoc.updated;
+      document.getElementById('statRteLocal').textContent = s3.local_count;
+      document.getElementById('statAuthenticated').textContent = s3.authenticated_count;
+      document.getElementById('statUnprotected').textContent = s3.unprotected_count;
+
+      const secTable = document.getElementById('secocTableBody');
+      secTable.innerHTML = '';
+      s3.edges.forEach(e => {
+        let badge = '';
+        if (e.security_state === 'RTE_LOCAL') {
+          badge = '<span class="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-zinc-800 text-zinc-300">RTE_LOCAL</span>';
+        } else if (e.security_state === 'AUTHENTICATED') {
+          badge = '<span class="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-emerald-950 text-emerald-400 border border-emerald-800">AUTHENTICATED 🔒</span>';
+        } else {
+          badge = '<span class="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-rose-950 text-rose-400 border border-rose-800">UNPROTECTED ⚠️</span>';
+        }
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-muted/30 transition-colors';
+        tr.innerHTML = `
+          <td class="px-4 py-2 font-medium text-foreground">${e.connector}</td>
+          <td class="px-4 py-2 text-zinc-300">${e.source.split('/').pop()} &rarr; ${e.target.split('/').pop()}</td>
+          <td class="px-4 py-2 text-muted-foreground">${e.bus_visible ? 'Bus Wire' : 'Internal Memory'}</td>
+          <td class="px-4 py-2">${badge}</td>
+          <td class="px-4 py-2 text-zinc-400">${e.pdus.join(', ') || 'None'}</td>
+        `;
+        secTable.appendChild(tr);
+      });
+
+      // Stage 4
+      const s4 = data.stage4_reachability;
+      const entryContainer = document.getElementById('entryPointsList');
+      entryContainer.innerHTML = '';
+      s4.roles.entry_points.forEach(ep => {
+        const span = document.createElement('span');
+        span.className = 'inline-flex items-center rounded-md bg-blue-500/10 px-2.5 py-1 text-xs font-medium text-blue-400 ring-1 ring-inset ring-blue-500/20 font-mono';
+        span.textContent = ep.label;
+        entryContainer.appendChild(span);
+      });
+
+      const critContainer = document.getElementById('criticalTargetsList');
+      critContainer.innerHTML = '';
+      s4.roles.critical_targets.forEach(ct => {
+        const span = document.createElement('span');
+        span.className = 'inline-flex items-center rounded-md bg-rose-500/10 px-2.5 py-1 text-xs font-medium text-rose-400 ring-1 ring-inset ring-rose-500/20 font-mono';
+        span.textContent = `${ct.label} (ASIL-${ct.asil})`;
+        critContainer.appendChild(span);
+      });
+
+      const pathsContainer = document.getElementById('attackPathsContainer');
+      pathsContainer.innerHTML = '';
+      const newPaths = s4.reachability.new_paths;
+      document.getElementById('newPathsCount').textContent = `${newPaths.length} attack path(s) discovered`;
+
+      if (newPaths.length === 0) {
+        pathsContainer.innerHTML = '<div class="text-xs text-muted-foreground p-3 rounded border border-border bg-muted/20">No new attack reachability paths opened in this release.</div>';
+      } else {
+        newPaths.forEach((p, idx) => {
+          const div = document.createElement('div');
+          div.className = 'rounded-md border border-rose-900/60 bg-rose-950/20 p-3 space-y-2';
+          div.innerHTML = `
+            <div class="flex items-center justify-between text-xs font-semibold text-rose-300">
+              <span class="flex items-center"><i data-lucide="alert-triangle" class="w-3.5 h-3.5 mr-1.5 text-rose-400"></i> Attack Route #${idx + 1} (${p.hops.length} Hops)</span>
+              <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-rose-950 border border-rose-800 text-rose-400">${p.unprotected ? 'Unprotected Bus Hop Included' : 'Secured'}</span>
+            </div>
+            <div class="font-mono text-xs flex items-center flex-wrap gap-2 text-foreground pt-1">
+              ${p.nodes.map((n, i) => `<span class="${i===0?'text-blue-400 font-bold':(i===p.nodes.length-1?'text-rose-400 font-bold':'text-zinc-300')}">${n}</span>`).join('<span class="text-muted-foreground">&rarr;</span>')}
+            </div>
+          `;
+          pathsContainer.appendChild(div);
+        });
+      }
+
+      // Stage 5
+      const s5 = data.stage5_gate;
+      const verdictBanner = document.getElementById('verdictBanner');
+      const verdictText = document.getElementById('verdictText');
+      const verdictIcon = document.getElementById('verdictIcon');
+      const verdictIconBox = document.getElementById('verdictIconBox');
+      const exitBadge = document.getElementById('exitCodeBadge');
+      const verdictSummary = document.getElementById('verdictSummary');
+
+      verdictText.textContent = s5.verdict;
+      exitBadge.textContent = `exit code: ${s5.exit_code}`;
+      document.getElementById('statRisk5').textContent = s5.risk_breakdown.risk_5 + s5.risk_breakdown.risk_4;
+      document.getElementById('statTotalFindings').textContent = s5.findings.length;
+
+      if (s5.verdict === 'BLOCK') {
+        verdictBanner.className = 'rounded-xl border border-rose-900/80 bg-rose-950/30 p-6 flex items-center justify-between shadow-lg';
+        verdictIconBox.className = 'h-12 w-12 rounded-lg bg-rose-600 text-white flex items-center justify-center';
+        verdictIcon.setAttribute('data-lucide', 'ban');
+        verdictText.className = 'text-2xl font-black tracking-wider uppercase text-rose-400';
+        verdictSummary.textContent = 'Release Rejected: Critical ASIL-D safety targets are exposed to unauthenticated remote access.';
+      } else if (s5.verdict === 'FLAG') {
+        verdictBanner.className = 'rounded-xl border border-amber-900/80 bg-amber-950/30 p-6 flex items-center justify-between shadow-lg';
+        verdictIconBox.className = 'h-12 w-12 rounded-lg bg-amber-600 text-white flex items-center justify-center';
+        verdictIcon.setAttribute('data-lucide', 'flag');
+        verdictText.className = 'text-2xl font-black tracking-wider uppercase text-amber-400';
+        verdictSummary.textContent = 'Manual Review Required: Moderate architectural changes detected without verified safety degradation.';
+      } else {
+        verdictBanner.className = 'rounded-xl border border-emerald-900/80 bg-emerald-950/30 p-6 flex items-center justify-between shadow-lg';
+        verdictIconBox.className = 'h-12 w-12 rounded-lg bg-emerald-600 text-white flex items-center justify-center';
+        verdictIcon.setAttribute('data-lucide', 'check-circle-2');
+        verdictText.className = 'text-2xl font-black tracking-wider uppercase text-emerald-400';
+        verdictSummary.textContent = 'Release Approved: Clean release, zero newly reachable safety targets over unprotected links.';
+      }
+
+      const findingsContainer = document.getElementById('findingsContainer');
+      findingsContainer.innerHTML = '';
+      if (s5.findings.length === 0) {
+        findingsContainer.innerHTML = '<div class="text-xs text-muted-foreground p-3 rounded border border-border bg-muted/20">Zero policy violations or unauthenticated reachability paths found.</div>';
+      } else {
+        s5.findings.forEach(f => {
+          const div = document.createElement('div');
+          div.className = 'rounded-lg border border-border bg-card p-4 space-y-2';
+          div.innerHTML = `
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono ${f.risk >= 4 ? 'bg-rose-950 text-rose-400 border border-rose-800' : 'bg-amber-950 text-amber-400 border border-amber-800'}">
+                  RISK ${f.risk} [${f.impact}/${f.feasibility}]
+                </span>
+                <span class="text-xs font-semibold text-foreground">${f.title}</span>
+              </div>
+              <span class="text-[10px] font-mono text-muted-foreground uppercase">${f.category}</span>
+            </div>
+            <p class="text-xs text-muted-foreground leading-relaxed">${f.detail}</p>
+            ${f.rationale.length ? `<div class="text-[11px] font-mono text-zinc-400 bg-muted/30 p-2 rounded">${f.rationale.join('<br>')}</div>` : ''}
+          `;
+          findingsContainer.appendChild(div);
+        });
+      }
+
+      lucide.createIcons();
+    }
+
+    function renderEdgeList(edges) {
+      const container = document.getElementById('edgeList');
+      container.innerHTML = '';
+      edges.forEach(e => {
+        const div = document.createElement('div');
+        div.className = 'text-xs p-2.5 rounded-md border border-border bg-muted/20 flex flex-col space-y-1';
+        div.innerHTML = `
+          <div class="flex items-center justify-between font-mono font-medium text-foreground">
+            <span>${e.source.split('/').pop()} &rarr; ${e.target.split('/').pop()}</span>
+            <span class="text-[10px] text-muted-foreground uppercase font-sans">${e.influence}</span>
+          </div>
+          <div class="text-[11px] text-muted-foreground truncate font-mono">${e.connector}</div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function toggleGraphVersion(ver) {
+      activeGraphVersion = ver;
+      document.getElementById('graphBtnUpdated').className = (ver === 'updated') ? 'px-3 py-1 rounded text-xs font-medium bg-primary text-primary-foreground' : 'px-3 py-1 rounded text-xs font-medium bg-secondary text-secondary-foreground';
+      document.getElementById('graphBtnBefore').className = (ver === 'before') ? 'px-3 py-1 rounded text-xs font-medium bg-primary text-primary-foreground' : 'px-3 py-1 rounded text-xs font-medium bg-secondary text-secondary-foreground';
+      initOrUpdateCytoscape();
+    }
+
+    function initOrUpdateCytoscape() {
+      if (!pipelineData) return;
+      const g = pipelineData.stage2_graph[activeGraphVersion];
+      const secocEdges = pipelineData.stage3_secoc[activeGraphVersion].edges;
+      const secocMap = {};
+      secocEdges.forEach(e => {
+        secocMap[`${e.source}->${e.target}`] = e;
+      });
+
+      document.getElementById('graphStats').textContent = `${g.nodes_count} Nodes | ${g.edges_count} Edges`;
+      renderEdgeList(g.edges);
+
+      const elements = [];
+      const ecus = {};
+
+      g.nodes.forEach(n => {
+        if (!ecus[n.ecu]) {
+          ecus[n.ecu] = true;
+          elements.push({
+            data: { id: `ecu_${n.ecu}`, label: n.ecu },
+            classes: 'ecu-box'
+          });
+        }
+
+        let nodeClass = 'swc-node';
+        if (n.role === 'entry') {
+          nodeClass += ' node-entry';
+        } else if (n.role === 'critical') {
+          nodeClass += ' node-critical';
+        } else {
+          nodeClass += ' node-standard';
+        }
+
+        elements.push({
+          data: { id: n.id, label: n.label, parent: `ecu_${n.ecu}` },
+          classes: nodeClass
+        });
+      });
+
+      g.edges.forEach((e, idx) => {
+        const secInfo = secocMap[`${e.source}->${e.target}`];
+        let edgeClass = 'edge-standard';
+        if (secInfo) {
+          if (secInfo.on_attack_path) {
+            edgeClass = 'edge-attack-path';
+          } else if (secInfo.security_state === 'AUTHENTICATED') {
+            edgeClass = 'edge-authenticated';
+          } else if (secInfo.security_state === 'UNPROTECTED') {
+            edgeClass = 'edge-unprotected';
+          } else {
+            edgeClass = 'edge-rte-local';
+          }
+        }
+
+        elements.push({
+          data: { id: `e_${idx}`, source: e.source, target: e.target, label: e.connector },
+          classes: edgeClass
+        });
+      });
+
+      if (cyInstance) cyInstance.destroy();
+
+      cyInstance = cytoscape({
+        container: document.getElementById('cy'),
+        elements: elements,
+        style: [
+          {
+            selector: 'node.swc-node',
+            style: {
+              'label': 'data(label)',
+              'color': '#18181b',
+              'font-size': '11px',
+              'font-weight': 'bold',
+              'text-valign': 'center',
+              'text-halign': 'center',
+              'border-width': 1.5,
+              'width': 75,
+              'height': 30,
+              'shape': 'roundrectangle'
+            }
+          },
+          {
+            selector: 'node.node-entry',
+            style: {
+              'background-color': '#b6d7f4',
+              'border-color': '#2b6cb0',
+              'color': '#0d3880'
+            }
+          },
+          {
+            selector: 'node.node-critical',
+            style: {
+              'background-color': '#f4b6b6',
+              'border-color': '#c53030',
+              'color': '#742a2a'
+            }
+          },
+          {
+            selector: 'node.node-standard',
+            style: {
+              'background-color': '#e8e8e8',
+              'border-color': '#718096',
+              'color': '#2d3748'
+            }
+          },
+          {
+            selector: 'node.ecu-box',
+            style: {
+              'background-color': '#141417',
+              'label': 'data(label)',
+              'color': '#94a3b8',
+              'font-size': '10px',
+              'font-weight': 'bold',
+              'text-valign': 'top',
+              'text-halign': 'center',
+              'border-width': 1.5,
+              'border-color': '#334155',
+              'border-style': 'dashed',
+              'padding': 14
+            }
+          },
+          {
+            selector: 'edge',
+            style: {
+              'target-arrow-shape': 'triangle',
+              'curve-style': 'bezier',
+              'arrow-scale': 1.0
+            }
+          },
+          {
+            selector: 'edge.edge-authenticated',
+            style: {
+              'width': 2.0,
+              'line-color': '#2e7d32',
+              'target-arrow-color': '#2e7d32'
+            }
+          },
+          {
+            selector: 'edge.edge-unprotected',
+            style: {
+              'width': 2.5,
+              'line-color': '#c62828',
+              'line-style': 'dashed',
+              'target-arrow-color': '#c62828'
+            }
+          },
+          {
+            selector: 'edge.edge-rte-local',
+            style: {
+              'width': 1.2,
+              'line-color': '#9e9e9e',
+              'target-arrow-color': '#9e9e9e'
+            }
+          },
+          {
+            selector: 'edge.edge-attack-path',
+            style: {
+              'width': 4.0,
+              'line-color': '#ff9800',
+              'target-arrow-color': '#ff9800',
+              'z-index': 999
+            }
+          }
+        ],
+        layout: {
+          name: 'cose',
+          animate: false,
+          nodeOverlap: 25,
+          idealEdgeLength: 65,
+          componentSpacing: 60
+        }
+      });
+    }
+  </script>
+</body>
+</html>

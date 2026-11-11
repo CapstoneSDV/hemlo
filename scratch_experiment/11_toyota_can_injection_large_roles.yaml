@@ -1,0 +1,20 @@
+critical:
+- asil: D
+  node: /B/Swc/ScenarioB/brakeAct
+  reason: service brake actuation, unintended deceleration hazard
+- asil: D
+  node: /B/Swc/ScenarioB/brakeCtl
+  reason: brake force arbitration, inherits the actuator hazard
+- asil: B
+  node: /B/Swc/ScenarioB/adas
+  reason: trajectory planning, bounded downstream by TrajectoryGuard
+- asil: D
+  node: /S11INJE/Swc/Root/immob
+  reason: Toyota / Lexus Headlight CAN Injection Attack (2023) safety-critical target
+entry_points:
+- node: /B/Swc/ScenarioB/btStack
+  reason: Bluetooth pairing and media parsing surface, proximate attacker
+- node: /B/Swc/ScenarioB/ivi
+  reason: USB media import and Wi-Fi hotspot on the head unit
+- node: /S11INJE/Swc/Root/headlight
+  reason: Toyota / Lexus Headlight CAN Injection Attack (2023) entry point
