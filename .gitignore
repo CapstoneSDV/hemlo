@@ -57,6 +57,7 @@ scenarios/
 # Temporary / Scratch files
 *.tmp
 *.log
+*.zip
 temp/
 scratch/
 
