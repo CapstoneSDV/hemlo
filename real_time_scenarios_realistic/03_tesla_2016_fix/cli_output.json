@@ -1,0 +1,11 @@
+{
+  "scenario": "03_tesla_2016_fix",
+  "title": "Tesla 2016 remote-attack OTA fix: code signing added (control case)",
+  "verdict": "PASS",
+  "exit_code": 0,
+  "total_nodes": 27,
+  "total_edges": 24,
+  "findings_count": 0,
+  "findings": [],
+  "expected_verdict": "PASS"
+}

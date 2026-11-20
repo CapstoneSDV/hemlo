@@ -1,0 +1,28 @@
+{
+  "scenario": "02_bmw_connecteddrive",
+  "title": "BMW ConnectedDrive TCU-to-gateway diagnostic passthrough (2018)",
+  "verdict": "BLOCK",
+  "exit_code": 3,
+  "total_nodes": 27,
+  "total_edges": 24,
+  "findings_count": 2,
+  "findings": [
+    {
+      "category": "unprotected-new-hop",
+      "title": "Unauthenticated bus traffic on gwToChassis",
+      "detail": "This hop is newly applicable for SecOC and arrived without it, so it is on a wire with nothing authenticating it.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    },
+    {
+      "category": "newly-reachable",
+      "title": "tcu can now reach chassis",
+      "detail": "No path existed between these two in the before. Every connector on the new route may be individually reasonable; the chain is not.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    }
+  ],
+  "expected_verdict": "BLOCK"
+}

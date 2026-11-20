@@ -1,0 +1,11 @@
+{
+  "scenario": "05_fca_network_fix",
+  "title": "FCA post-recall network-level access restriction (2015)",
+  "verdict": "PASS",
+  "exit_code": 0,
+  "total_nodes": 27,
+  "total_edges": 24,
+  "findings_count": 0,
+  "findings": [],
+  "expected_verdict": "PASS"
+}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR
+  xmlns="http://autosar.org/schema/r4.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00051.xsd">
+  <ADMIN-DATA>
+    <LANGUAGE>EN</LANGUAGE>
+    <DOC-REVISIONS>
+      <DOC-REVISION>
+        <REVISION-LABEL>1.0.0</REVISION-LABEL>
+        <ISSUED-BY>arxml-secdiff scenario generator</ISSUED-BY>
+        <DATE>2026-11-20T00:00:00Z</DATE>
+      </DOC-REVISION>
+    </DOC-REVISIONS>
+  </ADMIN-DATA>
+  <AR-PACKAGES>
+    <AR-PACKAGE UUID="32268920-92c6-5a09-8967-ba4dd335744d">
+      <SHORT-NAME>S01UCON</SHORT-NAME>
+      <AR-PACKAGES>
+        <AR-PACKAGE UUID="13bae2a3-c3af-5f98-a966-44f65abc0de5">
+          <SHORT-NAME>Comm</SHORT-NAME>
+          <ELEMENTS>
+            <I-SIGNAL-I-PDU UUID="779c014e-819e-569c-a54e-d5387226d8af">
+              <SHORT-NAME>bridgeToSteerIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Authentic/plain I-PDU bridgeToSteerIPdu</L-2>
+              </DESC>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING UUID="103c6061-6072-567c-873f-930feaed15e0">
+                  <SHORT-NAME>bridgeToSteerMap</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/S01UCON/Comm/bridgeToSteerISig</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+            <I-SIGNAL UUID="8102420f-7e45-5f5e-b88f-f3fa4ad426f2">
+              <SHORT-NAME>bridgeToSteerISig</SHORT-NAME>
+              <LENGTH>64</LENGTH>
+              <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/S01UCON/Comm/bridgeToSteerSSig</SYSTEM-SIGNAL-REF>
+            </I-SIGNAL>
+            <SYSTEM-SIGNAL UUID="c08616e3-be7d-5390-82a0-089a91ae861b">
+              <SHORT-NAME>bridgeToSteerSSig</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <I-SIGNAL-I-PDU UUID="16b1198d-70c8-585e-bb30-fe1845534346">
+              <SHORT-NAME>huToBridgeIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Authentic/plain I-PDU huToBridgeIPdu</L-2>
+              </DESC>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING UUID="b103dca7-2386-5734-bb8a-62c3a7738473">
+                  <SHORT-NAME>huToBridgeMap</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/S01UCON/Comm/huToBridgeISig</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+            <I-SIGNAL UUID="e29017ef-5e61-5125-9912-aa31141a28e9">
+              <SHORT-NAME>huToBridgeISig</SHORT-NAME>
+              <LENGTH>64</LENGTH>
+              <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/S01UCON/Comm/huToBridgeSSig</SYSTEM-SIGNAL-REF>
+            </I-SIGNAL>
+            <SYSTEM-SIGNAL UUID="46f398d3-2cc3-5524-b133-8e90a0d9b7c4">
+              <SHORT-NAME>huToBridgeSSig</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+          </ELEMENTS>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

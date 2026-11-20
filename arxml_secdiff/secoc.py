@@ -91,6 +91,8 @@ def _int_child(el, tag: str) -> int | None:
     if el is None:
         return None
     child = el.find(tag)
+    if child is None:
+        child = el.find(f".//{tag}")
     if child is None or child.text is None:
         return None
     try:

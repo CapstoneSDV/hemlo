@@ -1,0 +1,28 @@
+{
+  "scenario": "10_kia_telematics_api",
+  "title": "Kia Telematics / Dealer Portal Web API Remote Exploit (2024)",
+  "verdict": "BLOCK",
+  "exit_code": 3,
+  "total_nodes": 28,
+  "total_edges": 25,
+  "findings_count": 2,
+  "findings": [
+    {
+      "category": "secoc-removed",
+      "title": "SecOC removed from portal -> tcu",
+      "detail": "This hop crossed a bus with SecOC in the before and no longer does. Any device on the bus can now forge it.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    },
+    {
+      "category": "secoc-removed",
+      "title": "SecOC removed from tcu -> gw",
+      "detail": "This hop crossed a bus with SecOC in the before and no longer does. Any device on the bus can now forge it.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    }
+  ],
+  "expected_verdict": "BLOCK"
+}

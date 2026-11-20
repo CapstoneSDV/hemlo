@@ -1,0 +1,20 @@
+{
+  "scenario": "06_curry_nissan_api",
+  "title": "Cloud API authorization-object regression (Sam Curry disclosure, 2023)",
+  "verdict": "BLOCK",
+  "exit_code": 3,
+  "total_nodes": 27,
+  "total_edges": 24,
+  "findings_count": 1,
+  "findings": [
+    {
+      "category": "secoc-removed",
+      "title": "SecOC removed from api -> cmdsvc",
+      "detail": "This hop crossed a bus with SecOC in the before and no longer does. Any device on the bus can now forge it.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    }
+  ],
+  "expected_verdict": "BLOCK"
+}

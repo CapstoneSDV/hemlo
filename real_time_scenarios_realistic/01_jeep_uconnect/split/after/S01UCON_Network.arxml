@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR
+  xmlns="http://autosar.org/schema/r4.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00051.xsd">
+  <ADMIN-DATA>
+    <LANGUAGE>EN</LANGUAGE>
+    <DOC-REVISIONS>
+      <DOC-REVISION>
+        <REVISION-LABEL>1.0.0</REVISION-LABEL>
+        <ISSUED-BY>arxml-secdiff scenario generator</ISSUED-BY>
+        <DATE>2026-11-20T00:00:00Z</DATE>
+      </DOC-REVISION>
+    </DOC-REVISIONS>
+  </ADMIN-DATA>
+  <AR-PACKAGES>
+    <AR-PACKAGE UUID="32268920-92c6-5a09-8967-ba4dd335744d">
+      <SHORT-NAME>S01UCON</SHORT-NAME>
+      <AR-PACKAGES>
+        <AR-PACKAGE UUID="00d5e25b-e368-5c21-ad8d-a674ccd7ae68">
+          <SHORT-NAME>Network</SHORT-NAME>
+          <ELEMENTS>
+            <CAN-CLUSTER UUID="e265ef11-e339-5b1a-b6f5-3397f747d5a4">
+              <SHORT-NAME>Backbone</SHORT-NAME>
+              <CAN-CLUSTER-VARIANTS>
+                <CAN-CLUSTER-CONDITIONAL>
+                  <BAUDRATE>500000</BAUDRATE>
+                  <PHYSICAL-CHANNELS>
+                    <CAN-PHYSICAL-CHANNEL UUID="5a7926bb-878a-53b9-9b91-4a3f6205d2e9">
+                      <SHORT-NAME>Ch0</SHORT-NAME>
+                      <COMM-CONNECTORS>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/S01UCON/Topology/ChassisEcu/CanConn0</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/S01UCON/Topology/GatewayEcu/CanConn0</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/S01UCON/Topology/TelematicsEcu/CanConn0</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                      </COMM-CONNECTORS>
+                      <FRAME-TRIGGERINGS>
+                        <CAN-FRAME-TRIGGERING UUID="01b319c8-8062-57ef-bf96-e2d6a2c9e37e">
+                          <SHORT-NAME>FT_Frame_bridgeToSteerIPdu</SHORT-NAME>
+                          <FRAME-PORT-REFS>
+                            <FRAME-PORT-REF DEST="FRAME-PORT">/S01UCON/Topology/ChassisEcu/CanConn0/FP_Frame_bridgeToSteerIPdu_Rx</FRAME-PORT-REF>
+                            <FRAME-PORT-REF DEST="FRAME-PORT">/S01UCON/Topology/GatewayEcu/CanConn0/FP_Frame_bridgeToSteerIPdu_Tx</FRAME-PORT-REF>
+                          </FRAME-PORT-REFS>
+                          <FRAME-REF DEST="CAN-FRAME">/S01UCON/Network/Frame_bridgeToSteerIPdu</FRAME-REF>
+                          <PDU-TRIGGERINGS>
+                            <PDU-TRIGGERING-REF-CONDITIONAL>
+                              <PDU-TRIGGERING-REF DEST="PDU-TRIGGERING">/S01UCON/Network/Backbone/Ch0/Trg_bridgeToSteerIPdu</PDU-TRIGGERING-REF>
+                            </PDU-TRIGGERING-REF-CONDITIONAL>
+                          </PDU-TRIGGERINGS>
+                          <CAN-ADDRESSING-MODE>STANDARD</CAN-ADDRESSING-MODE>
+                          <CAN-FRAME-RX-BEHAVIOR>CAN-FD</CAN-FRAME-RX-BEHAVIOR>
+                          <CAN-FRAME-TX-BEHAVIOR>CAN-FD</CAN-FRAME-TX-BEHAVIOR>
+                          <IDENTIFIER>1024</IDENTIFIER>
+                        </CAN-FRAME-TRIGGERING>
+                        <CAN-FRAME-TRIGGERING UUID="300dd58a-4f73-5934-85cd-c851bfb1b6de">
+                          <SHORT-NAME>FT_Frame_huToBridgeIPdu</SHORT-NAME>
+                          <FRAME-PORT-REFS>
+                            <FRAME-PORT-REF DEST="FRAME-PORT">/S01UCON/Topology/GatewayEcu/CanConn0/FP_Frame_huToBridgeIPdu_Rx</FRAME-PORT-REF>
+                            <FRAME-PORT-REF DEST="FRAME-PORT">/S01UCON/Topology/TelematicsEcu/CanConn0/FP_Frame_huToBridgeIPdu_Tx</FRAME-PORT-REF>
+                          </FRAME-PORT-REFS>
+                          <FRAME-REF DEST="CAN-FRAME">/S01UCON/Network/Frame_huToBridgeIPdu</FRAME-REF>
+                          <PDU-TRIGGERINGS>
+                            <PDU-TRIGGERING-REF-CONDITIONAL>
+                              <PDU-TRIGGERING-REF DEST="PDU-TRIGGERING">/S01UCON/Network/Backbone/Ch0/Trg_huToBridgeIPdu</PDU-TRIGGERING-REF>
+                            </PDU-TRIGGERING-REF-CONDITIONAL>
+                          </PDU-TRIGGERINGS>
+                          <CAN-ADDRESSING-MODE>STANDARD</CAN-ADDRESSING-MODE>
+                          <CAN-FRAME-RX-BEHAVIOR>CAN-FD</CAN-FRAME-RX-BEHAVIOR>
+                          <CAN-FRAME-TX-BEHAVIOR>CAN-FD</CAN-FRAME-TX-BEHAVIOR>
+                          <IDENTIFIER>1025</IDENTIFIER>
+                        </CAN-FRAME-TRIGGERING>
+                      </FRAME-TRIGGERINGS>
+                      <PDU-TRIGGERINGS>
+                        <PDU-TRIGGERING UUID="77bb6495-df2a-572f-b399-f10b2203c9dd">
+                          <SHORT-NAME>Trg_bridgeToSteerIPdu</SHORT-NAME>
+                          <I-PDU-PORT-REFS>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/S01UCON/Topology/ChassisEcu/CanConn0/PP_bridgeToSteerIPdu_Rx</I-PDU-PORT-REF>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/S01UCON/Topology/GatewayEcu/CanConn0/PP_bridgeToSteerIPdu_Tx</I-PDU-PORT-REF>
+                          </I-PDU-PORT-REFS>
+                          <I-PDU-REF DEST="I-SIGNAL-I-PDU">/S01UCON/Comm/bridgeToSteerIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="1cf6e5ec-acb4-54b0-9671-384ecb2cdd41">
+                          <SHORT-NAME>Trg_huToBridgeIPdu</SHORT-NAME>
+                          <I-PDU-PORT-REFS>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/S01UCON/Topology/GatewayEcu/CanConn0/PP_huToBridgeIPdu_Rx</I-PDU-PORT-REF>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/S01UCON/Topology/TelematicsEcu/CanConn0/PP_huToBridgeIPdu_Tx</I-PDU-PORT-REF>
+                          </I-PDU-PORT-REFS>
+                          <I-PDU-REF DEST="I-SIGNAL-I-PDU">/S01UCON/Comm/huToBridgeIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                      </PDU-TRIGGERINGS>
+                    </CAN-PHYSICAL-CHANNEL>
+                  </PHYSICAL-CHANNELS>
+                  <CAN-FD-BAUDRATE>2000000</CAN-FD-BAUDRATE>
+                </CAN-CLUSTER-CONDITIONAL>
+              </CAN-CLUSTER-VARIANTS>
+            </CAN-CLUSTER>
+            <CAN-FRAME UUID="d2d4b737-d3ce-5a6c-9d88-2cb4fce61a1f">
+              <SHORT-NAME>Frame_bridgeToSteerIPdu</SHORT-NAME>
+              <FRAME-LENGTH>8</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING UUID="b0528992-d6bb-5f5e-bee5-42d9f51cebde">
+                  <SHORT-NAME>Map_bridgeToSteerIPdu</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="I-SIGNAL-I-PDU">/S01UCON/Comm/bridgeToSteerIPdu</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+            <CAN-FRAME UUID="469810fa-897f-5216-a59e-b040efa3ea79">
+              <SHORT-NAME>Frame_huToBridgeIPdu</SHORT-NAME>
+              <FRAME-LENGTH>8</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING UUID="d3a0991f-1740-5e79-962e-cb619fca5b4d">
+                  <SHORT-NAME>Map_huToBridgeIPdu</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="I-SIGNAL-I-PDU">/S01UCON/Comm/huToBridgeIPdu</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+          </ELEMENTS>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

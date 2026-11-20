@@ -1,0 +1,8 @@
+entry_points:
+  - node: /S13BOUN/Swc/Root/telemetry
+    reason: "Non-Standard Component Naming (FM-4 Heuristic Boundary) entry point"
+
+critical:
+  - node: /S13BOUN/Swc/Root/motion
+    asil: D
+    reason: "Non-Standard Component Naming (FM-4 Heuristic Boundary) safety-critical target"

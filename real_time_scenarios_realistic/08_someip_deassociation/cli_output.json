@@ -1,0 +1,20 @@
+{
+  "scenario": "08_someip_deassociation",
+  "title": "SOME/IP service-discovery de-association (Zelle et al., 2021)",
+  "verdict": "BLOCK",
+  "exit_code": 3,
+  "total_nodes": 26,
+  "total_edges": 23,
+  "findings_count": 1,
+  "findings": [
+    {
+      "category": "secoc-removed",
+      "title": "SecOC removed from consumer -> provider",
+      "detail": "This hop crossed a bus with SecOC in the before and no longer does. Any device on the bus can now forge it.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    }
+  ],
+  "expected_verdict": "BLOCK"
+}

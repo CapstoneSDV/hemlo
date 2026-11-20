@@ -1,0 +1,20 @@
+{
+  "scenario": "07_spireon_fleet_admin",
+  "title": "Spireon fleet admin-panel authentication misconfiguration (2023)",
+  "verdict": "BLOCK",
+  "exit_code": 3,
+  "total_nodes": 27,
+  "total_edges": 24,
+  "findings_count": 1,
+  "findings": [
+    {
+      "category": "secoc-removed",
+      "title": "SecOC removed from panel -> fleet",
+      "detail": "This hop crossed a bus with SecOC in the before and no longer does. Any device on the bus can now forge it.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    }
+  ],
+  "expected_verdict": "BLOCK"
+}

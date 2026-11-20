@@ -1,0 +1,2003 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR
+  xmlns="http://autosar.org/schema/r4.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00051.xsd">
+  <ADMIN-DATA>
+    <LANGUAGE>EN</LANGUAGE>
+    <DOC-REVISIONS>
+      <DOC-REVISION>
+        <REVISION-LABEL>1.0.0</REVISION-LABEL>
+        <ISSUED-BY>arxml-secdiff scenario generator</ISSUED-BY>
+        <DATE>2026-11-20T00:00:00Z</DATE>
+      </DOC-REVISION>
+    </DOC-REVISIONS>
+  </ADMIN-DATA>
+  <AR-PACKAGES>
+    <AR-PACKAGE UUID="821d2d9a-c5ac-5c73-bcaf-f29127530da5">
+      <SHORT-NAME>FV</SHORT-NAME>
+      <AR-PACKAGES>
+        <AR-PACKAGE UUID="38a8e31c-3ea2-5fd4-91a3-1eeea1c5c4eb">
+          <SHORT-NAME>Swc</SHORT-NAME>
+          <ELEMENTS>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="ac2ce29b-a9b5-56f9-98d2-0fcea670916e">
+              <SHORT-NAME>AdasPlanner</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type AdasPlanner</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="47f7dc42-50c6-571d-9f60-77c758049d46">
+                  <SHORT-NAME>ComfortIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/ComfortMode</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="2e1f5157-4645-5419-af72-e0aec7d2a0d7">
+                  <SHORT-NAME>DecelOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/DecelReq</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="81f42788-63e6-527f-8446-b0099a5a619f">
+                  <SHORT-NAME>LaneOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/LaneData</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="e93ab3d6-461f-53f6-9204-b8308c548d9e">
+                  <SHORT-NAME>ObjOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/ObjData</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="70fd0dd0-9d0c-54b1-9d39-39f5ab06bb85">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="81008f90-5702-58d5-a480-003e20e65730">
+                      <SHORT-NAME>Dre_ComfortIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/AdasPlanner/Behavior/Run_ComfortIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/AdasPlanner/ComfortIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/ComfortMode/mode</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                    <TIMING-EVENT UUID="c7242bb2-15b9-5709-b530-a98623ce8447">
+                      <SHORT-NAME>Tev_Cyclic10ms</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/AdasPlanner/Behavior/Run_Cyclic10ms</START-ON-EVENT-REF>
+                      <PERIOD>0.01</PERIOD>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="8cbb42c3-710f-5125-b994-3b66028c4ba3">
+                      <SHORT-NAME>Run_ComfortIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="c42c45bf-5239-5865-bb6c-8347efa331e6">
+                          <SHORT-NAME>Rcv_ComfortIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/AdasPlanner/ComfortIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/ComfortMode/mode</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_ComfortIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                    <RUNNABLE-ENTITY UUID="e4113b5b-e329-5f83-bad7-714296a4d559">
+                      <SHORT-NAME>Run_Cyclic10ms</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-SEND-POINTS>
+                        <VARIABLE-ACCESS UUID="538dec69-4367-595d-92d4-469581673c1e">
+                          <SHORT-NAME>Snd_DecelOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/AdasPlanner/DecelOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/DecelReq/decel</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                        <VARIABLE-ACCESS UUID="1e0e3226-84e4-54bd-b43f-badee85119da">
+                          <SHORT-NAME>Snd_LaneOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/AdasPlanner/LaneOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/LaneData/lanes</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                        <VARIABLE-ACCESS UUID="26830d04-042a-5bbc-ac29-d31baabaadf9">
+                          <SHORT-NAME>Snd_ObjOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/AdasPlanner/ObjOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/ObjData/objects</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-SEND-POINTS>
+                      <SYMBOL>Run_Cyclic10ms</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="33ec03c3-9cf2-557a-8160-60b680267ef3">
+              <SHORT-NAME>AdasPlanner_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/AdasPlanner/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="646b6353-4b9b-5390-9795-f788e01bdf18">
+              <SHORT-NAME>AmbientLightCtrl</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type AmbientLightCtrl</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="c0351d17-3f04-54c0-b0d4-ece7880fa40b">
+                  <SHORT-NAME>AmbientIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/AmbientCmd</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="a7e34baa-82ad-5066-bac9-e9d0f12db288">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="aa6e83df-a8c1-5dda-bf49-908063053b09">
+                      <SHORT-NAME>Dre_AmbientIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/AmbientLightCtrl/Behavior/Run_AmbientIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/AmbientLightCtrl/AmbientIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/AmbientCmd/color</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="86037362-fada-5484-bbf2-3f9b94c811cf">
+                      <SHORT-NAME>Run_AmbientIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="63755f23-4b63-53d0-baa1-30e864063444">
+                          <SHORT-NAME>Rcv_AmbientIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/AmbientLightCtrl/AmbientIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/AmbientCmd/color</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_AmbientIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="ae6c2004-45a3-5454-a33c-e3a067474a91">
+              <SHORT-NAME>AmbientLightCtrl_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/AmbientLightCtrl/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="88172558-c699-5489-847f-6b25a124d8a6">
+              <SHORT-NAME>BluetoothStack</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type BluetoothStack</L-2>
+              </DESC>
+              <PORTS>
+                <P-PORT-PROTOTYPE UUID="0f679403-03e5-502c-a576-f0c6be5e5a15">
+                  <SHORT-NAME>MediaOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/MediaReq</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="56ce26cc-bd72-5d8b-b2fa-ca5c79cb0af5">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <TIMING-EVENT UUID="19fe99be-524b-5fd7-a8f5-f7e4d3a2362a">
+                      <SHORT-NAME>Tev_Cyclic10ms</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/BluetoothStack/Behavior/Run_Cyclic10ms</START-ON-EVENT-REF>
+                      <PERIOD>0.01</PERIOD>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="f968e989-c884-5945-a2d7-4664021f926b">
+                      <SHORT-NAME>Run_Cyclic10ms</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-SEND-POINTS>
+                        <VARIABLE-ACCESS UUID="864c2c8b-eb07-59d2-a914-ce447cde5553">
+                          <SHORT-NAME>Snd_MediaOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/BluetoothStack/MediaOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/MediaReq/payload</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-SEND-POINTS>
+                      <SYMBOL>Run_Cyclic10ms</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="11128726-62ba-5f6d-a394-4b9499c12abd">
+              <SHORT-NAME>BluetoothStack_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/BluetoothStack/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="6f8d732c-1844-538d-b3a2-d59992a816d0">
+              <SHORT-NAME>BodyControlModule</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type BodyControlModule</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="6b8f643e-3426-5e60-8f2e-60599be96cf8">
+                  <SHORT-NAME>BodyIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/BodyCmd</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="6de10cd9-9805-5ed4-bd03-27a88d60015a">
+                  <SHORT-NAME>DoorOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/DoorCmd</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="227c2f5c-d447-5b95-bd03-c8af42be056e">
+                  <SHORT-NAME>HvacOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/HvacCmd</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="6ea86e5b-20f0-5cc5-a667-8a3d515c7b3a">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="89435f7f-c613-590b-beae-5a3da20c4475">
+                      <SHORT-NAME>Dre_BodyIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/BodyControlModule/Behavior/Run_BodyIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/BodyControlModule/BodyIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/BodyCmd/cmd</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                    <TIMING-EVENT UUID="7a55855e-acf4-5fc6-9e66-7a30f33f388f">
+                      <SHORT-NAME>Tev_Cyclic10ms</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/BodyControlModule/Behavior/Run_Cyclic10ms</START-ON-EVENT-REF>
+                      <PERIOD>0.01</PERIOD>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="8251f2d2-103e-53af-92cd-8083e8cc2149">
+                      <SHORT-NAME>Run_BodyIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="1cc9a9b0-6edd-5d69-b903-73a39de8d75c">
+                          <SHORT-NAME>Rcv_BodyIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/BodyControlModule/BodyIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/BodyCmd/cmd</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_BodyIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                    <RUNNABLE-ENTITY UUID="4a33d4a8-931b-59ba-98e2-368cb303f513">
+                      <SHORT-NAME>Run_Cyclic10ms</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-SEND-POINTS>
+                        <VARIABLE-ACCESS UUID="f4ecf768-f4cf-57b7-845b-e569ed310296">
+                          <SHORT-NAME>Snd_DoorOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/BodyControlModule/DoorOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/DoorCmd/lock</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                        <VARIABLE-ACCESS UUID="6f53c925-45d9-51c5-a08f-8bb6596f0d4c">
+                          <SHORT-NAME>Snd_HvacOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/BodyControlModule/HvacOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/HvacCmd/temp</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-SEND-POINTS>
+                      <SYMBOL>Run_Cyclic10ms</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="376881a9-c1f9-52f6-9119-03175ed03b72">
+              <SHORT-NAME>BodyControlModule_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/BodyControlModule/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <SENSOR-ACTUATOR-SW-COMPONENT-TYPE UUID="8ae079de-c4b1-59f2-a3e4-18e639ef876a">
+              <SHORT-NAME>BrakeActuator</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sensor/actuator software component type BrakeActuator</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="24ee4fd4-c1dc-5980-9bca-6d89b5b5f4dc">
+                  <SHORT-NAME>ForceIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/BrakeForce</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="5f3bb437-0a02-5738-9494-1c19d39814cf">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="c0f61bb5-0a02-5034-9b59-ed319e99134b">
+                      <SHORT-NAME>Dre_ForceIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/BrakeActuator/Behavior/Run_ForceIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/BrakeActuator/ForceIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/BrakeForce/force</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="d204bfab-8170-5984-9df5-2fb197045eaf">
+                      <SHORT-NAME>Run_ForceIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="87216420-f01d-5242-97d2-17a7b176efc5">
+                          <SHORT-NAME>Rcv_ForceIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/BrakeActuator/ForceIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/BrakeForce/force</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_ForceIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="2a354e3d-263a-54cb-b66b-283caca3c85c">
+              <SHORT-NAME>BrakeActuator_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/BrakeActuator/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="d9555527-1fad-5833-a6c7-67e1fa091eb2">
+              <SHORT-NAME>BrakeController</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type BrakeController</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="a45ef27b-f829-54c4-9043-8a4c12cfffc9">
+                  <SHORT-NAME>DecelIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/DecelReq</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="1eff7187-9f13-58d7-8da6-79c30d4e45f0">
+                  <SHORT-NAME>ForceOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/BrakeForce</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="b8ec5a55-84ec-5588-ab8c-e35ef3a56bc7">
+                  <SHORT-NAME>SteerOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/SteerAngle</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="a4fe7b0a-ed9a-5c14-9325-c1f6810e3d5f">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="5466cc7a-36db-5e32-90cf-ed33737683a4">
+                      <SHORT-NAME>Dre_DecelIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/BrakeController/Behavior/Run_DecelIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/BrakeController/DecelIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/DecelReq/decel</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                    <TIMING-EVENT UUID="6edfa4d3-de59-59ae-9a63-3da97f084d98">
+                      <SHORT-NAME>Tev_Cyclic10ms</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/BrakeController/Behavior/Run_Cyclic10ms</START-ON-EVENT-REF>
+                      <PERIOD>0.01</PERIOD>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="b8de762b-4928-503a-88a0-edb74890dab3">
+                      <SHORT-NAME>Run_Cyclic10ms</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-SEND-POINTS>
+                        <VARIABLE-ACCESS UUID="8bcd3e61-de0b-5a02-8c11-68e99be24680">
+                          <SHORT-NAME>Snd_ForceOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/BrakeController/ForceOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/BrakeForce/force</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                        <VARIABLE-ACCESS UUID="db85a0cc-a247-5f4f-9026-d524055a4318">
+                          <SHORT-NAME>Snd_SteerOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/BrakeController/SteerOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/SteerAngle/angle</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-SEND-POINTS>
+                      <SYMBOL>Run_Cyclic10ms</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                    <RUNNABLE-ENTITY UUID="4ee385cb-70f5-57ea-a092-27364c8ba009">
+                      <SHORT-NAME>Run_DecelIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="766342d0-965f-5d92-9081-2025964dfa42">
+                          <SHORT-NAME>Rcv_DecelIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/BrakeController/DecelIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/DecelReq/decel</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_DecelIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="d0508d68-93cc-529c-9095-0138437f91ac">
+              <SHORT-NAME>BrakeController_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/BrakeController/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="a4dd46ed-992c-5b43-8a4a-1004e13e2835">
+              <SHORT-NAME>CentralGateway</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type CentralGateway</L-2>
+              </DESC>
+              <PORTS>
+                <P-PORT-PROTOTYPE UUID="2d6862c7-e934-5162-99e2-34b7c9f01a9f">
+                  <SHORT-NAME>BodyOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/BodyCmd</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="2d400169-e377-505b-944d-d561806cf1e3">
+                  <SHORT-NAME>ComfortOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/ComfortMode</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="de2bd0f3-39e4-5923-8fba-e293f46ed5b6">
+                  <SHORT-NAME>DiagOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/DiagCmd</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="4e380560-1994-5e5b-9d66-0b5baa1b482b">
+                  <SHORT-NAME>EngineOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/EngineCmd</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="0b4fbac4-850a-5860-a9d5-f86a9e70f551">
+                  <SHORT-NAME>FwOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/FwPolicy</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="04c084d2-ea71-5890-ba5e-790e24608387">
+                  <SHORT-NAME>LightOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/LightCmd</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE UUID="1a03f9db-cd04-5e4a-89aa-9e3e3d56a9e5">
+                  <SHORT-NAME>NavIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/NavRoute</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE UUID="58e9a78c-b493-5fb0-98c4-adecf74572be">
+                  <SHORT-NAME>OtaIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/OtaCmd</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE UUID="b1bd58c0-f535-5169-8686-29fd978fbb61">
+                  <SHORT-NAME>RemoteIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/RemoteSvc</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE UUID="9618ebd3-4d06-53d8-844f-35498f8a6509">
+                  <SHORT-NAME>V2xIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/V2xMsg</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="69f299fa-d374-5476-a3fe-8c613b6f6040">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="d3234f2c-0e6b-5604-b31f-754d2abc68d5">
+                      <SHORT-NAME>Dre_NavIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/CentralGateway/Behavior/Run_NavIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/CentralGateway/NavIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/NavRoute/route</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                    <DATA-RECEIVED-EVENT UUID="3a2e0ed2-e1aa-5b3c-a6c9-b5af0c043ec1">
+                      <SHORT-NAME>Dre_OtaIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/CentralGateway/Behavior/Run_OtaIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/CentralGateway/OtaIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/OtaCmd/pkg</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                    <DATA-RECEIVED-EVENT UUID="6604cfec-c694-5e79-835f-9ddc2632e7a1">
+                      <SHORT-NAME>Dre_RemoteIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/CentralGateway/Behavior/Run_RemoteIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/CentralGateway/RemoteIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/RemoteSvc/val</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                    <DATA-RECEIVED-EVENT UUID="e008c3a4-119e-5ac9-8129-51699f702693">
+                      <SHORT-NAME>Dre_V2xIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/CentralGateway/Behavior/Run_V2xIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/CentralGateway/V2xIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/V2xMsg/msg</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                    <TIMING-EVENT UUID="30695885-fcb2-551e-ab3c-f2d59ba04e2a">
+                      <SHORT-NAME>Tev_Cyclic10ms</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/CentralGateway/Behavior/Run_Cyclic10ms</START-ON-EVENT-REF>
+                      <PERIOD>0.01</PERIOD>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="a91ef730-96c7-5c1d-9013-d46b1476213b">
+                      <SHORT-NAME>Run_Cyclic10ms</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-SEND-POINTS>
+                        <VARIABLE-ACCESS UUID="6b0b731e-4013-5e05-a808-9a66e81ce1d6">
+                          <SHORT-NAME>Snd_BodyOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/CentralGateway/BodyOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/BodyCmd/cmd</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                        <VARIABLE-ACCESS UUID="2f8a57bb-3f2b-53cb-a797-f1b6e1f59a59">
+                          <SHORT-NAME>Snd_ComfortOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/CentralGateway/ComfortOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/ComfortMode/mode</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                        <VARIABLE-ACCESS UUID="65bb9aec-3f94-5521-8dc5-864b1820cf09">
+                          <SHORT-NAME>Snd_DiagOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/CentralGateway/DiagOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/DiagCmd/cmd</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                        <VARIABLE-ACCESS UUID="0d1b2bb1-2e43-5f24-aa39-f92f0859b966">
+                          <SHORT-NAME>Snd_EngineOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/CentralGateway/EngineOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/EngineCmd/torque</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                        <VARIABLE-ACCESS UUID="5e79f15d-4258-5dda-bd43-8dcca6eafb60">
+                          <SHORT-NAME>Snd_FwOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/CentralGateway/FwOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/FwPolicy/rule</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                        <VARIABLE-ACCESS UUID="f926eea8-a9b7-5baf-8205-edc321439e43">
+                          <SHORT-NAME>Snd_LightOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/CentralGateway/LightOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/LightCmd/level</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-SEND-POINTS>
+                      <SYMBOL>Run_Cyclic10ms</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                    <RUNNABLE-ENTITY UUID="ddc44ea1-aa5c-5dee-bf99-4bf100fabf34">
+                      <SHORT-NAME>Run_NavIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="f76b5efa-778d-5fe3-8a0c-c2011729a5e3">
+                          <SHORT-NAME>Rcv_NavIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/CentralGateway/NavIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/NavRoute/route</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_NavIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                    <RUNNABLE-ENTITY UUID="35392d86-4a11-51ef-92bf-e77d9c23e479">
+                      <SHORT-NAME>Run_OtaIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="ee70f15a-ab9b-587e-8994-b984457704b4">
+                          <SHORT-NAME>Rcv_OtaIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/CentralGateway/OtaIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/OtaCmd/pkg</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_OtaIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                    <RUNNABLE-ENTITY UUID="e75895e9-7575-5f65-b840-42f92f5b459c">
+                      <SHORT-NAME>Run_RemoteIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="3f1b5163-8ca3-560d-9669-57ffc43421db">
+                          <SHORT-NAME>Rcv_RemoteIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/CentralGateway/RemoteIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/RemoteSvc/val</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_RemoteIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                    <RUNNABLE-ENTITY UUID="be9ab7c2-d7bd-517c-a649-929c2fc4252d">
+                      <SHORT-NAME>Run_V2xIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="7f4cc1f4-8e03-5129-9aa4-4db21212202b">
+                          <SHORT-NAME>Rcv_V2xIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/CentralGateway/V2xIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/V2xMsg/msg</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_V2xIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="8e3a4e6e-95aa-5116-a84e-c89cf5a2bbe8">
+              <SHORT-NAME>CentralGateway_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/CentralGateway/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="4ad68060-3432-5b17-b9ed-060bfaa848bc">
+              <SHORT-NAME>DiagnosticRouter</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type DiagnosticRouter</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="080ec72c-ff4e-50de-8dba-f9de55cec525">
+                  <SHORT-NAME>DiagIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/DiagCmd</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="06bf285a-2752-5e9d-a4a3-4480c14ac9e9">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="aa7445a9-01e2-54ed-986f-632117b54413">
+                      <SHORT-NAME>Dre_DiagIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/DiagnosticRouter/Behavior/Run_DiagIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/DiagnosticRouter/DiagIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/DiagCmd/cmd</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="4ba7890e-ff80-5d32-8f7b-202f0093c231">
+                      <SHORT-NAME>Run_DiagIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="e32def21-49c2-52c3-b040-0a01349ebfb6">
+                          <SHORT-NAME>Rcv_DiagIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/DiagnosticRouter/DiagIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/DiagCmd/cmd</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_DiagIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="347a80eb-4aa8-51bf-ab02-4d10426711fc">
+              <SHORT-NAME>DiagnosticRouter_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/DiagnosticRouter/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <SENSOR-ACTUATOR-SW-COMPONENT-TYPE UUID="f3ae240b-7a3b-518a-b5b8-72b41d264971">
+              <SHORT-NAME>DoorLockActuator</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sensor/actuator software component type DoorLockActuator</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="7ec48e33-5cc9-5bbe-84fd-3da9afd56591">
+                  <SHORT-NAME>DoorIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/DoorCmd</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="08f531ca-ee11-54b1-bbcf-787403762e22">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="190daf86-eb08-5b4f-ba95-e1dbb02b7296">
+                      <SHORT-NAME>Dre_DoorIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/DoorLockActuator/Behavior/Run_DoorIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/DoorLockActuator/DoorIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/DoorCmd/lock</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="f5ff7aaf-36a8-58c6-b3e2-80dd1fa866f3">
+                      <SHORT-NAME>Run_DoorIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="ae057098-8eaa-55c2-8996-1b6ca56ff3e5">
+                          <SHORT-NAME>Rcv_DoorIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/DoorLockActuator/DoorIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/DoorCmd/lock</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_DoorIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="b4a0f494-444e-5d7f-a0cc-19331c47349d">
+              <SHORT-NAME>DoorLockActuator_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/DoorLockActuator/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="5c069f81-9c66-56f1-b418-34ead68eb14b">
+              <SHORT-NAME>EmissionsCtrl</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type EmissionsCtrl</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="2a9b2a8c-1c71-5e2e-bf22-b01aad452b2f">
+                  <SHORT-NAME>EmisIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/EmisData</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="3b72627a-e752-5715-9ed9-cd971f88fdca">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="011be8a6-9f16-5926-aac1-e9366bfb1980">
+                      <SHORT-NAME>Dre_EmisIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/EmissionsCtrl/Behavior/Run_EmisIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/EmissionsCtrl/EmisIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/EmisData/emis</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="0a8b6364-f18c-5a67-8afc-f973b47e6e2e">
+                      <SHORT-NAME>Run_EmisIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="7ca0d4f3-d0a3-5f29-a2bc-a71226d7a676">
+                          <SHORT-NAME>Rcv_EmisIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/EmissionsCtrl/EmisIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/EmisData/emis</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_EmisIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="3df77758-33bf-50ce-9b2b-5a892fa26895">
+              <SHORT-NAME>EmissionsCtrl_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/EmissionsCtrl/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="68724624-9953-53a0-aee2-615d1933d235">
+              <SHORT-NAME>EngineController</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type EngineController</L-2>
+              </DESC>
+              <PORTS>
+                <P-PORT-PROTOTYPE UUID="8830476e-0092-532f-a1a8-e6f4ffabcc4d">
+                  <SHORT-NAME>EmisOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/EmisData</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE UUID="8f59bde0-a711-5078-9548-8853dea383ce">
+                  <SHORT-NAME>EngIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/EngineCmd</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="436603b0-685c-5321-8791-372e8c95559e">
+                  <SHORT-NAME>TransOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/TransGear</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="0e8107d4-1f6d-5d65-846f-1bacff2f4800">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="26cdc7c3-f8a8-55d8-916b-61744fb7f0b0">
+                      <SHORT-NAME>Dre_EngIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/EngineController/Behavior/Run_EngIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/EngineController/EngIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/EngineCmd/torque</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                    <TIMING-EVENT UUID="b4e86ae9-1176-5db3-ba6f-96af939b796e">
+                      <SHORT-NAME>Tev_Cyclic10ms</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/EngineController/Behavior/Run_Cyclic10ms</START-ON-EVENT-REF>
+                      <PERIOD>0.01</PERIOD>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="fa818165-7132-58eb-9d62-0ba0f7760d33">
+                      <SHORT-NAME>Run_Cyclic10ms</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-SEND-POINTS>
+                        <VARIABLE-ACCESS UUID="81b4fc52-ba6f-5f84-aa33-bb28a7900909">
+                          <SHORT-NAME>Snd_EmisOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/EngineController/EmisOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/EmisData/emis</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                        <VARIABLE-ACCESS UUID="51c955ff-3798-5dad-9ce9-674112489d9b">
+                          <SHORT-NAME>Snd_TransOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/EngineController/TransOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/TransGear/gear</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-SEND-POINTS>
+                      <SYMBOL>Run_Cyclic10ms</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                    <RUNNABLE-ENTITY UUID="1541f268-67a4-5e6e-8739-ffca987002d1">
+                      <SHORT-NAME>Run_EngIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="a8e829df-9d8b-594a-bb5d-a287497ba31f">
+                          <SHORT-NAME>Rcv_EngIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/EngineController/EngIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/EngineCmd/torque</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_EngIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="e142993c-83b3-5062-8ac7-ad6ea8432239">
+              <SHORT-NAME>EngineController_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/EngineController/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="4244da1d-a214-5a57-95d9-fbc60f3946a9">
+              <SHORT-NAME>FirewallManager</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type FirewallManager</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="47b28800-8071-5e7d-bb9c-f4964e01fca1">
+                  <SHORT-NAME>FwIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/FwPolicy</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="dac5b0d6-9ce3-5428-9d02-45784dad0507">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="37e08c0f-043b-5919-9a6f-c4a424ecb41c">
+                      <SHORT-NAME>Dre_FwIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/FirewallManager/Behavior/Run_FwIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/FirewallManager/FwIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/FwPolicy/rule</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="3dd788ea-7648-5bce-b9b0-019124bc3143">
+                      <SHORT-NAME>Run_FwIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="ae4f3129-36f4-58a0-afb1-620b77c933f4">
+                          <SHORT-NAME>Rcv_FwIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/FirewallManager/FwIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/FwPolicy/rule</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_FwIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="7df32988-851f-512e-8c40-04b5756c7d5b">
+              <SHORT-NAME>FirewallManager_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/FirewallManager/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <COMPOSITION-SW-COMPONENT-TYPE UUID="c54b98ca-d44f-5fcd-b644-e7d49ee7d7eb">
+              <SHORT-NAME>FullVehicle</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Composition FullVehicle</L-2>
+              </DESC>
+              <COMPONENTS>
+                <SW-COMPONENT-PROTOTYPE UUID="3ee701ca-81a5-5b9e-a08b-111452dc85b2">
+                  <SHORT-NAME>adas</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/AdasPlanner</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="a386cd59-e648-5f99-86e1-fd7c19e20b14">
+                  <SHORT-NAME>ambientLight</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/AmbientLightCtrl</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="3116cc33-2c4e-5cea-834e-a32b86c3d467">
+                  <SHORT-NAME>bcm</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/BodyControlModule</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="5e9db910-8c09-5b62-8f4d-e1d26bfd2312">
+                  <SHORT-NAME>brakeAct</SHORT-NAME>
+                  <TYPE-TREF DEST="SENSOR-ACTUATOR-SW-COMPONENT-TYPE">/FV/Swc/BrakeActuator</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="86e224d5-a730-5dd1-84b6-145ba2c9c004">
+                  <SHORT-NAME>brakeCtl</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/BrakeController</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="2cb45d13-24a4-5bd1-8c65-750f9906292b">
+                  <SHORT-NAME>btStack</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/BluetoothStack</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="d1f42cd4-e9e5-5055-981e-80813d6af1e7">
+                  <SHORT-NAME>cgw</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/CentralGateway</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="3e8dcaae-deca-5333-a582-8115c1a5c9a4">
+                  <SHORT-NAME>diagRouter</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/DiagnosticRouter</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="26a44c4d-9b7a-565a-989e-6db3d92f5a95">
+                  <SHORT-NAME>doorLock</SHORT-NAME>
+                  <TYPE-TREF DEST="SENSOR-ACTUATOR-SW-COMPONENT-TYPE">/FV/Swc/DoorLockActuator</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="49149783-580c-51d1-8f76-e3bc836577c8">
+                  <SHORT-NAME>emisCtl</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/EmissionsCtrl</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="6706696b-a2d6-52e8-8469-2fd51f829abb">
+                  <SHORT-NAME>engineCtl</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/EngineController</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="8907aad6-018d-5a4a-bfa2-9eeff33de00d">
+                  <SHORT-NAME>firewallMgr</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/FirewallManager</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="d5f07e52-7f97-5ccc-83aa-bed8096dc3af">
+                  <SHORT-NAME>headlight</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/HeadlightCtrl</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="80ab582f-b2d3-5b56-8435-dc006c8b77b3">
+                  <SHORT-NAME>hvacCtl</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/HvacController</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="32c645c4-dc8c-585b-99f5-d2d10028fa4a">
+                  <SHORT-NAME>ivi</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/InfotainmentHU</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="91512826-3c49-5242-a22d-a7f9b54310f4">
+                  <SHORT-NAME>laneKeep</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/LaneKeepAssist</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="b2e4a031-1a13-5262-bdbc-9868ca6f844a">
+                  <SHORT-NAME>mediaPlayer</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/MediaPlayer</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="f816b849-b4a6-54e2-bb03-bb52f3530bf2">
+                  <SHORT-NAME>objDetect</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/ObjectDetector</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="3babf42f-25b1-5cf9-970d-892d31b99443">
+                  <SHORT-NAME>otaManager</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/OtaManager</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="a1eb4048-260a-5368-8d11-794a19f091eb">
+                  <SHORT-NAME>steerCtl</SHORT-NAME>
+                  <TYPE-TREF DEST="SENSOR-ACTUATOR-SW-COMPONENT-TYPE">/FV/Swc/SteeringController</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="7de5d5f5-b5ef-5936-9588-934ea6ec4724">
+                  <SHORT-NAME>taillight</SHORT-NAME>
+                  <TYPE-TREF DEST="SENSOR-ACTUATOR-SW-COMPONENT-TYPE">/FV/Swc/TaillightCtrl</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="5602a023-0b08-5aa7-b85b-77ebecb983f6">
+                  <SHORT-NAME>tcu</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/TelematicsUnit</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="4aa9d7a4-e7f1-508e-a83f-b5addffba2aa">
+                  <SHORT-NAME>transCtl</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/TransmissionCtrl</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE UUID="ec1f98ec-0d63-503e-849b-305eeebc7e82">
+                  <SHORT-NAME>v2xStack</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/FV/Swc/V2xStack</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+              </COMPONENTS>
+              <CONNECTORS>
+                <ASSEMBLY-SW-CONNECTOR UUID="3190a86d-86da-545e-a09f-a76fe2fe080e">
+                  <SHORT-NAME>adasToDecel</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/adas</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/AdasPlanner/DecelOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/brakeCtl</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/BrakeController/DecelIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="d2a32bed-42f3-5b3b-9eaf-e8192c33cd20">
+                  <SHORT-NAME>adasToLane</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/adas</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/AdasPlanner/LaneOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/laneKeep</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/LaneKeepAssist/LaneIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="bb926961-6602-52e4-b5cd-f692ff673e30">
+                  <SHORT-NAME>adasToObj</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/adas</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/AdasPlanner/ObjOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/objDetect</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/ObjectDetector/ObjIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="e8b56f7f-4a22-5c14-9606-b25cf62bd4b5">
+                  <SHORT-NAME>bcmToDoor</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/bcm</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/BodyControlModule/DoorOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/doorLock</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/DoorLockActuator/DoorIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="7fba99e3-9b7c-5d01-93d7-2602cc782529">
+                  <SHORT-NAME>bcmToHvac</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/bcm</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/BodyControlModule/HvacOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/hvacCtl</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/HvacController/HvacIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="c20fcc2f-9cdf-5ef0-a125-191a80401b59">
+                  <SHORT-NAME>brakeToAct</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/brakeCtl</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/BrakeController/ForceOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/brakeAct</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/BrakeActuator/ForceIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="e81f784a-1150-5363-bba5-be2b4ad60696">
+                  <SHORT-NAME>brakeToSteer</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/brakeCtl</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/BrakeController/SteerOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/steerCtl</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/SteeringController/SteerIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="b4d43108-39d5-5bba-8916-c4a728479fa9">
+                  <SHORT-NAME>btToIvi</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/btStack</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/BluetoothStack/MediaOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/ivi</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/InfotainmentHU/MediaIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="e1f6da6d-f499-5368-a602-deb74638a029">
+                  <SHORT-NAME>engToEmis</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/engineCtl</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/EngineController/EmisOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/emisCtl</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/EmissionsCtrl/EmisIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="9e9f9daf-ced7-5004-a9c8-866acbe46118">
+                  <SHORT-NAME>engToTrans</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/engineCtl</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/EngineController/TransOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/transCtl</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/TransmissionCtrl/TransIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="2dad870d-8411-5f81-aace-0d629df5ce9d">
+                  <SHORT-NAME>gwToBody</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/cgw</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/CentralGateway/BodyOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/bcm</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/BodyControlModule/BodyIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="3c57e3e2-dc3f-558f-8f2f-ff6248ae882b">
+                  <SHORT-NAME>gwToDiag</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/cgw</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/CentralGateway/DiagOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/diagRouter</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/DiagnosticRouter/DiagIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="1fd254cd-bfa1-5bfb-86b1-1ccf368cc22c">
+                  <SHORT-NAME>gwToEngine</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/cgw</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/CentralGateway/EngineOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/engineCtl</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/EngineController/EngIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="25f1994f-3782-54ad-9913-66b0a8b050d4">
+                  <SHORT-NAME>gwToFw</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/cgw</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/CentralGateway/FwOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/firewallMgr</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/FirewallManager/FwIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="6da4c6d4-a5d8-5864-96f3-23d8a791c9c2">
+                  <SHORT-NAME>gwToLight</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/cgw</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/CentralGateway/LightOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/headlight</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/HeadlightCtrl/LightIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="5eac7f65-7692-5790-81be-7a5f8f8dd207">
+                  <SHORT-NAME>headToAmbient</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/headlight</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/HeadlightCtrl/AmbientOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/ambientLight</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/AmbientLightCtrl/AmbientIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="78f5619d-c718-5894-bb29-429f430e5e75">
+                  <SHORT-NAME>headToTail</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/headlight</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/HeadlightCtrl/TailOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/taillight</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/TaillightCtrl/TailIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="6c65c0cb-dc17-54d8-9dec-9276d688cb41">
+                  <SHORT-NAME>iviToGw</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/ivi</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/InfotainmentHU/NavOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/cgw</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/CentralGateway/NavIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="33cabc1b-4b23-5c8f-88a1-d7b6a42d7808">
+                  <SHORT-NAME>iviToMedia</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/ivi</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/InfotainmentHU/StreamOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/mediaPlayer</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/MediaPlayer/StreamIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="43b93720-6133-5fa2-a645-6fb1f9290c1f">
+                  <SHORT-NAME>otaToGw</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/otaManager</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/OtaManager/OtaOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/cgw</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/CentralGateway/OtaIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="ba3492e9-99bc-54e8-9880-9bff90f53cdc">
+                  <SHORT-NAME>tcuToGw</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/tcu</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/TelematicsUnit/RemoteOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/cgw</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/CentralGateway/RemoteIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+                <ASSEMBLY-SW-CONNECTOR UUID="cd46847d-c729-5ea4-b090-443e226984e7">
+                  <SHORT-NAME>v2xToGw</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/v2xStack</CONTEXT-COMPONENT-REF>
+                    <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/V2xStack/V2xOut</TARGET-P-PORT-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/FV/Swc/FullVehicle/cgw</CONTEXT-COMPONENT-REF>
+                    <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/CentralGateway/V2xIn</TARGET-R-PORT-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+              </CONNECTORS>
+            </COMPOSITION-SW-COMPONENT-TYPE>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="bc749823-5dbe-5ec6-b984-a936f354fdfe">
+              <SHORT-NAME>HeadlightCtrl</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type HeadlightCtrl</L-2>
+              </DESC>
+              <PORTS>
+                <P-PORT-PROTOTYPE UUID="5bb2591d-4bd2-5143-9c4b-76a00ef57348">
+                  <SHORT-NAME>AmbientOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/AmbientCmd</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE UUID="6c9ca07b-5ec1-5c56-9ea9-1a0bb6224a8f">
+                  <SHORT-NAME>LightIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/LightCmd</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="776def3b-9f68-5ad9-bdbc-6e05f06d77b5">
+                  <SHORT-NAME>TailOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/TailCmd</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="5f6beb41-f31f-5055-acd3-c60c841f419c">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="cc151835-7cea-5704-a79d-8fb22cf8db93">
+                      <SHORT-NAME>Dre_LightIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/HeadlightCtrl/Behavior/Run_LightIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/HeadlightCtrl/LightIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/LightCmd/level</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                    <TIMING-EVENT UUID="bb429ed8-3a32-5790-9de2-d4d1138d24a5">
+                      <SHORT-NAME>Tev_Cyclic10ms</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/HeadlightCtrl/Behavior/Run_Cyclic10ms</START-ON-EVENT-REF>
+                      <PERIOD>0.01</PERIOD>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="0fcb1164-5078-55b9-9d67-12a8c40e68a3">
+                      <SHORT-NAME>Run_Cyclic10ms</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-SEND-POINTS>
+                        <VARIABLE-ACCESS UUID="be6c5561-0769-5e2f-84b3-b837a0372fb7">
+                          <SHORT-NAME>Snd_AmbientOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/HeadlightCtrl/AmbientOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/AmbientCmd/color</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                        <VARIABLE-ACCESS UUID="8dff97c0-f785-5530-bfd0-848ce360de5f">
+                          <SHORT-NAME>Snd_TailOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/HeadlightCtrl/TailOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/TailCmd/level</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-SEND-POINTS>
+                      <SYMBOL>Run_Cyclic10ms</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                    <RUNNABLE-ENTITY UUID="16310464-d524-503e-9cc4-8d8768c6ed1f">
+                      <SHORT-NAME>Run_LightIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="11cd9ae6-b041-5239-b56c-a74d44ad1f5a">
+                          <SHORT-NAME>Rcv_LightIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/HeadlightCtrl/LightIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/LightCmd/level</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_LightIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="b86a17c5-9923-569e-ab1d-e19fa3e4e86f">
+              <SHORT-NAME>HeadlightCtrl_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/HeadlightCtrl/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="4d5d7ad9-bc77-5fac-b0a6-d711fb8e3af7">
+              <SHORT-NAME>HvacController</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type HvacController</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="fb3f2284-11c2-5aad-a0ea-ebe177abd8e4">
+                  <SHORT-NAME>HvacIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/HvacCmd</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="53086450-feaf-5c32-a656-8990fa88c040">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="3b607674-0281-56f8-b6cd-16ed5b29753c">
+                      <SHORT-NAME>Dre_HvacIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/HvacController/Behavior/Run_HvacIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/HvacController/HvacIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/HvacCmd/temp</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="06ffd7ac-ecb2-573d-a72d-e5d4fb5dcb09">
+                      <SHORT-NAME>Run_HvacIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="1ee342f3-d502-5e3b-87d5-9af79e9d7993">
+                          <SHORT-NAME>Rcv_HvacIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/HvacController/HvacIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/HvacCmd/temp</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_HvacIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="0ddada2c-b820-5fd5-b578-b040b41e99d6">
+              <SHORT-NAME>HvacController_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/HvacController/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="04c4346e-fe79-5d4e-b1f3-f5576a6e9f52">
+              <SHORT-NAME>InfotainmentHU</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type InfotainmentHU</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="6802ae39-f57c-5812-a8bd-4a3da412fd85">
+                  <SHORT-NAME>MediaIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/MediaReq</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="7bc0a0e4-4a03-5247-9d16-61efcfef5aba">
+                  <SHORT-NAME>NavOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/NavRoute</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE UUID="7617f7a3-161e-5b7d-b8bf-ceb08a4e79f6">
+                  <SHORT-NAME>StreamOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/MediaStream</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="30fbd1f1-9a84-5ed5-84d5-3213ad3a2d8d">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="d0bc46c1-65ca-55a6-9792-24b1a0586bdc">
+                      <SHORT-NAME>Dre_MediaIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/InfotainmentHU/Behavior/Run_MediaIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/InfotainmentHU/MediaIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/MediaReq/payload</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                    <TIMING-EVENT UUID="7d8ea88d-c77c-525a-873c-13997b75ecde">
+                      <SHORT-NAME>Tev_Cyclic10ms</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/InfotainmentHU/Behavior/Run_Cyclic10ms</START-ON-EVENT-REF>
+                      <PERIOD>0.01</PERIOD>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="f864a83e-ad94-5811-8f23-4c81e004edb9">
+                      <SHORT-NAME>Run_Cyclic10ms</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-SEND-POINTS>
+                        <VARIABLE-ACCESS UUID="d6acbd99-a900-55ab-b2ff-09b3488eff19">
+                          <SHORT-NAME>Snd_NavOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/InfotainmentHU/NavOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/NavRoute/route</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                        <VARIABLE-ACCESS UUID="cdfab85e-df9d-5c03-aab4-353a9e55bbf1">
+                          <SHORT-NAME>Snd_StreamOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/InfotainmentHU/StreamOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/MediaStream/stream</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-SEND-POINTS>
+                      <SYMBOL>Run_Cyclic10ms</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                    <RUNNABLE-ENTITY UUID="74b0b93f-552d-5630-8618-6dce22178acd">
+                      <SHORT-NAME>Run_MediaIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="e42f3e58-ca28-5352-b732-bf183f7c44f9">
+                          <SHORT-NAME>Rcv_MediaIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/InfotainmentHU/MediaIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/MediaReq/payload</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_MediaIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="85844225-e225-5ad6-800d-24d70d7c1740">
+              <SHORT-NAME>InfotainmentHU_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/InfotainmentHU/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="58c90de1-6cf0-5bb5-80c5-0a43f1f5082a">
+              <SHORT-NAME>LaneKeepAssist</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type LaneKeepAssist</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="4ad21ae2-54bc-58d0-a837-9d93e9a3ee9e">
+                  <SHORT-NAME>LaneIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/LaneData</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="57ea4500-a8e0-507d-8bcc-2a001475ae5c">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="26070479-d730-52b6-b3b8-0a1f433000c4">
+                      <SHORT-NAME>Dre_LaneIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/LaneKeepAssist/Behavior/Run_LaneIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/LaneKeepAssist/LaneIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/LaneData/lanes</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="7201a92f-8408-58fa-a81b-f15c1d04a3f5">
+                      <SHORT-NAME>Run_LaneIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="850eecb7-dbd9-50ca-b7be-474c91fb16e1">
+                          <SHORT-NAME>Rcv_LaneIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/LaneKeepAssist/LaneIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/LaneData/lanes</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_LaneIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="5f933a62-186e-5001-bf8b-41226a1e2f70">
+              <SHORT-NAME>LaneKeepAssist_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/LaneKeepAssist/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="20ac018e-f8bb-53bc-a71d-3cd00b8ab653">
+              <SHORT-NAME>MediaPlayer</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type MediaPlayer</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="02e461c7-3afc-5b97-ae72-55048961590b">
+                  <SHORT-NAME>StreamIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/MediaStream</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="1c8fc1e2-a990-5d8a-8156-397cb6e94dcd">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="1930cc22-66af-561c-9e30-45736a4a0030">
+                      <SHORT-NAME>Dre_StreamIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/MediaPlayer/Behavior/Run_StreamIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/MediaPlayer/StreamIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/MediaStream/stream</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="cdab55ed-bcaa-5974-a6e1-5cc0041b2ee8">
+                      <SHORT-NAME>Run_StreamIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="cda660ce-5fb4-5109-952a-0d7cf5831fe2">
+                          <SHORT-NAME>Rcv_StreamIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/MediaPlayer/StreamIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/MediaStream/stream</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_StreamIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="b836d83d-8c1f-56e2-acb5-c9cb2cf34268">
+              <SHORT-NAME>MediaPlayer_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/MediaPlayer/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="b5d51784-1633-55b6-824d-35778fdd0748">
+              <SHORT-NAME>ObjectDetector</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type ObjectDetector</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="4a41234e-3670-5e61-9886-7a6b8292ff3e">
+                  <SHORT-NAME>ObjIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/ObjData</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="d053106f-b1b8-5cd0-b73d-991bd0bdbdfc">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="ab1b6d4e-4bd0-58cb-9441-86367cc413f3">
+                      <SHORT-NAME>Dre_ObjIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/ObjectDetector/Behavior/Run_ObjIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/ObjectDetector/ObjIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/ObjData/objects</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="bbb38353-e362-5757-a141-271a98c4f7a9">
+                      <SHORT-NAME>Run_ObjIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="e1c8cdf8-aeac-5ad1-b5b9-b436a3f269a1">
+                          <SHORT-NAME>Rcv_ObjIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/ObjectDetector/ObjIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/ObjData/objects</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_ObjIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="8e6d0a1f-d5c8-5ba6-af83-5a63c52a9f78">
+              <SHORT-NAME>ObjectDetector_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/ObjectDetector/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="4fe2eccd-2982-5593-bc3f-e71f4cf46091">
+              <SHORT-NAME>OtaManager</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type OtaManager</L-2>
+              </DESC>
+              <PORTS>
+                <P-PORT-PROTOTYPE UUID="cb0623cc-ee53-55d7-9515-a69dbf3ab59c">
+                  <SHORT-NAME>OtaOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/OtaCmd</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="e8e0b77c-0d1f-584d-a41e-0e1eea6b28dd">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <TIMING-EVENT UUID="05151fdf-53da-59cc-b74b-2582b023d859">
+                      <SHORT-NAME>Tev_Cyclic10ms</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/OtaManager/Behavior/Run_Cyclic10ms</START-ON-EVENT-REF>
+                      <PERIOD>0.01</PERIOD>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="dfd7a664-2887-593c-b84f-6788fc627649">
+                      <SHORT-NAME>Run_Cyclic10ms</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-SEND-POINTS>
+                        <VARIABLE-ACCESS UUID="efaafedb-3bc7-563d-94d9-509665f51fee">
+                          <SHORT-NAME>Snd_OtaOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/OtaManager/OtaOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/OtaCmd/pkg</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-SEND-POINTS>
+                      <SYMBOL>Run_Cyclic10ms</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="61d5a055-69e7-5a11-b0f7-442faa944154">
+              <SHORT-NAME>OtaManager_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/OtaManager/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <SENSOR-ACTUATOR-SW-COMPONENT-TYPE UUID="9fe2052c-7436-56b6-8c32-026f2943b3d6">
+              <SHORT-NAME>SteeringController</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sensor/actuator software component type SteeringController</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="dc9cb161-13d0-5975-8194-4386c00373a4">
+                  <SHORT-NAME>SteerIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/SteerAngle</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="a29f153d-e1fc-54b0-8a32-adcd1b0523b1">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="89eeb871-2b69-5e4f-846f-4ec986aa9bf1">
+                      <SHORT-NAME>Dre_SteerIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/SteeringController/Behavior/Run_SteerIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/SteeringController/SteerIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/SteerAngle/angle</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="61b67000-05eb-5b44-8d8e-094672d9579d">
+                      <SHORT-NAME>Run_SteerIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="bfb4b5c5-7c13-59ba-846a-7765d68c0269">
+                          <SHORT-NAME>Rcv_SteerIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/SteeringController/SteerIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/SteerAngle/angle</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_SteerIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="a1b4a5d4-cbe8-5664-9f39-d99ecf58e8f7">
+              <SHORT-NAME>SteeringController_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/SteeringController/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <SENSOR-ACTUATOR-SW-COMPONENT-TYPE UUID="646a9b1a-878a-5ff1-b641-0e5546edcfab">
+              <SHORT-NAME>TaillightCtrl</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sensor/actuator software component type TaillightCtrl</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="f759e795-c078-5ae0-8f60-c988d8b51014">
+                  <SHORT-NAME>TailIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/TailCmd</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="273a19b0-81e5-5f7f-af35-74cef3176bb6">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="884e9fe4-675d-5441-b579-1158743158d0">
+                      <SHORT-NAME>Dre_TailIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/TaillightCtrl/Behavior/Run_TailIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/TaillightCtrl/TailIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/TailCmd/level</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="1b0c7c74-5dfb-5a3c-9723-5a57ea005edb">
+                      <SHORT-NAME>Run_TailIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="27bc7a6f-88ce-5fe1-acfe-1cd47013edbc">
+                          <SHORT-NAME>Rcv_TailIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/TaillightCtrl/TailIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/TailCmd/level</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_TailIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="786987c0-20a0-5aee-b93f-b6e8caa9ba5e">
+              <SHORT-NAME>TaillightCtrl_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/TaillightCtrl/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="889d0224-8910-5ce6-9308-3d8c0c039496">
+              <SHORT-NAME>TelematicsUnit</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type TelematicsUnit</L-2>
+              </DESC>
+              <PORTS>
+                <P-PORT-PROTOTYPE UUID="03b48141-af15-5669-843b-358f9ae86e4e">
+                  <SHORT-NAME>RemoteOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/RemoteSvc</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="19a25aa1-9695-519d-89a7-9b61d0885e78">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <TIMING-EVENT UUID="92ca21cf-e2aa-5099-baa5-3553d23db18a">
+                      <SHORT-NAME>Tev_Cyclic10ms</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/TelematicsUnit/Behavior/Run_Cyclic10ms</START-ON-EVENT-REF>
+                      <PERIOD>0.01</PERIOD>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="d8b656bb-25d6-5f0c-b291-7fb17a0e95cc">
+                      <SHORT-NAME>Run_Cyclic10ms</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-SEND-POINTS>
+                        <VARIABLE-ACCESS UUID="8d27b9df-e849-5466-b0a0-1fc612072ee5">
+                          <SHORT-NAME>Snd_RemoteOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/TelematicsUnit/RemoteOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/RemoteSvc/val</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-SEND-POINTS>
+                      <SYMBOL>Run_Cyclic10ms</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="2c3a5583-7a7a-5a63-9036-7edfb1e36d86">
+              <SHORT-NAME>TelematicsUnit_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/TelematicsUnit/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="642f74ad-1c26-5db4-bc02-abd8ba0ed7a7">
+              <SHORT-NAME>TransmissionCtrl</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type TransmissionCtrl</L-2>
+              </DESC>
+              <PORTS>
+                <R-PORT-PROTOTYPE UUID="e3e3f444-5111-5fbd-aab2-11fc18c181be">
+                  <SHORT-NAME>TransIn</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/TransGear</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="925fc94b-2549-5d68-8c80-49d30c6d7a8b">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <DATA-RECEIVED-EVENT UUID="029cac9f-a83d-53be-85f1-8a2e6846624c">
+                      <SHORT-NAME>Dre_TransIn</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/TransmissionCtrl/Behavior/Run_TransIn_Rx</START-ON-EVENT-REF>
+                      <DATA-IREF>
+                        <CONTEXT-R-PORT-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/TransmissionCtrl/TransIn</CONTEXT-R-PORT-REF>
+                        <TARGET-DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/TransGear/gear</TARGET-DATA-ELEMENT-REF>
+                      </DATA-IREF>
+                    </DATA-RECEIVED-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="cd88eb17-d19c-5b7c-b877-e7f8e3efa0b0">
+                      <SHORT-NAME>Run_TransIn_Rx</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                        <VARIABLE-ACCESS UUID="1ac9319b-23ce-593d-a7a6-3cfebaf86069">
+                          <SHORT-NAME>Rcv_TransIn</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/FV/Swc/TransmissionCtrl/TransIn</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/TransGear/gear</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-RECEIVE-POINT-BY-ARGUMENTS>
+                      <SYMBOL>Run_TransIn_Rx</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="cd9c78f5-797f-5967-8164-7f81cbb5d827">
+              <SHORT-NAME>TransmissionCtrl_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/TransmissionCtrl/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+            <APPLICATION-SW-COMPONENT-TYPE UUID="a871fa74-6c9f-5549-b316-7e241a01ab10">
+              <SHORT-NAME>V2xStack</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Application software component type V2xStack</L-2>
+              </DESC>
+              <PORTS>
+                <P-PORT-PROTOTYPE UUID="873a73fe-b257-5554-a9ab-5d984bb5781d">
+                  <SHORT-NAME>V2xOut</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/FV/If/V2xMsg</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR UUID="be29b908-1211-507e-be5d-24e0f20e01e4">
+                  <SHORT-NAME>Behavior</SHORT-NAME>
+                  <EVENTS>
+                    <TIMING-EVENT UUID="e714c19f-f58c-5f28-95bd-e517585424a1">
+                      <SHORT-NAME>Tev_Cyclic10ms</SHORT-NAME>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/FV/Swc/V2xStack/Behavior/Run_Cyclic10ms</START-ON-EVENT-REF>
+                      <PERIOD>0.01</PERIOD>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY UUID="20c7f61c-cc54-51a1-a296-72d1959b19f7">
+                      <SHORT-NAME>Run_Cyclic10ms</SHORT-NAME>
+                      <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+                      <DATA-SEND-POINTS>
+                        <VARIABLE-ACCESS UUID="a89e7b32-5f2c-578f-9117-812f7e0668f8">
+                          <SHORT-NAME>Snd_V2xOut</SHORT-NAME>
+                          <ACCESSED-VARIABLE>
+                            <AUTOSAR-VARIABLE-IREF>
+                              <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/FV/Swc/V2xStack/V2xOut</PORT-PROTOTYPE-REF>
+                              <TARGET-DATA-PROTOTYPE-REF DEST="VARIABLE-DATA-PROTOTYPE">/FV/If/V2xMsg/msg</TARGET-DATA-PROTOTYPE-REF>
+                            </AUTOSAR-VARIABLE-IREF>
+                          </ACCESSED-VARIABLE>
+                        </VARIABLE-ACCESS>
+                      </DATA-SEND-POINTS>
+                      <SYMBOL>Run_Cyclic10ms</SYMBOL>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <SWC-IMPLEMENTATION UUID="23883ef8-02c4-5a29-9664-8dd9e5e17c32">
+              <SHORT-NAME>V2xStack_Impl</SHORT-NAME>
+              <PROGRAMMING-LANGUAGE>C</PROGRAMMING-LANGUAGE>
+              <SW-VERSION>1.0.0</SW-VERSION>
+              <BEHAVIOR-REF DEST="SWC-INTERNAL-BEHAVIOR">/FV/Swc/V2xStack/Behavior</BEHAVIOR-REF>
+            </SWC-IMPLEMENTATION>
+          </ELEMENTS>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

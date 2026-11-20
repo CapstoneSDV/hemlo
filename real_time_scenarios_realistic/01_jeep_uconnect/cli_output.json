@@ -1,0 +1,44 @@
+{
+  "scenario": "01_jeep_uconnect",
+  "title": "Jeep Cherokee / Uconnect remote exploit (2015)",
+  "verdict": "BLOCK",
+  "exit_code": 3,
+  "total_nodes": 28,
+  "total_edges": 25,
+  "findings_count": 4,
+  "findings": [
+    {
+      "category": "unprotected-new-hop",
+      "title": "Unauthenticated bus traffic on bridgeToSteer",
+      "detail": "This hop is newly applicable for SecOC and arrived without it, so it is on a wire with nothing authenticating it.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    },
+    {
+      "category": "unprotected-new-hop",
+      "title": "Unauthenticated bus traffic on huToBridge",
+      "detail": "This hop is newly applicable for SecOC and arrived without it, so it is on a wire with nothing authenticating it.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    },
+    {
+      "category": "newly-reachable",
+      "title": "ivi can now reach steer",
+      "detail": "No path existed between these two in the before. Every connector on the new route may be individually reasonable; the chain is not.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    },
+    {
+      "category": "newly-reachable",
+      "title": "tel can now reach steer",
+      "detail": "No path existed between these two in the before. Every connector on the new route may be individually reasonable; the chain is not.",
+      "risk": 5,
+      "impact": "severe",
+      "feasibility": "high"
+    }
+  ],
+  "expected_verdict": "BLOCK"
+}

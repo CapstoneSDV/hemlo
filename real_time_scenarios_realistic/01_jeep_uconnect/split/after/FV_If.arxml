@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR
+  xmlns="http://autosar.org/schema/r4.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00051.xsd">
+  <ADMIN-DATA>
+    <LANGUAGE>EN</LANGUAGE>
+    <DOC-REVISIONS>
+      <DOC-REVISION>
+        <REVISION-LABEL>1.0.0</REVISION-LABEL>
+        <ISSUED-BY>arxml-secdiff scenario generator</ISSUED-BY>
+        <DATE>2026-11-20T00:00:00Z</DATE>
+      </DOC-REVISION>
+    </DOC-REVISIONS>
+  </ADMIN-DATA>
+  <AR-PACKAGES>
+    <AR-PACKAGE UUID="821d2d9a-c5ac-5c73-bcaf-f29127530da5">
+      <SHORT-NAME>FV</SHORT-NAME>
+      <AR-PACKAGES>
+        <AR-PACKAGE UUID="bd8ab888-46a4-5485-b6d5-e57a88b7d863">
+          <SHORT-NAME>If</SHORT-NAME>
+          <ELEMENTS>
+            <SENDER-RECEIVER-INTERFACE UUID="d5105efb-6888-5541-8717-2f518f9fb9bd">
+              <SHORT-NAME>AmbientCmd</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface AmbientCmd</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="cdfa3b2c-b459-55f5-84f4-205bbe46783a">
+                  <SHORT-NAME>color</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="f424c472-c04c-5ac5-9522-52d79fedc66a">
+              <SHORT-NAME>BodyCmd</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface BodyCmd</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="7237ee0e-8664-5ac3-9eca-dfe714699fdf">
+                  <SHORT-NAME>cmd</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="01549b35-99f6-501f-a4c3-2d498ea06132">
+              <SHORT-NAME>BrakeForce</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface BrakeForce</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="76e6b6de-d83c-5e3f-8fea-d580cfaf8b0f">
+                  <SHORT-NAME>force</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="0202d5bb-9fa6-58ef-9e83-fcb248e0e1a9">
+              <SHORT-NAME>ComfortMode</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface ComfortMode</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="6e72532a-4425-5a55-8115-f17cd6e05e6d">
+                  <SHORT-NAME>mode</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="a7fd7b59-7b48-5852-ae35-c45fed2355dd">
+              <SHORT-NAME>DecelReq</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface DecelReq</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="cd4fb864-c2b0-5826-988c-a62f27443d76">
+                  <SHORT-NAME>decel</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="e6d3d93b-d870-5c5a-a4ec-9114320580c2">
+              <SHORT-NAME>DiagCmd</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface DiagCmd</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="635cc1e1-d389-5e78-92d3-4d5233ffd136">
+                  <SHORT-NAME>cmd</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="ff7b749a-b3b0-581f-98bf-838effd155e4">
+              <SHORT-NAME>DoorCmd</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface DoorCmd</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="a760637c-6741-55e2-b4ab-f4c8daf7f863">
+                  <SHORT-NAME>lock</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="9255550a-d9e6-500e-b54c-1b06cca9f8b6">
+              <SHORT-NAME>EmisData</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface EmisData</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="efe390b8-0077-5678-a6e8-9033ad63fd5d">
+                  <SHORT-NAME>emis</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="32ffa6ae-af26-5915-bfae-9d55bfdc64be">
+              <SHORT-NAME>EngineCmd</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface EngineCmd</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="7ec00199-3d3e-57ae-9f23-1282b65c5229">
+                  <SHORT-NAME>torque</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="dfc380f4-681a-5181-8afa-60f5a4f4de21">
+              <SHORT-NAME>FwPolicy</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface FwPolicy</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="e2d86fc9-1325-5121-ad14-62788a91785e">
+                  <SHORT-NAME>rule</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="17f2a9c8-a02b-5b88-8859-4e8f2c93a9a2">
+              <SHORT-NAME>HvacCmd</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface HvacCmd</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="03c83f06-6085-5f34-990a-8abf39750513">
+                  <SHORT-NAME>temp</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="ff7acd89-f039-5c1a-85aa-cbe8938e025d">
+              <SHORT-NAME>LaneData</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface LaneData</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="4436fd0f-886e-56ac-9c92-6a5ff65912ac">
+                  <SHORT-NAME>lanes</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="c3b4c33c-1e07-5c39-98d6-1dbb1eaf4811">
+              <SHORT-NAME>LightCmd</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface LightCmd</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="3f452566-1d6d-53e8-8ec6-58669161e8dd">
+                  <SHORT-NAME>level</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="bbf91e45-6acf-5513-9f24-5b12a2a14e3b">
+              <SHORT-NAME>MediaReq</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface MediaReq</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="da7cb5eb-c88c-59f4-84a9-2d717d24caa9">
+                  <SHORT-NAME>payload</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="b71105a9-8f9a-5e86-bfa3-7f7d48f17d9c">
+              <SHORT-NAME>MediaStream</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface MediaStream</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="c2a90207-afa2-505a-ac0a-caae3afdd96a">
+                  <SHORT-NAME>stream</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="9e89e07f-40c3-5bf8-9200-ea314c2064c6">
+              <SHORT-NAME>NavRoute</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface NavRoute</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="1e7cb442-228b-501a-8fdf-53e87c9d9614">
+                  <SHORT-NAME>route</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="52a1cacc-7002-5c12-9777-e85c81b9adfd">
+              <SHORT-NAME>ObjData</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface ObjData</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="bdc34a27-cbe6-58f6-915e-24b72502f212">
+                  <SHORT-NAME>objects</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="2ff2c4e9-4491-57fd-9fa2-c48b909110e7">
+              <SHORT-NAME>OtaCmd</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface OtaCmd</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="275b5de8-6a34-5213-b039-27fea03163d5">
+                  <SHORT-NAME>pkg</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="6a61b809-2c61-504e-8b35-1feb8d372715">
+              <SHORT-NAME>RemoteSvc</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface RemoteSvc</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="f7635e4b-11b8-516b-97a7-c0a7689d9d6e">
+                  <SHORT-NAME>val</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="4372430f-4a02-5889-9248-24a4fae4d116">
+              <SHORT-NAME>SteerAngle</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface SteerAngle</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="2d3d4c9a-2007-575e-bc0a-a649f23266ed">
+                  <SHORT-NAME>angle</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="3399727d-337a-533a-85f7-d91f448479d7">
+              <SHORT-NAME>TailCmd</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface TailCmd</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="a5d4c72e-b768-5d07-ab6c-212f1c27ba66">
+                  <SHORT-NAME>level</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="b5ab4f41-5800-5f82-90c4-97bed9b3b2f3">
+              <SHORT-NAME>TransGear</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface TransGear</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="8cdfd660-944b-53f9-85a9-9917bbd615c9">
+                  <SHORT-NAME>gear</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE UUID="aac9481f-86ad-587f-90eb-bc95c9ef9779">
+              <SHORT-NAME>V2xMsg</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Sender/receiver interface V2xMsg</L-2>
+              </DESC>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE UUID="84983859-8fac-5b37-bbba-cf80d5806a58">
+                  <SHORT-NAME>msg</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/Platform/ImplementationDataTypes/Byte8Array</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+          </ELEMENTS>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR
+  xmlns="http://autosar.org/schema/r4.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00051.xsd">
+  <ADMIN-DATA>
+    <LANGUAGE>EN</LANGUAGE>
+    <DOC-REVISIONS>
+      <DOC-REVISION>
+        <REVISION-LABEL>1.0.0</REVISION-LABEL>
+        <ISSUED-BY>arxml-secdiff scenario generator</ISSUED-BY>
+        <DATE>2026-11-20T00:00:00Z</DATE>
+      </DOC-REVISION>
+    </DOC-REVISIONS>
+  </ADMIN-DATA>
+  <AR-PACKAGES>
+    <AR-PACKAGE UUID="821d2d9a-c5ac-5c73-bcaf-f29127530da5">
+      <SHORT-NAME>FV</SHORT-NAME>
+      <AR-PACKAGES>
+        <AR-PACKAGE UUID="c3835176-7dcc-5209-bd89-23d24300b660">
+          <SHORT-NAME>Comm</SHORT-NAME>
+          <ELEMENTS>
+            <I-SIGNAL-I-PDU UUID="092df271-7dff-5eae-9ef1-cb8a085be4ed">
+              <SHORT-NAME>BodyIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Authentic/plain I-PDU BodyIPdu</L-2>
+              </DESC>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING UUID="b9eb6493-2cbf-5fd8-a35e-c9574a49e4dc">
+                  <SHORT-NAME>BodyMap</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/FV/Comm/BodyISig</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+            <I-SIGNAL UUID="6a4aaab1-6b1b-59d7-9aed-6b824b05f216">
+              <SHORT-NAME>BodyISig</SHORT-NAME>
+              <LENGTH>64</LENGTH>
+              <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/FV/Comm/BodySSig</SYSTEM-SIGNAL-REF>
+            </I-SIGNAL>
+            <SYSTEM-SIGNAL UUID="f054b44c-eda5-5baa-bcc7-fc615f50a8e0">
+              <SHORT-NAME>BodySSig</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <I-SIGNAL-I-PDU UUID="1bb4b183-e9b9-574a-bebc-4776c9d6908e">
+              <SHORT-NAME>ComfortIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Authentic/plain I-PDU ComfortIPdu</L-2>
+              </DESC>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING UUID="fa9c48d6-6b64-5b2a-987d-d00bb90bd1f0">
+                  <SHORT-NAME>ComfortMap</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/FV/Comm/ComfortISig</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+            <I-SIGNAL UUID="109a9046-61e4-5d04-b91c-1c3638176ac6">
+              <SHORT-NAME>ComfortISig</SHORT-NAME>
+              <LENGTH>64</LENGTH>
+              <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/FV/Comm/ComfortSSig</SYSTEM-SIGNAL-REF>
+            </I-SIGNAL>
+            <SYSTEM-SIGNAL UUID="2f46b0ec-aacd-53d9-85ce-bd57192d64e6">
+              <SHORT-NAME>ComfortSSig</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <I-SIGNAL-I-PDU UUID="98282953-18ea-59b6-9fe3-b1829dc2acc1">
+              <SHORT-NAME>DecelIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Authentic/plain I-PDU DecelIPdu</L-2>
+              </DESC>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING UUID="1a80a05c-4699-50a9-b85b-7c61321de49a">
+                  <SHORT-NAME>DecelMap</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/FV/Comm/DecelISig</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+            <I-SIGNAL UUID="48d12e36-9c3a-5918-ad04-74e0c0148c44">
+              <SHORT-NAME>DecelISig</SHORT-NAME>
+              <LENGTH>64</LENGTH>
+              <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/FV/Comm/DecelSSig</SYSTEM-SIGNAL-REF>
+            </I-SIGNAL>
+            <SYSTEM-SIGNAL UUID="6d1ad1c2-8937-5b29-80be-231ed1fe3e6b">
+              <SHORT-NAME>DecelSSig</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <SECURED-I-PDU UUID="688894c0-11fc-5951-a6d4-faa393e2a56a">
+              <SHORT-NAME>DecelSecuredIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">SecOC secured I-PDU DecelSecuredIPdu</L-2>
+              </DESC>
+              <LENGTH>13</LENGTH>
+              <PAYLOAD-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_DecelIPdu</PAYLOAD-REF>
+              <SECURE-COMMUNICATION-PROPS>
+                <AUTH-ALGORITHM>CMAC</AUTH-ALGORITHM>
+                <AUTH-INFO-TX-LENGTH>32</AUTH-INFO-TX-LENGTH>
+                <DATA-ID>259</DATA-ID>
+                <FRESHNESS-VALUE-ID>4</FRESHNESS-VALUE-ID>
+                <FRESHNESS-VALUE-LENGTH>8</FRESHNESS-VALUE-LENGTH>
+                <FRESHNESS-VALUE-TX-LENGTH>8</FRESHNESS-VALUE-TX-LENGTH>
+              </SECURE-COMMUNICATION-PROPS>
+              <USE-AS-CRYPTOGRAPHIC-I-PDU>false</USE-AS-CRYPTOGRAPHIC-I-PDU>
+            </SECURED-I-PDU>
+            <I-SIGNAL-I-PDU UUID="a7061def-0b41-58db-af32-e142d5386863">
+              <SHORT-NAME>EngineIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Authentic/plain I-PDU EngineIPdu</L-2>
+              </DESC>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING UUID="d7233cdf-cfd9-52cb-b508-5b9a08ae89d8">
+                  <SHORT-NAME>EngineMap</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/FV/Comm/EngineISig</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+            <I-SIGNAL UUID="796c23a7-6e24-566b-ae9a-556a5ec26896">
+              <SHORT-NAME>EngineISig</SHORT-NAME>
+              <LENGTH>64</LENGTH>
+              <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/FV/Comm/EngineSSig</SYSTEM-SIGNAL-REF>
+            </I-SIGNAL>
+            <SYSTEM-SIGNAL UUID="ba8c2ce1-6a40-5c28-afd3-f11af2a62f9b">
+              <SHORT-NAME>EngineSSig</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <SECURED-I-PDU UUID="3d694498-1e46-50cf-b741-38abf4208bdf">
+              <SHORT-NAME>EngineSecuredIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">SecOC secured I-PDU EngineSecuredIPdu</L-2>
+              </DESC>
+              <LENGTH>13</LENGTH>
+              <PAYLOAD-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_EngineIPdu</PAYLOAD-REF>
+              <SECURE-COMMUNICATION-PROPS>
+                <AUTH-ALGORITHM>CMAC</AUTH-ALGORITHM>
+                <AUTH-INFO-TX-LENGTH>32</AUTH-INFO-TX-LENGTH>
+                <DATA-ID>260</DATA-ID>
+                <FRESHNESS-VALUE-ID>5</FRESHNESS-VALUE-ID>
+                <FRESHNESS-VALUE-LENGTH>8</FRESHNESS-VALUE-LENGTH>
+                <FRESHNESS-VALUE-TX-LENGTH>8</FRESHNESS-VALUE-TX-LENGTH>
+              </SECURE-COMMUNICATION-PROPS>
+              <USE-AS-CRYPTOGRAPHIC-I-PDU>false</USE-AS-CRYPTOGRAPHIC-I-PDU>
+            </SECURED-I-PDU>
+            <I-SIGNAL-I-PDU UUID="6264f5de-e004-5036-9fdc-a5be8970515f">
+              <SHORT-NAME>LightIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Authentic/plain I-PDU LightIPdu</L-2>
+              </DESC>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING UUID="a721ed0a-b2f6-5efd-803d-0a8fe8a85cd8">
+                  <SHORT-NAME>LightMap</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/FV/Comm/LightISig</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+            <I-SIGNAL UUID="729b12f7-909a-53f1-a6e7-491f31d36660">
+              <SHORT-NAME>LightISig</SHORT-NAME>
+              <LENGTH>64</LENGTH>
+              <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/FV/Comm/LightSSig</SYSTEM-SIGNAL-REF>
+            </I-SIGNAL>
+            <SYSTEM-SIGNAL UUID="bc80be18-9b46-5832-b1c3-ddd8e36e34c0">
+              <SHORT-NAME>LightSSig</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <I-SIGNAL-I-PDU UUID="1ef9e7bf-adc2-57a2-bfed-361d51203646">
+              <SHORT-NAME>NavIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Authentic/plain I-PDU NavIPdu</L-2>
+              </DESC>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING UUID="e705490c-f881-545a-bfa4-d23f5ee21b14">
+                  <SHORT-NAME>NavMap</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/FV/Comm/NavISig</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+            <I-SIGNAL UUID="02ad3117-d66f-5e76-a6ea-1d5c04a13f39">
+              <SHORT-NAME>NavISig</SHORT-NAME>
+              <LENGTH>64</LENGTH>
+              <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/FV/Comm/NavSSig</SYSTEM-SIGNAL-REF>
+            </I-SIGNAL>
+            <SYSTEM-SIGNAL UUID="676114c5-b82d-59b9-b51b-742f157c6ef4">
+              <SHORT-NAME>NavSSig</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <SECURED-I-PDU UUID="1e6e0299-58b2-576f-877d-3b0c293d2ab7">
+              <SHORT-NAME>NavSecuredIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">SecOC secured I-PDU NavSecuredIPdu</L-2>
+              </DESC>
+              <LENGTH>13</LENGTH>
+              <PAYLOAD-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_NavIPdu</PAYLOAD-REF>
+              <SECURE-COMMUNICATION-PROPS>
+                <AUTH-ALGORITHM>CMAC</AUTH-ALGORITHM>
+                <AUTH-INFO-TX-LENGTH>32</AUTH-INFO-TX-LENGTH>
+                <DATA-ID>256</DATA-ID>
+                <FRESHNESS-VALUE-ID>1</FRESHNESS-VALUE-ID>
+                <FRESHNESS-VALUE-LENGTH>8</FRESHNESS-VALUE-LENGTH>
+                <FRESHNESS-VALUE-TX-LENGTH>8</FRESHNESS-VALUE-TX-LENGTH>
+              </SECURE-COMMUNICATION-PROPS>
+              <USE-AS-CRYPTOGRAPHIC-I-PDU>false</USE-AS-CRYPTOGRAPHIC-I-PDU>
+            </SECURED-I-PDU>
+            <I-SIGNAL-I-PDU UUID="9b0536e5-60f1-55d9-a6d2-e364dd729f68">
+              <SHORT-NAME>OtaIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Authentic/plain I-PDU OtaIPdu</L-2>
+              </DESC>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING UUID="89691e6e-6ada-56fd-9ab2-8004759caa57">
+                  <SHORT-NAME>OtaMap</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/FV/Comm/OtaISig</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+            <I-SIGNAL UUID="c11a3472-6f69-537f-b1fd-d9c757350bba">
+              <SHORT-NAME>OtaISig</SHORT-NAME>
+              <LENGTH>64</LENGTH>
+              <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/FV/Comm/OtaSSig</SYSTEM-SIGNAL-REF>
+            </I-SIGNAL>
+            <SYSTEM-SIGNAL UUID="03a496d1-e21f-5546-9532-a6c2c2b1c1d2">
+              <SHORT-NAME>OtaSSig</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <I-SIGNAL-I-PDU UUID="2338d5b3-42d6-5e0b-b4dc-93a572dd3921">
+              <SHORT-NAME>TcuGwIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Authentic/plain I-PDU TcuGwIPdu</L-2>
+              </DESC>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING UUID="90473f0f-390c-585b-bb3d-636afb8be7c7">
+                  <SHORT-NAME>TcuGwMap</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/FV/Comm/TcuGwISig</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+            <I-SIGNAL UUID="5a077ac2-d99d-5d9c-9557-d5f00917d2f4">
+              <SHORT-NAME>TcuGwISig</SHORT-NAME>
+              <LENGTH>64</LENGTH>
+              <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/FV/Comm/TcuGwSSig</SYSTEM-SIGNAL-REF>
+            </I-SIGNAL>
+            <SYSTEM-SIGNAL UUID="872668e8-e199-5c2b-a3a0-362dd6cd9c6c">
+              <SHORT-NAME>TcuGwSSig</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <SECURED-I-PDU UUID="06f2777e-d4a6-5ee6-b50e-d2a957be1336">
+              <SHORT-NAME>TcuGwSecuredIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">SecOC secured I-PDU TcuGwSecuredIPdu</L-2>
+              </DESC>
+              <LENGTH>13</LENGTH>
+              <PAYLOAD-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_TcuGwIPdu</PAYLOAD-REF>
+              <SECURE-COMMUNICATION-PROPS>
+                <AUTH-ALGORITHM>CMAC</AUTH-ALGORITHM>
+                <AUTH-INFO-TX-LENGTH>32</AUTH-INFO-TX-LENGTH>
+                <DATA-ID>257</DATA-ID>
+                <FRESHNESS-VALUE-ID>2</FRESHNESS-VALUE-ID>
+                <FRESHNESS-VALUE-LENGTH>8</FRESHNESS-VALUE-LENGTH>
+                <FRESHNESS-VALUE-TX-LENGTH>8</FRESHNESS-VALUE-TX-LENGTH>
+              </SECURE-COMMUNICATION-PROPS>
+              <USE-AS-CRYPTOGRAPHIC-I-PDU>false</USE-AS-CRYPTOGRAPHIC-I-PDU>
+            </SECURED-I-PDU>
+            <I-SIGNAL-I-PDU UUID="4aa6db6a-6a21-5f43-a94d-ee13c759b297">
+              <SHORT-NAME>V2xIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">Authentic/plain I-PDU V2xIPdu</L-2>
+              </DESC>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING UUID="242b401d-d1e6-5d14-ab40-81ffb9fece8b">
+                  <SHORT-NAME>V2xMap</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/FV/Comm/V2xISig</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+            <I-SIGNAL UUID="191a0832-3422-5bc9-bd3b-e4db72c39746">
+              <SHORT-NAME>V2xISig</SHORT-NAME>
+              <LENGTH>64</LENGTH>
+              <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/FV/Comm/V2xSSig</SYSTEM-SIGNAL-REF>
+            </I-SIGNAL>
+            <SYSTEM-SIGNAL UUID="b3cfc2a7-8c0a-564f-8592-9525181bab45">
+              <SHORT-NAME>V2xSSig</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <SECURED-I-PDU UUID="0526c6bf-d8f1-507d-a6e2-7f8b1c2a92a3">
+              <SHORT-NAME>V2xSecuredIPdu</SHORT-NAME>
+              <DESC>
+                <L-2 L="EN">SecOC secured I-PDU V2xSecuredIPdu</L-2>
+              </DESC>
+              <LENGTH>13</LENGTH>
+              <PAYLOAD-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_V2xIPdu</PAYLOAD-REF>
+              <SECURE-COMMUNICATION-PROPS>
+                <AUTH-ALGORITHM>CMAC</AUTH-ALGORITHM>
+                <AUTH-INFO-TX-LENGTH>32</AUTH-INFO-TX-LENGTH>
+                <DATA-ID>258</DATA-ID>
+                <FRESHNESS-VALUE-ID>3</FRESHNESS-VALUE-ID>
+                <FRESHNESS-VALUE-LENGTH>8</FRESHNESS-VALUE-LENGTH>
+                <FRESHNESS-VALUE-TX-LENGTH>8</FRESHNESS-VALUE-TX-LENGTH>
+              </SECURE-COMMUNICATION-PROPS>
+              <USE-AS-CRYPTOGRAPHIC-I-PDU>false</USE-AS-CRYPTOGRAPHIC-I-PDU>
+            </SECURED-I-PDU>
+          </ELEMENTS>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

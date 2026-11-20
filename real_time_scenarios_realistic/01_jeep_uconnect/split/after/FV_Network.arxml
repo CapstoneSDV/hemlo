@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR
+  xmlns="http://autosar.org/schema/r4.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00051.xsd">
+  <ADMIN-DATA>
+    <LANGUAGE>EN</LANGUAGE>
+    <DOC-REVISIONS>
+      <DOC-REVISION>
+        <REVISION-LABEL>1.0.0</REVISION-LABEL>
+        <ISSUED-BY>arxml-secdiff scenario generator</ISSUED-BY>
+        <DATE>2026-11-20T00:00:00Z</DATE>
+      </DOC-REVISION>
+    </DOC-REVISIONS>
+  </ADMIN-DATA>
+  <AR-PACKAGES>
+    <AR-PACKAGE UUID="821d2d9a-c5ac-5c73-bcaf-f29127530da5">
+      <SHORT-NAME>FV</SHORT-NAME>
+      <AR-PACKAGES>
+        <AR-PACKAGE UUID="614fbe2f-0228-5b26-813b-c1cb065efb32">
+          <SHORT-NAME>Network</SHORT-NAME>
+          <ELEMENTS>
+            <CAN-CLUSTER UUID="3b5740ec-9e62-5704-9feb-fb1e2e90a0a7">
+              <SHORT-NAME>Backbone</SHORT-NAME>
+              <CAN-CLUSTER-VARIANTS>
+                <CAN-CLUSTER-CONDITIONAL>
+                  <BAUDRATE>500000</BAUDRATE>
+                  <PHYSICAL-CHANNELS>
+                    <CAN-PHYSICAL-CHANNEL UUID="e233f216-3e66-5d9a-9b42-973469ea04eb">
+                      <SHORT-NAME>Ch0</SHORT-NAME>
+                      <COMM-CONNECTORS>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/FV/Topology/AdasEcu/CanConn0</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/FV/Topology/BodyEcu/CanConn0</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/FV/Topology/ChassisEcu/CanConn0</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/FV/Topology/GatewayEcu/CanConn0</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/FV/Topology/IviEcu/CanConn0</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/FV/Topology/LightEcu/CanConn0</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/FV/Topology/PtEcu/CanConn0</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/FV/Topology/TelematicsEcu/CanConn0</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                      </COMM-CONNECTORS>
+                      <FRAME-TRIGGERINGS>
+                        <CAN-FRAME-TRIGGERING UUID="25070729-700c-50bd-b207-09fd9b88383c">
+                          <SHORT-NAME>FT_Frame_BodyIPdu</SHORT-NAME>
+                          <FRAME-PORT-REFS>
+                            <FRAME-PORT-REF DEST="FRAME-PORT">/FV/Topology/BodyEcu/CanConn0/FP_Frame_BodyIPdu_Rx</FRAME-PORT-REF>
+                            <FRAME-PORT-REF DEST="FRAME-PORT">/FV/Topology/GatewayEcu/CanConn0/FP_Frame_BodyIPdu_Tx</FRAME-PORT-REF>
+                          </FRAME-PORT-REFS>
+                          <FRAME-REF DEST="CAN-FRAME">/FV/Network/Frame_BodyIPdu</FRAME-REF>
+                          <PDU-TRIGGERINGS>
+                            <PDU-TRIGGERING-REF-CONDITIONAL>
+                              <PDU-TRIGGERING-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_BodyIPdu</PDU-TRIGGERING-REF>
+                            </PDU-TRIGGERING-REF-CONDITIONAL>
+                          </PDU-TRIGGERINGS>
+                          <CAN-ADDRESSING-MODE>STANDARD</CAN-ADDRESSING-MODE>
+                          <CAN-FRAME-RX-BEHAVIOR>CAN-FD</CAN-FRAME-RX-BEHAVIOR>
+                          <CAN-FRAME-TX-BEHAVIOR>CAN-FD</CAN-FRAME-TX-BEHAVIOR>
+                          <IDENTIFIER>256</IDENTIFIER>
+                        </CAN-FRAME-TRIGGERING>
+                        <CAN-FRAME-TRIGGERING UUID="66c725b1-7ec8-5a70-9ef3-6a46ae1d47cd">
+                          <SHORT-NAME>FT_Frame_ComfortIPdu</SHORT-NAME>
+                          <FRAME-PORT-REFS>
+                            <FRAME-PORT-REF DEST="FRAME-PORT">/FV/Topology/GatewayEcu/CanConn0/FP_Frame_ComfortIPdu_Tx</FRAME-PORT-REF>
+                          </FRAME-PORT-REFS>
+                          <FRAME-REF DEST="CAN-FRAME">/FV/Network/Frame_ComfortIPdu</FRAME-REF>
+                          <PDU-TRIGGERINGS>
+                            <PDU-TRIGGERING-REF-CONDITIONAL>
+                              <PDU-TRIGGERING-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_ComfortIPdu</PDU-TRIGGERING-REF>
+                            </PDU-TRIGGERING-REF-CONDITIONAL>
+                          </PDU-TRIGGERINGS>
+                          <CAN-ADDRESSING-MODE>STANDARD</CAN-ADDRESSING-MODE>
+                          <CAN-FRAME-RX-BEHAVIOR>CAN-FD</CAN-FRAME-RX-BEHAVIOR>
+                          <CAN-FRAME-TX-BEHAVIOR>CAN-FD</CAN-FRAME-TX-BEHAVIOR>
+                          <IDENTIFIER>257</IDENTIFIER>
+                        </CAN-FRAME-TRIGGERING>
+                        <CAN-FRAME-TRIGGERING UUID="6a89841f-317c-5d26-822c-ceca0d89bfb2">
+                          <SHORT-NAME>FT_Frame_DecelSecuredIPdu</SHORT-NAME>
+                          <FRAME-REF DEST="CAN-FRAME">/FV/Network/Frame_DecelSecuredIPdu</FRAME-REF>
+                          <PDU-TRIGGERINGS>
+                            <PDU-TRIGGERING-REF-CONDITIONAL>
+                              <PDU-TRIGGERING-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_DecelSecuredIPdu</PDU-TRIGGERING-REF>
+                            </PDU-TRIGGERING-REF-CONDITIONAL>
+                          </PDU-TRIGGERINGS>
+                          <CAN-ADDRESSING-MODE>STANDARD</CAN-ADDRESSING-MODE>
+                          <CAN-FRAME-RX-BEHAVIOR>CAN-FD</CAN-FRAME-RX-BEHAVIOR>
+                          <CAN-FRAME-TX-BEHAVIOR>CAN-FD</CAN-FRAME-TX-BEHAVIOR>
+                          <IDENTIFIER>258</IDENTIFIER>
+                        </CAN-FRAME-TRIGGERING>
+                        <CAN-FRAME-TRIGGERING UUID="b97b48be-cb02-5bf4-b865-1267f951a303">
+                          <SHORT-NAME>FT_Frame_EngineSecuredIPdu</SHORT-NAME>
+                          <FRAME-REF DEST="CAN-FRAME">/FV/Network/Frame_EngineSecuredIPdu</FRAME-REF>
+                          <PDU-TRIGGERINGS>
+                            <PDU-TRIGGERING-REF-CONDITIONAL>
+                              <PDU-TRIGGERING-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_EngineSecuredIPdu</PDU-TRIGGERING-REF>
+                            </PDU-TRIGGERING-REF-CONDITIONAL>
+                          </PDU-TRIGGERINGS>
+                          <CAN-ADDRESSING-MODE>STANDARD</CAN-ADDRESSING-MODE>
+                          <CAN-FRAME-RX-BEHAVIOR>CAN-FD</CAN-FRAME-RX-BEHAVIOR>
+                          <CAN-FRAME-TX-BEHAVIOR>CAN-FD</CAN-FRAME-TX-BEHAVIOR>
+                          <IDENTIFIER>259</IDENTIFIER>
+                        </CAN-FRAME-TRIGGERING>
+                        <CAN-FRAME-TRIGGERING UUID="d9dbdadd-a7a0-52de-844a-7dd525a672d8">
+                          <SHORT-NAME>FT_Frame_LightIPdu</SHORT-NAME>
+                          <FRAME-PORT-REFS>
+                            <FRAME-PORT-REF DEST="FRAME-PORT">/FV/Topology/GatewayEcu/CanConn0/FP_Frame_LightIPdu_Tx</FRAME-PORT-REF>
+                            <FRAME-PORT-REF DEST="FRAME-PORT">/FV/Topology/LightEcu/CanConn0/FP_Frame_LightIPdu_Rx</FRAME-PORT-REF>
+                          </FRAME-PORT-REFS>
+                          <FRAME-REF DEST="CAN-FRAME">/FV/Network/Frame_LightIPdu</FRAME-REF>
+                          <PDU-TRIGGERINGS>
+                            <PDU-TRIGGERING-REF-CONDITIONAL>
+                              <PDU-TRIGGERING-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_LightIPdu</PDU-TRIGGERING-REF>
+                            </PDU-TRIGGERING-REF-CONDITIONAL>
+                          </PDU-TRIGGERINGS>
+                          <CAN-ADDRESSING-MODE>STANDARD</CAN-ADDRESSING-MODE>
+                          <CAN-FRAME-RX-BEHAVIOR>CAN-FD</CAN-FRAME-RX-BEHAVIOR>
+                          <CAN-FRAME-TX-BEHAVIOR>CAN-FD</CAN-FRAME-TX-BEHAVIOR>
+                          <IDENTIFIER>260</IDENTIFIER>
+                        </CAN-FRAME-TRIGGERING>
+                        <CAN-FRAME-TRIGGERING UUID="3f28b87a-e512-5d7e-a214-8e978ad7e641">
+                          <SHORT-NAME>FT_Frame_NavSecuredIPdu</SHORT-NAME>
+                          <FRAME-REF DEST="CAN-FRAME">/FV/Network/Frame_NavSecuredIPdu</FRAME-REF>
+                          <PDU-TRIGGERINGS>
+                            <PDU-TRIGGERING-REF-CONDITIONAL>
+                              <PDU-TRIGGERING-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_NavSecuredIPdu</PDU-TRIGGERING-REF>
+                            </PDU-TRIGGERING-REF-CONDITIONAL>
+                          </PDU-TRIGGERINGS>
+                          <CAN-ADDRESSING-MODE>STANDARD</CAN-ADDRESSING-MODE>
+                          <CAN-FRAME-RX-BEHAVIOR>CAN-FD</CAN-FRAME-RX-BEHAVIOR>
+                          <CAN-FRAME-TX-BEHAVIOR>CAN-FD</CAN-FRAME-TX-BEHAVIOR>
+                          <IDENTIFIER>261</IDENTIFIER>
+                        </CAN-FRAME-TRIGGERING>
+                        <CAN-FRAME-TRIGGERING UUID="692d4401-5be9-5954-b32d-1bbf8c23b232">
+                          <SHORT-NAME>FT_Frame_OtaIPdu</SHORT-NAME>
+                          <FRAME-PORT-REFS>
+                            <FRAME-PORT-REF DEST="FRAME-PORT">/FV/Topology/GatewayEcu/CanConn0/FP_Frame_OtaIPdu_Rx</FRAME-PORT-REF>
+                            <FRAME-PORT-REF DEST="FRAME-PORT">/FV/Topology/TelematicsEcu/CanConn0/FP_Frame_OtaIPdu_Tx</FRAME-PORT-REF>
+                          </FRAME-PORT-REFS>
+                          <FRAME-REF DEST="CAN-FRAME">/FV/Network/Frame_OtaIPdu</FRAME-REF>
+                          <PDU-TRIGGERINGS>
+                            <PDU-TRIGGERING-REF-CONDITIONAL>
+                              <PDU-TRIGGERING-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_OtaIPdu</PDU-TRIGGERING-REF>
+                            </PDU-TRIGGERING-REF-CONDITIONAL>
+                          </PDU-TRIGGERINGS>
+                          <CAN-ADDRESSING-MODE>STANDARD</CAN-ADDRESSING-MODE>
+                          <CAN-FRAME-RX-BEHAVIOR>CAN-FD</CAN-FRAME-RX-BEHAVIOR>
+                          <CAN-FRAME-TX-BEHAVIOR>CAN-FD</CAN-FRAME-TX-BEHAVIOR>
+                          <IDENTIFIER>262</IDENTIFIER>
+                        </CAN-FRAME-TRIGGERING>
+                        <CAN-FRAME-TRIGGERING UUID="3f44c907-f261-58f7-afbb-c561f03a63a2">
+                          <SHORT-NAME>FT_Frame_TcuGwSecuredIPdu</SHORT-NAME>
+                          <FRAME-REF DEST="CAN-FRAME">/FV/Network/Frame_TcuGwSecuredIPdu</FRAME-REF>
+                          <PDU-TRIGGERINGS>
+                            <PDU-TRIGGERING-REF-CONDITIONAL>
+                              <PDU-TRIGGERING-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_TcuGwSecuredIPdu</PDU-TRIGGERING-REF>
+                            </PDU-TRIGGERING-REF-CONDITIONAL>
+                          </PDU-TRIGGERINGS>
+                          <CAN-ADDRESSING-MODE>STANDARD</CAN-ADDRESSING-MODE>
+                          <CAN-FRAME-RX-BEHAVIOR>CAN-FD</CAN-FRAME-RX-BEHAVIOR>
+                          <CAN-FRAME-TX-BEHAVIOR>CAN-FD</CAN-FRAME-TX-BEHAVIOR>
+                          <IDENTIFIER>263</IDENTIFIER>
+                        </CAN-FRAME-TRIGGERING>
+                        <CAN-FRAME-TRIGGERING UUID="67cd5b10-5237-5b30-827c-f4773209619b">
+                          <SHORT-NAME>FT_Frame_V2xSecuredIPdu</SHORT-NAME>
+                          <FRAME-REF DEST="CAN-FRAME">/FV/Network/Frame_V2xSecuredIPdu</FRAME-REF>
+                          <PDU-TRIGGERINGS>
+                            <PDU-TRIGGERING-REF-CONDITIONAL>
+                              <PDU-TRIGGERING-REF DEST="PDU-TRIGGERING">/FV/Network/Backbone/Ch0/Trg_V2xSecuredIPdu</PDU-TRIGGERING-REF>
+                            </PDU-TRIGGERING-REF-CONDITIONAL>
+                          </PDU-TRIGGERINGS>
+                          <CAN-ADDRESSING-MODE>STANDARD</CAN-ADDRESSING-MODE>
+                          <CAN-FRAME-RX-BEHAVIOR>CAN-FD</CAN-FRAME-RX-BEHAVIOR>
+                          <CAN-FRAME-TX-BEHAVIOR>CAN-FD</CAN-FRAME-TX-BEHAVIOR>
+                          <IDENTIFIER>264</IDENTIFIER>
+                        </CAN-FRAME-TRIGGERING>
+                      </FRAME-TRIGGERINGS>
+                      <PDU-TRIGGERINGS>
+                        <PDU-TRIGGERING UUID="1dead1b4-725c-54f6-a702-e141df83f988">
+                          <SHORT-NAME>Trg_BodyIPdu</SHORT-NAME>
+                          <I-PDU-PORT-REFS>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/BodyEcu/CanConn0/PP_BodyIPdu_Rx</I-PDU-PORT-REF>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/GatewayEcu/CanConn0/PP_BodyIPdu_Tx</I-PDU-PORT-REF>
+                          </I-PDU-PORT-REFS>
+                          <I-PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/BodyIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="959edb7e-30f6-5566-967e-f17247bfbf96">
+                          <SHORT-NAME>Trg_ComfortIPdu</SHORT-NAME>
+                          <I-PDU-PORT-REFS>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/GatewayEcu/CanConn0/PP_ComfortIPdu_Tx</I-PDU-PORT-REF>
+                          </I-PDU-PORT-REFS>
+                          <I-PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/ComfortIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="3c021d7c-6020-5e67-98d1-a4eba5f4317a">
+                          <SHORT-NAME>Trg_DecelIPdu</SHORT-NAME>
+                          <I-PDU-PORT-REFS>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/AdasEcu/CanConn0/PP_DecelIPdu_Tx</I-PDU-PORT-REF>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/ChassisEcu/CanConn0/PP_DecelIPdu_Rx</I-PDU-PORT-REF>
+                          </I-PDU-PORT-REFS>
+                          <I-PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/DecelIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="52c73079-8993-566a-bae5-55ae0c615734">
+                          <SHORT-NAME>Trg_DecelSecuredIPdu</SHORT-NAME>
+                          <I-PDU-REF DEST="SECURED-I-PDU">/FV/Comm/DecelSecuredIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="a1f0929e-70a4-5bab-a5e4-c735293a3283">
+                          <SHORT-NAME>Trg_EngineIPdu</SHORT-NAME>
+                          <I-PDU-PORT-REFS>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/GatewayEcu/CanConn0/PP_EngineIPdu_Tx</I-PDU-PORT-REF>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/PtEcu/CanConn0/PP_EngineIPdu_Rx</I-PDU-PORT-REF>
+                          </I-PDU-PORT-REFS>
+                          <I-PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/EngineIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="31abc2c8-c650-5402-b1ae-e72e617a19a4">
+                          <SHORT-NAME>Trg_EngineSecuredIPdu</SHORT-NAME>
+                          <I-PDU-REF DEST="SECURED-I-PDU">/FV/Comm/EngineSecuredIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="f6552ec3-c0a1-580f-8934-4f2c9550ab12">
+                          <SHORT-NAME>Trg_LightIPdu</SHORT-NAME>
+                          <I-PDU-PORT-REFS>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/GatewayEcu/CanConn0/PP_LightIPdu_Tx</I-PDU-PORT-REF>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/LightEcu/CanConn0/PP_LightIPdu_Rx</I-PDU-PORT-REF>
+                          </I-PDU-PORT-REFS>
+                          <I-PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/LightIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="08b02aee-38ad-52a9-be82-a507a1fa351c">
+                          <SHORT-NAME>Trg_NavIPdu</SHORT-NAME>
+                          <I-PDU-PORT-REFS>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/GatewayEcu/CanConn0/PP_NavIPdu_Rx</I-PDU-PORT-REF>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/IviEcu/CanConn0/PP_NavIPdu_Tx</I-PDU-PORT-REF>
+                          </I-PDU-PORT-REFS>
+                          <I-PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/NavIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="7abbb496-9216-58c6-8ec7-e7f22e8c13b1">
+                          <SHORT-NAME>Trg_NavSecuredIPdu</SHORT-NAME>
+                          <I-PDU-REF DEST="SECURED-I-PDU">/FV/Comm/NavSecuredIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="9c4bf933-242a-562e-aa6c-06c48662a543">
+                          <SHORT-NAME>Trg_OtaIPdu</SHORT-NAME>
+                          <I-PDU-PORT-REFS>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/GatewayEcu/CanConn0/PP_OtaIPdu_Rx</I-PDU-PORT-REF>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/TelematicsEcu/CanConn0/PP_OtaIPdu_Tx</I-PDU-PORT-REF>
+                          </I-PDU-PORT-REFS>
+                          <I-PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/OtaIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="8e8bd9d5-1b7b-5a12-b823-cc95821c3deb">
+                          <SHORT-NAME>Trg_TcuGwIPdu</SHORT-NAME>
+                          <I-PDU-PORT-REFS>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/GatewayEcu/CanConn0/PP_TcuGwIPdu_Rx</I-PDU-PORT-REF>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/TelematicsEcu/CanConn0/PP_TcuGwIPdu_Tx</I-PDU-PORT-REF>
+                          </I-PDU-PORT-REFS>
+                          <I-PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/TcuGwIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="074b6594-f1e3-5680-b70a-de224b84e24f">
+                          <SHORT-NAME>Trg_TcuGwSecuredIPdu</SHORT-NAME>
+                          <I-PDU-REF DEST="SECURED-I-PDU">/FV/Comm/TcuGwSecuredIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="9aff3703-1764-5550-83b8-0e5f2d89f4f8">
+                          <SHORT-NAME>Trg_V2xIPdu</SHORT-NAME>
+                          <I-PDU-PORT-REFS>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/GatewayEcu/CanConn0/PP_V2xIPdu_Rx</I-PDU-PORT-REF>
+                            <I-PDU-PORT-REF DEST="I-PDU-PORT">/FV/Topology/TelematicsEcu/CanConn0/PP_V2xIPdu_Tx</I-PDU-PORT-REF>
+                          </I-PDU-PORT-REFS>
+                          <I-PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/V2xIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                        <PDU-TRIGGERING UUID="17afdc4c-3d67-501e-9e4a-50caadb7fb1c">
+                          <SHORT-NAME>Trg_V2xSecuredIPdu</SHORT-NAME>
+                          <I-PDU-REF DEST="SECURED-I-PDU">/FV/Comm/V2xSecuredIPdu</I-PDU-REF>
+                        </PDU-TRIGGERING>
+                      </PDU-TRIGGERINGS>
+                    </CAN-PHYSICAL-CHANNEL>
+                  </PHYSICAL-CHANNELS>
+                  <CAN-FD-BAUDRATE>2000000</CAN-FD-BAUDRATE>
+                </CAN-CLUSTER-CONDITIONAL>
+              </CAN-CLUSTER-VARIANTS>
+            </CAN-CLUSTER>
+            <CAN-FRAME UUID="a0c1a4c0-f474-579d-81da-4c8faa1aea0b">
+              <SHORT-NAME>Frame_BodyIPdu</SHORT-NAME>
+              <FRAME-LENGTH>8</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING UUID="b86b050d-e084-56e9-bfb3-f3335ad6c83e">
+                  <SHORT-NAME>Map_BodyIPdu</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/BodyIPdu</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+            <CAN-FRAME UUID="580f2ecf-4613-5e2e-b1b9-3746cfc7e4e3">
+              <SHORT-NAME>Frame_ComfortIPdu</SHORT-NAME>
+              <FRAME-LENGTH>8</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING UUID="e5900909-44a9-5e67-9d5a-d3690a719afd">
+                  <SHORT-NAME>Map_ComfortIPdu</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/ComfortIPdu</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+            <CAN-FRAME UUID="4f8255ee-69ad-5516-acc1-fc4fb99284a8">
+              <SHORT-NAME>Frame_DecelSecuredIPdu</SHORT-NAME>
+              <FRAME-LENGTH>16</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING UUID="7b63ec2d-2194-564d-a588-b59b1e4fc957">
+                  <SHORT-NAME>Map_DecelSecuredIPdu</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="SECURED-I-PDU">/FV/Comm/DecelSecuredIPdu</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+            <CAN-FRAME UUID="48b24284-70d2-5314-aaf9-224975d9c795">
+              <SHORT-NAME>Frame_EngineSecuredIPdu</SHORT-NAME>
+              <FRAME-LENGTH>16</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING UUID="4ec3ba8d-ad5f-5f03-8e95-63b91cbc9ab6">
+                  <SHORT-NAME>Map_EngineSecuredIPdu</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="SECURED-I-PDU">/FV/Comm/EngineSecuredIPdu</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+            <CAN-FRAME UUID="3603a26b-b5e8-5e13-adc2-b453915470ec">
+              <SHORT-NAME>Frame_LightIPdu</SHORT-NAME>
+              <FRAME-LENGTH>8</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING UUID="916caae4-21f7-5cb3-a3b1-4d7586e73ab2">
+                  <SHORT-NAME>Map_LightIPdu</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/LightIPdu</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+            <CAN-FRAME UUID="0576c14c-5a99-56e6-803c-c92c23ebcf9b">
+              <SHORT-NAME>Frame_NavSecuredIPdu</SHORT-NAME>
+              <FRAME-LENGTH>16</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING UUID="d700096b-b6a6-565d-af99-b439cc5191ab">
+                  <SHORT-NAME>Map_NavSecuredIPdu</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="SECURED-I-PDU">/FV/Comm/NavSecuredIPdu</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+            <CAN-FRAME UUID="da671e13-e3d6-551b-af53-3c82eb557e7e">
+              <SHORT-NAME>Frame_OtaIPdu</SHORT-NAME>
+              <FRAME-LENGTH>8</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING UUID="9b66d006-22dd-5aca-b5f8-f8b923f6c499">
+                  <SHORT-NAME>Map_OtaIPdu</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="I-SIGNAL-I-PDU">/FV/Comm/OtaIPdu</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+            <CAN-FRAME UUID="8a7beb82-5e26-5e85-a92f-ac1aa2b410f6">
+              <SHORT-NAME>Frame_TcuGwSecuredIPdu</SHORT-NAME>
+              <FRAME-LENGTH>16</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING UUID="d62b976c-b9cc-509e-ac38-67ecddd9cb46">
+                  <SHORT-NAME>Map_TcuGwSecuredIPdu</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="SECURED-I-PDU">/FV/Comm/TcuGwSecuredIPdu</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+            <CAN-FRAME UUID="129ab46b-390e-5554-924d-2118e58c260e">
+              <SHORT-NAME>Frame_V2xSecuredIPdu</SHORT-NAME>
+              <FRAME-LENGTH>16</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING UUID="e50b089b-f165-5e4c-9c9d-aba6699e62e3">
+                  <SHORT-NAME>Map_V2xSecuredIPdu</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="SECURED-I-PDU">/FV/Comm/V2xSecuredIPdu</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+          </ELEMENTS>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

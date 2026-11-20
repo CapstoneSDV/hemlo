@@ -133,11 +133,22 @@ arxml-secdiff real_time_scenarios/01_jeep_uconnect/before.arxml real_time_scenar
 arxml-secdiff real_time_scenarios/02_bmw_connecteddrive/before.arxml real_time_scenarios/02_bmw_connecteddrive/after.arxml --roles real_time_scenarios/02_bmw_connecteddrive/roles.yaml
 ```
 
-#### B. Run the Full Real-Time Evaluation Suite (All 13 Scenarios)
+#### B. Run the Automated Scenario Test Suite (All 13 Benchmark Scenarios)
+
+Use `test_all_scenarios.py` to run the pipeline across all 13 automotive benchmark scenarios, compare verdicts against ground truth, and display formatted timings and findings:
+
 ```bash
-python real_time_scenarios/run_all_scenarios.py
+# Run all 13 scenarios on the realistic enterprise dataset (default)
+python test_all_scenarios.py
+
+# Run across both original and realistic datasets
+python test_all_scenarios.py --dataset all
+
+# Export full benchmarking results and timings to a JSON report
+python test_all_scenarios.py --json scenario_results.json
 ```
-This executes all 13 automotive scenarios and prints a formatted summary table showing gate verdicts (`BLOCK`, `FLAG`, `PASS`), execution timings, and ISO/SAE 21434 risk findings.
+
+*(You can also run the legacy runner via `python real_time_scenarios/run_all_scenarios.py`)*
 
 #### C. Run the Comprehensive Unit Test Suite
 ```bash
@@ -164,17 +175,19 @@ hemlo/
 │   ├── severity.py             # Stage 5A: ISO/SAE 21434 Risk Matrix scoring
 │   ├── gate.py                 # Stage 5B: Automated release gate verdict engine
 │   └── findings.py             # Audit trail & structured findings generation
-├── real_time_scenarios/        # 13 real-world CVE benchmark scenarios
+├── real_time_scenarios/        # 13 real-world CVE benchmark scenarios (original)
 │   ├── 01_jeep_uconnect/       # Jeep remote exploit (2015)
 │   ├── 02_bmw_connecteddrive/  # BMW TCU-to-gateway passthrough (2018)
 │   ├── 03_tesla_2016_fix/      # Tesla OTA code-signing fix (control case)
 │   └── ...                     # Additional OEM real-world benchmark cases
+├── real_time_scenarios_realistic/# Enterprise AUTOSAR R20-11 validated benchmark dataset
 ├── web_gui/
 │   └── next-app/               # Modern Next.js + React Flow + shadcn/ui Web GUI
 │       ├── app/page.tsx        # 5-stage bidirectional stepper GUI
 │       ├── components/
 │       │   └── TopologyFlow.tsx# React Flow + Dagre topological architecture canvas
 │       └── app/api/pipeline/   # API route executing backend Python pipeline
+├── test_all_scenarios.py       # Automated runner for all 13 scenarios with validation & timings
 ├── RUNBOOK.md                  # This setup and runbook guide
 └── PIPELINE_EXPLANATION.md     # 4-part deep-dive presentation guide for teammates
 ```
