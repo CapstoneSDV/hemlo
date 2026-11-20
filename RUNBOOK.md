@@ -109,8 +109,9 @@ pnpm dev --port 3000
 👉 **[http://localhost:3000](http://localhost:3000)**
 
 #### What You Can Do in the Web GUI:
+* **Dataset Folder Selector**: Click the **"📁 Dataset"** button in the toolbar to switch dynamically between the enterprise **Realistic Dataset (Enterprise R20-11)**, the **Original Benchmark**, or type any custom directory path containing scenario sub-folders.
 * **Scenario Dropdown**: Select any of the **13 real-world CVE automotive benchmark scenarios** (e.g., Jeep Cherokee Uconnect remote exploit, BMW ConnectedDrive TCU diagnostic bypass, Toyota CAN injection, Tesla OTA signing fix).
-* **Browse Local Files**: Click **"Browse Local Files"** to upload your own pair of `before.arxml` and `after.arxml` files.
+* **Upload Files**: Click **"Upload Files"** to upload custom `before.arxml`, `after.arxml`, and optional `roles.yaml` files.
 * **5-Stage Bidirectional Stepper**:
   * **Stage 1**: Parse & AST Indexing (component prototypes, bus interfaces, ECU mappings).
   * **Stage 2**: Graph Construction (interactive React Flow topological canvas with **Fullscreen**, **Zoom Controls**, and **Horizontal/Vertical layout toggles**).

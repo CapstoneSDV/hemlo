@@ -16,7 +16,8 @@ def main():
     try:
         if action == 'stages':
             scenario_id = sys.argv[2]
-            data = server.run_pipeline_stages(scenario_id)
+            dataset_dir = sys.argv[3] if len(sys.argv) > 3 else None
+            data = server.run_pipeline_stages(scenario_id, dataset_dir)
         elif action == 'paths':
             bef = sys.argv[2]
             aft = sys.argv[3]

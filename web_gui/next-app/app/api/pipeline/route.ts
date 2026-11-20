@@ -4,7 +4,8 @@ import path from "path";
 import fs from "fs";
 
 const ROOT_DIR = path.resolve(process.cwd(), "..", "..");
-const SCENARIOS_DIR = path.join(ROOT_DIR, "real_time_scenarios");
+const DEFAULT_DATASET = "real_time_scenarios_realistic";
+const SCENARIOS_DIR = path.join(ROOT_DIR, DEFAULT_DATASET);
 // Use runtime-only values so Turbopack doesn't try to resolve these as modules
 function getPythonPath(): string {
   return process.env.PYTHON_PATH || "python";
@@ -67,14 +68,27 @@ function runPython(args: string[]): Promise<NextResponse> {
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const { searchParams } = new URL(req.url);
   const action = searchParams.get("action");
+  const folder = searchParams.get("folder") || DEFAULT_DATASET;
+
+  if (action === "datasets") {
+    const candidates = [
+      { id: "real_time_scenarios_realistic", name: "Realistic (Enterprise R20-11)" },
+      { id: "real_time_scenarios", name: "Original Benchmark" },
+    ];
+    return NextResponse.json(candidates);
+  }
 
   if (action === "scenarios") {
     try {
+      const targetDir = path.isAbsolute(folder)
+        ? folder
+        : path.join(ROOT_DIR, folder);
+
       const scenarios: { id: string; title: string; path: string }[] = [];
-      if (fs.existsSync(SCENARIOS_DIR)) {
-        const dirs = fs.readdirSync(SCENARIOS_DIR).sort();
+      if (fs.existsSync(targetDir)) {
+        const dirs = fs.readdirSync(targetDir).sort();
         for (const d of dirs) {
-          const fullPath = path.join(SCENARIOS_DIR, d);
+          const fullPath = path.join(targetDir, d);
           if (
             fs.statSync(fullPath).isDirectory() &&
             fs.existsSync(path.join(fullPath, "before.arxml"))
@@ -104,7 +118,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   }
 
   const scenario = searchParams.get("scenario") || "01_jeep_uconnect";
-  return runPython(["stages", scenario]);
+  const runArgs = ["stages", scenario];
+  if (folder) {
+    runArgs.push(folder);
+  }
+  return runPython(runArgs);
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {

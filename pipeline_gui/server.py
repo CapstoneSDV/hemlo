@@ -17,14 +17,41 @@ sys.path.insert(0, str(ROOT))
 from arxml_secdiff import parser, graph, secoc, diff, reach, roles, severity, gate, findings
 
 PORT = 8080
-SCENARIOS_DIR = ROOT / 'real_time_scenarios'
+DEFAULT_DATASET = 'real_time_scenarios_realistic'
+SCENARIOS_DIR = ROOT / DEFAULT_DATASET
 UPLOAD_DIR = Path(tempfile.gettempdir()) / 'arxml_secdiff_uploads'
 UPLOAD_DIR.mkdir(exist_ok=True)
 
-def list_scenarios():
+def resolve_dataset_dir(dataset: str | None = None) -> Path:
+    if not dataset or dataset.strip() == "":
+        dataset = DEFAULT_DATASET
+    p = Path(dataset)
+    if not p.is_absolute():
+        p = ROOT / p
+    return p
+
+def list_datasets():
+    datasets = []
+    candidates = [
+        ("real_time_scenarios_realistic", "Realistic Dataset (Enterprise R20-11)"),
+        ("real_time_scenarios", "Original Benchmark (13 Scenarios)"),
+    ]
+    for folder_name, label in candidates:
+        fp = ROOT / folder_name
+        if fp.is_dir():
+            datasets.append({"id": folder_name, "label": label, "path": str(fp)})
+    for item in sorted(ROOT.iterdir()):
+        if item.is_dir() and item.name not in [c[0] for c in candidates] and not item.name.startswith(('.', '__')):
+            has_scenarios = any((sub / 'before.arxml').exists() for sub in item.iterdir() if sub.is_dir())
+            if has_scenarios:
+                datasets.append({"id": item.name, "label": item.name, "path": str(item)})
+    return datasets
+
+def list_scenarios(dataset: str | None = None):
+    scenarios_dir = resolve_dataset_dir(dataset)
     scenarios = []
-    if SCENARIOS_DIR.exists():
-        for d in sorted(SCENARIOS_DIR.iterdir()):
+    if scenarios_dir.exists():
+        for d in sorted(scenarios_dir.iterdir()):
             if d.is_dir() and (d / 'before.arxml').exists():
                 notes_file = d / 'NOTES.md'
                 title = d.name
@@ -262,13 +289,15 @@ def run_pipeline_paths(bef_path, aft_path, roles_path=None):
         "stage5_gate": stage5
     }
 
-def run_pipeline_stages(scenario_id):
-    scenario_path = SCENARIOS_DIR / scenario_id
+def run_pipeline_stages(scenario_id, dataset_dir=None):
+    base_dir = resolve_dataset_dir(dataset_dir)
+    scenario_path = base_dir / scenario_id
     bef_path = scenario_path / 'before.arxml'
     aft_path = scenario_path / 'after.arxml'
     roles_path = scenario_path / 'roles.yaml'
     res = run_pipeline_paths(bef_path, aft_path, roles_path)
     res["scenario_id"] = scenario_id
+    res["dataset"] = str(base_dir.name)
     return res
 
 class PipelineHandler(http.server.SimpleHTTPRequestHandler):
@@ -313,18 +342,28 @@ class PipelineHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
             return
         return super().do_POST()
+
+    def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
-        if parsed.path == '/api/scenarios':
+        qs = urllib.parse.parse_qs(parsed.query)
+        if parsed.path == '/api/datasets':
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
-            self.wfile.write(json.dumps(list_scenarios()).encode('utf-8'))
+            self.wfile.write(json.dumps(list_datasets()).encode('utf-8'))
+            return
+        elif parsed.path == '/api/scenarios':
+            folder = qs.get('folder', [None])[0]
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(list_scenarios(folder)).encode('utf-8'))
             return
         elif parsed.path == '/api/run':
-            qs = urllib.parse.parse_qs(parsed.query)
             scenario_id = qs.get('scenario', ['01_jeep_uconnect'])[0]
+            folder = qs.get('folder', [None])[0]
             try:
-                data = run_pipeline_stages(scenario_id)
+                data = run_pipeline_stages(scenario_id, folder)
                 self.send_response(200)
                 self.send_header('Content-Type', 'application/json')
                 self.end_headers()

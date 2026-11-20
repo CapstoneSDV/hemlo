@@ -31,6 +31,7 @@ import {
   Unlock,
   Layers,
   ChevronRight,
+  ChevronDown,
   Cpu,
   Route,
   Activity,
@@ -50,6 +51,9 @@ interface Scenario {
 }
 
 export default function PipelineApp() {
+  const [selectedFolder, setSelectedFolder] = useState("real_time_scenarios_realistic");
+  const [customFolderInput, setCustomFolderInput] = useState("");
+  const [isCustomFolder, setIsCustomFolder] = useState(false);
   const [scenarios, setScenarios] = useState<Scenario[]>([]);
   const [selectedScenario, setSelectedScenario] = useState("01_jeep_uconnect");
   const [pipelineData, setPipelineData] = useState<any>(null);
@@ -58,6 +62,7 @@ export default function PipelineApp() {
   const [graphVersion, setGraphVersion] = useState<"updated" | "before">("updated");
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [uploadOpen, setUploadOpen] = useState(false);
+  const [datasetOpen, setDatasetOpen] = useState(false);
 
   // Upload state
   const [beforeFile, setBeforeFile] = useState<File | null>(null);
@@ -65,12 +70,12 @@ export default function PipelineApp() {
   const [rolesFile, setRolesFile] = useState<File | null>(null);
 
   useEffect(() => {
-    fetchScenarios();
-  }, []);
+    fetchScenarios(selectedFolder);
+  }, [selectedFolder]);
 
   useEffect(() => {
-    if (selectedScenario) {
-      runPipeline(selectedScenario);
+    if (selectedScenario && !selectedScenario.startsWith("Custom:")) {
+      runPipeline(selectedScenario, selectedFolder);
     }
   }, [selectedScenario]);
 
@@ -84,22 +89,34 @@ export default function PipelineApp() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isFullScreen]);
 
-  const fetchScenarios = async () => {
+  const fetchScenarios = async (folderPath?: string) => {
+    const f = folderPath || selectedFolder;
     try {
-      const res = await fetch("/api/pipeline?action=scenarios");
+      const res = await fetch(`/api/pipeline?action=scenarios&folder=${encodeURIComponent(f)}`);
       const data = await res.json();
       if (Array.isArray(data)) {
         setScenarios(data);
+        if (data.length > 0) {
+          const exists = data.some((s: Scenario) => s.id === selectedScenario);
+          if (!exists) {
+            setSelectedScenario(data[0].id);
+          } else {
+            runPipeline(selectedScenario, f);
+          }
+        } else {
+          setScenarios([]);
+        }
       }
     } catch (e) {
       console.error("Failed to fetch scenarios:", e);
     }
   };
 
-  const runPipeline = async (scId: string) => {
+  const runPipeline = async (scId: string, folderPath?: string) => {
+    const f = folderPath || selectedFolder;
     setLoading(true);
     try {
-      const res = await fetch(`/api/pipeline?scenario=${scId}`);
+      const res = await fetch(`/api/pipeline?scenario=${encodeURIComponent(scId)}&folder=${encodeURIComponent(f)}`);
       const data = await res.json();
       if (data.error) {
         alert("Pipeline error: " + data.error);
@@ -112,6 +129,12 @@ export default function PipelineApp() {
       setLoading(false);
     }
   };
+
+  // Derive display name for the folder badge
+  const folderDisplayName =
+    selectedFolder === "real_time_scenarios_realistic" ? "Realistic R20-11" :
+    selectedFolder === "real_time_scenarios" ? "Original Benchmark" :
+    selectedFolder.split(/[\\/]/).pop() || selectedFolder;
 
   const handleCustomUpload = async () => {
     if (!beforeFile || !afterFile) {
@@ -161,46 +184,40 @@ export default function PipelineApp() {
     <div className="min-h-screen bg-slate-950 text-slate-50 flex flex-col font-sans">
       {/* Top Header */}
       <header className="border-b border-slate-800 bg-slate-900/60 backdrop-blur sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+
+        {/* Row 1: Brand + Action buttons */}
+        <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="h-10 w-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-lg shadow-blue-500/20">
-              <ShieldAlert className="w-5 h-5" />
+            <div className="h-9 w-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-lg shadow-blue-500/20">
+              <ShieldAlert className="w-4 h-4" />
             </div>
             <div>
-              <h1 className="text-base font-semibold leading-none tracking-tight flex items-center gap-2">
+              <h1 className="text-sm font-semibold leading-none tracking-tight flex items-center gap-2">
                 ARXML SecDiff
                 <Badge variant="outline" className="text-[10px] text-blue-400 border-blue-500/30">
                   Release Gate
                 </Badge>
               </h1>
-              <p className="text-xs text-slate-400 mt-1">ISO/SAE 21434 & ASIL Automotive Security Verification</p>
+              <p className="text-[11px] text-slate-400 mt-0.5">ISO/SAE 21434 &amp; ASIL Automotive Security Verification</p>
             </div>
           </div>
 
-          {/* Scenario Selector & Custom Upload Modal */}
-          <div className="flex items-center space-x-3">
-            <select
-              value={selectedScenario}
-              onChange={(e) => setSelectedScenario(e.target.value)}
-              className="bg-slate-800 border border-slate-700 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500 max-w-xs truncate"
-            >
-              {scenarios.map((sc) => (
-                <option key={sc.id} value={sc.id}>
-                  {sc.id}: {sc.title}
-                </option>
-              ))}
-            </select>
-
+          {/* Right side: Upload + Run buttons */}
+          <div className="flex items-center gap-2">
+            {/* Upload custom ARXML files */}
             <Dialog open={uploadOpen} onOpenChange={setUploadOpen}>
-              <DialogTrigger className="inline-flex items-center justify-center gap-1.5 rounded-md text-xs font-medium border border-slate-700 bg-slate-800 hover:bg-slate-700 h-8 px-3 text-slate-100 cursor-pointer transition-colors shadow-sm">
-                <FolderOpen className="w-3.5 h-3.5 text-blue-400" />
-                Browse Local Files
+              <DialogTrigger
+                onClick={() => setUploadOpen(true)}
+                className="h-8 px-3 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-xs text-slate-300 transition-colors flex items-center gap-1.5 cursor-pointer"
+              >
+                <FolderOpen className="w-3.5 h-3.5 text-slate-400" />
+                Upload Files
               </DialogTrigger>
               <DialogContent className="bg-slate-900 border-slate-800 text-slate-50">
                 <DialogHeader>
                   <DialogTitle className="flex items-center gap-2">
                     <FolderOpen className="w-5 h-5 text-blue-400" />
-                    Browse & Upload Local ARXML Files
+                    Browse &amp; Upload Local ARXML Files
                   </DialogTitle>
                   <DialogDescription className="text-slate-400 text-xs">
                     Select your before/baseline and after/updated ARXML files to run step-by-step security diffing.
@@ -246,10 +263,11 @@ export default function PipelineApp() {
               </DialogContent>
             </Dialog>
 
+            {/* Run Pipeline button */}
             <Button
               size="sm"
-              className="bg-blue-600 hover:bg-blue-500 text-white text-xs gap-1.5 shadow"
-              onClick={() => runPipeline(selectedScenario)}
+              className="h-8 bg-blue-600 hover:bg-blue-500 text-white text-xs gap-1.5 shadow px-4 shrink-0"
+              onClick={() => runPipeline(selectedScenario, selectedFolder)}
               disabled={loading}
             >
               <Play className="w-3.5 h-3.5 fill-current" />
@@ -257,6 +275,129 @@ export default function PipelineApp() {
             </Button>
           </div>
         </div>
+
+        {/* Row 2: Dataset folder picker + Scenario selector toolbar */}
+        <div className="border-t border-slate-800/60 bg-slate-900/40">
+          <div className="max-w-7xl mx-auto px-6 h-11 flex items-center gap-3">
+
+            {/* Label */}
+            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider shrink-0">Dataset</span>
+
+            {/* Folder picker button — opens modal */}
+            <Dialog open={datasetOpen} onOpenChange={setDatasetOpen}>
+              <DialogTrigger
+                onClick={() => setDatasetOpen(true)}
+                className="flex items-center gap-1.5 h-7 px-3 rounded-md border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-xs text-slate-200 transition-colors cursor-pointer shrink-0"
+              >
+                <FolderOpen className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                <span className="text-blue-300 font-medium">{folderDisplayName}</span>
+                <ChevronDown className="w-3 h-3 text-slate-500 shrink-0" />
+              </DialogTrigger>
+              <DialogContent className="bg-slate-900 border-slate-700 text-slate-50 max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="flex items-center gap-2 text-sm">
+                    <FolderOpen className="w-4 h-4 text-blue-400" />
+                    Select Scenario Dataset Folder
+                  </DialogTitle>
+                  <DialogDescription className="text-slate-400 text-xs">
+                    Choose a folder that contains scenario sub-folders, each with <code className="bg-slate-800 px-1 rounded">before.arxml</code> and <code className="bg-slate-800 px-1 rounded">after.arxml</code>.
+                  </DialogDescription>
+                </DialogHeader>
+
+                <div className="space-y-3 py-1">
+                  {/* Preset options */}
+                  {[
+                    { id: "real_time_scenarios_realistic", label: "Realistic Dataset", desc: "Enterprise AUTOSAR R20-11 · 13 CVE scenarios · Full CAN-FD & SecOC", badge: "Recommended" },
+                    { id: "real_time_scenarios", label: "Original Benchmark", desc: "Lightweight mock scenarios · 13 CVE scenarios", badge: null },
+                  ].map((opt) => (
+                    <button
+                      key={opt.id}
+                      onClick={() => { setSelectedFolder(opt.id); setIsCustomFolder(false); setDatasetOpen(false); }}
+                      className={`w-full text-left flex items-start gap-3 px-4 py-3 rounded-lg border transition-all cursor-pointer ${
+                        selectedFolder === opt.id && !isCustomFolder
+                          ? "border-blue-500 bg-blue-500/10 text-blue-200"
+                          : "border-slate-700 bg-slate-800/60 hover:border-slate-600 hover:bg-slate-800 text-slate-300"
+                      }`}
+                    >
+                      <FolderOpen className={`w-4 h-4 mt-0.5 shrink-0 ${selectedFolder === opt.id && !isCustomFolder ? "text-blue-400" : "text-slate-500"}`} />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-semibold">{opt.label}</span>
+                          {opt.badge && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-600/30 text-blue-300 font-medium">{opt.badge}</span>}
+                        </div>
+                        <p className="text-[11px] text-slate-500 mt-0.5">{opt.desc}</p>
+                        <code className="text-[10px] text-slate-600 mt-1 block">{opt.id}/</code>
+                      </div>
+                      {selectedFolder === opt.id && !isCustomFolder && (
+                        <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
+                      )}
+                    </button>
+                  ))}
+
+                  {/* Custom path input */}
+                  <div className={`px-4 py-3 rounded-lg border transition-all ${isCustomFolder ? "border-blue-500 bg-blue-500/10" : "border-slate-700 bg-slate-800/60 hover:border-slate-600"}`}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <FolderOpen className={`w-4 h-4 ${isCustomFolder ? "text-blue-400" : "text-slate-500"}`} />
+                      <span className="text-xs font-semibold text-slate-300">Custom Folder Path</span>
+                    </div>
+                    <p className="text-[11px] text-slate-500 mb-2">Type a folder name (relative to project root) or an absolute path.</p>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        placeholder="e.g. real_time_scenarios_realistic or C:\my_data"
+                        value={customFolderInput}
+                        onChange={(e) => setCustomFolderInput(e.target.value)}
+                        onFocus={() => setIsCustomFolder(true)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && customFolderInput.trim()) {
+                            setIsCustomFolder(true);
+                            setSelectedFolder(customFolderInput.trim());
+                            setDatasetOpen(false);
+                          }
+                        }}
+                        className="flex-1 bg-slate-900 border border-slate-600 text-xs rounded-md px-3 py-1.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      />
+                      <Button
+                        size="sm"
+                        className="h-7 text-xs px-3 bg-blue-600 hover:bg-blue-500 text-white shrink-0"
+                        onClick={() => {
+                          if (customFolderInput.trim()) {
+                            setIsCustomFolder(true);
+                            setSelectedFolder(customFolderInput.trim());
+                            setDatasetOpen(false);
+                          }
+                        }}
+                      >
+                        Load
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            {/* Divider */}
+            <div className="h-5 w-px bg-slate-700 shrink-0" />
+
+            {/* Scenario label */}
+            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider shrink-0">Scenario</span>
+
+            {/* Scenario dropdown — takes remaining space */}
+            <select
+              value={selectedScenario}
+              onChange={(e) => setSelectedScenario(e.target.value)}
+              className="flex-1 min-w-0 h-7 bg-slate-800 border border-slate-700 text-xs rounded-md px-3 text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+            >
+              {scenarios.map((sc) => (
+                <option key={sc.id} value={sc.id}>
+                  {sc.title || sc.id}
+                </option>
+              ))}
+            </select>
+
+          </div>
+        </div>
+
       </header>
 
       {/* Bidirectional Pipeline Stepper Bar */}
