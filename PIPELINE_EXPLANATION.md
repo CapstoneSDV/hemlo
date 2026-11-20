@@ -57,7 +57,9 @@ This guarantees deterministic, version-independent element matching.
 #### B. The Recursive Tree Path Indexing Algorithm (`parser.py`)
 AUTOSAR forms canonical references by concatenating the `<SHORT-NAME>` of parent packages. `parser.build_index()` implements a generic recursive traversal:
 * Every element containing a `<SHORT-NAME>` (packages, components, ports, connectors) appends a path segment:
-  $$\text{path} = \text{prefix} + \text{"/"} + \text{SHORT-NAME}$$
+  ```text
+  path = prefix + "/" + SHORT-NAME
+  ```
 * Structural packaging wrappers (`<AR-PACKAGES>`, `<ELEMENTS>`, `<PORTS>`) do not add path segments; the recursive accumulator passes the current prefix through unchanged.
 * Output: A flat dictionary `index: dict[str, etree._Element]` mapping absolute paths (e.g., `/FV/Swc/Root/tcu`) directly to their parsed XML DOM elements.
 
@@ -115,9 +117,11 @@ The tool constructs a directed multigraph $G = (V, E)$ using NetworkX:
   Multiple edges can exist between the same two SwCs if they share multiple connectors (hence a Multigraph).
 
 #### B. The 3-Valued Security State Machine (`secoc.py`)
-For every edge $(u, v) \in E$, the engine evaluates a 3-valued security decision function:
+For every communication edge `(u, v) ∈ E`, the engine evaluates a 3-valued security classification function:
 
-$$\text{SecState}(u, v) \in \{\text{RTE\_LOCAL}, \text{AUTHENTICATED}, \text{UNPROTECTED}\}$$
+```text
+SecState(u, v) ∈ { RTE_LOCAL, AUTHENTICATED, UNPROTECTED }
+```
 
 ```
                           ┌────────────────────────┐
@@ -141,13 +145,13 @@ $$\text{SecState}(u, v) \in \{\text{RTE\_LOCAL}, \text{AUTHENTICATED}, \text{UNP
 ```
 
 1. **`RTE_LOCAL`**:
-   * Evaluated when $\text{ECU}(u) == \text{ECU}(v)$.
+   * Evaluated when `ECU(u) == ECU(v)`.
    * Communication is bus-invisible. An external attacker with a CAN bus tap cannot manipulate this channel without physical micro-controller firmware exploitation.
 2. **`AUTHENTICATED` (SecOC = True)**:
-   * Evaluated when $\text{ECU}(u) \ne \text{ECU}(v)$ AND the underlying signals are mapped to an active `<SECURED-I-PDU>`.
+   * Evaluated when `ECU(u) != ECU(v)` AND the underlying signals are mapped to an active `<SECURED-I-PDU>`.
    * The frame includes an AUTOSAR SecOC cryptographic Message Authentication Code (MAC) and freshness counter. Frames cannot be forged or replayed on the bus.
 3. **`UNPROTECTED` (SecOC = False)**:
-   * Evaluated when $\text{ECU}(u) \ne \text{ECU}(v)$ AND no `<SECURED-I-PDU>` encapsulates the traffic.
+   * Evaluated when `ECU(u) != ECU(v)` AND no `<SECURED-I-PDU>` encapsulates the traffic.
    * **Vulnerability**: Any attacker with bus access (via OBD-II, compromised telematics, or headlight wiring) can trivially inject forged frames to control the receiving component.
 
 ---
@@ -279,7 +283,9 @@ The tool synthesizes risk by cross-referencing two formal dimensions:
 #### B. Risk Level Mapping (1 to 5)
 Following ISO/SAE 21434 Table H.8, the engine computes:
 
-$$\text{Risk Level} = \text{Matrix}(I, F) \in [1, 5]$$
+```text
+Risk Level = Matrix(Impact, Feasibility) ∈ [1, 5]
+```
 
 | Impact $\downarrow$ \ Feasibility $\rightarrow$ | Low | Medium | High |
 | :--- | :---: | :---: | :---: |
