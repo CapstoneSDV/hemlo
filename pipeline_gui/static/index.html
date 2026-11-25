@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,29 +13,28 @@
   
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            background: 'hsl(240 10% 3.9%)',
-            foreground: 'hsl(0 0% 98%)',
-            card: 'hsl(240 10% 4.9%)',
-            'card-foreground': 'hsl(0 0% 98%)',
-            popover: 'hsl(240 10% 4.9%)',
-            'popover-foreground': 'hsl(0 0% 98%)',
-            primary: 'hsl(0 0% 98%)',
-            'primary-foreground': 'hsl(240 5.9% 10%)',
-            secondary: 'hsl(240 3.7% 15.9%)',
-            'secondary-foreground': 'hsl(0 0% 98%)',
-            muted: 'hsl(240 3.7% 15.9%)',
-            'muted-foreground': 'hsl(240 5% 64.9%)',
-            accent: 'hsl(240 3.7% 15.9%)',
-            'accent-foreground': 'hsl(0 0% 98%)',
-            destructive: 'hsl(0 62.8% 30.6%)',
-            'destructive-foreground': 'hsl(0 0% 98%)',
-            border: 'hsl(240 3.7% 15.9%)',
-            input: 'hsl(240 3.7% 15.9%)',
-            ring: 'hsl(240 4.9% 83.9%)',
+            background: 'hsl(210 40% 98%)',
+            foreground: 'hsl(222.2 84% 4.9%)',
+            card: 'hsl(0 0% 100%)',
+            'card-foreground': 'hsl(222.2 84% 4.9%)',
+            popover: 'hsl(0 0% 100%)',
+            'popover-foreground': 'hsl(222.2 84% 4.9%)',
+            primary: 'hsl(221.2 83.2% 53.3%)',
+            'primary-foreground': 'hsl(210 40% 98%)',
+            secondary: 'hsl(210 40% 96.1%)',
+            'secondary-foreground': 'hsl(222.2 47.4% 11.2%)',
+            muted: 'hsl(210 40% 96.1%)',
+            'muted-foreground': 'hsl(215.4 16.3% 46.9%)',
+            accent: 'hsl(210 40% 96.1%)',
+            'accent-foreground': 'hsl(222.2 47.4% 11.2%)',
+            destructive: 'hsl(0 84.2% 60.2%)',
+            'destructive-foreground': 'hsl(210 40% 98%)',
+            border: 'hsl(214.3 31.8% 91.4%)',
+            input: 'hsl(214.3 31.8% 91.4%)',
+            ring: 'hsl(221.2 83.2% 53.3%)',
           },
           borderRadius: {
             lg: '0.5rem',
@@ -50,7 +49,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
     body { font-family: 'Inter', sans-serif; }
     code, pre { font-family: 'JetBrains Mono', monospace; }
-    #cy { width: 100%; height: 560px; background: #09090b; border-radius: 0.5rem; }
+    #cy { width: 100%; height: 560px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; }
   </style>
 </head>
 <body class="bg-background text-foreground min-h-screen flex flex-col antialiased">
@@ -112,7 +111,7 @@
   </header>
 
   <!-- Dataset Folder Modal -->
-  <div id="datasetModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+  <div id="datasetModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm">
     <div class="bg-card border border-border rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
       <div class="px-5 pt-5 pb-4 border-b border-border">
         <div class="flex items-center justify-between">
@@ -130,28 +129,28 @@
       <div class="p-4 space-y-3">
         <!-- Preset options -->
         <button onclick="selectDataset('real_time_scenarios_realistic', 'Realistic R20-11')" id="preset-realistic"
-          class="dataset-opt w-full text-left flex items-start gap-3 px-4 py-3 rounded-lg border border-blue-500 bg-blue-500/10 text-blue-200 transition-all cursor-pointer">
-          <i data-lucide="folder-open" class="w-4 h-4 mt-0.5 text-blue-400 shrink-0"></i>
+          class="dataset-opt w-full text-left flex items-start gap-3 px-4 py-3 rounded-lg border border-blue-500 bg-blue-50 text-blue-900 shadow-sm ring-1 ring-blue-500/20 transition-all cursor-pointer">
+          <i data-lucide="folder-open" class="w-4 h-4 mt-0.5 text-blue-600 shrink-0"></i>
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-2">
-              <span class="text-xs font-semibold">Realistic Dataset</span>
-              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-600/30 text-blue-300 font-medium">Recommended</span>
+              <span class="text-xs font-semibold text-slate-900">Realistic Dataset</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 font-medium">Recommended</span>
             </div>
             <p class="text-[11px] text-muted-foreground mt-0.5">Enterprise AUTOSAR R20-11 · 13 CVE scenarios · Full CAN-FD & SecOC</p>
-            <code class="text-[10px] text-muted-foreground/60 mt-1 block">real_time_scenarios_realistic/</code>
+            <code class="text-[10px] text-muted-foreground mt-1 block">real_time_scenarios_realistic/</code>
           </div>
-          <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-400 mt-0.5 shrink-0 check-icon"></i>
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 mt-0.5 shrink-0 check-icon"></i>
         </button>
 
         <button onclick="selectDataset('real_time_scenarios', 'Original Benchmark')" id="preset-original"
-          class="dataset-opt w-full text-left flex items-start gap-3 px-4 py-3 rounded-lg border border-border bg-secondary/60 hover:border-border/80 hover:bg-secondary text-muted-foreground transition-all cursor-pointer">
+          class="dataset-opt w-full text-left flex items-start gap-3 px-4 py-3 rounded-lg border border-border bg-card hover:border-slate-300 hover:bg-slate-50 text-muted-foreground transition-all cursor-pointer">
           <i data-lucide="folder-open" class="w-4 h-4 mt-0.5 text-muted-foreground shrink-0"></i>
           <div class="flex-1 min-w-0">
             <span class="text-xs font-semibold text-foreground">Original Benchmark</span>
             <p class="text-[11px] text-muted-foreground mt-0.5">Lightweight mock scenarios · 13 CVE scenarios</p>
-            <code class="text-[10px] text-muted-foreground/60 mt-1 block">real_time_scenarios/</code>
+            <code class="text-[10px] text-muted-foreground mt-1 block">real_time_scenarios/</code>
           </div>
-          <i data-lucide="check-circle-2" class="w-4 h-4 text-muted-foreground/0 mt-0.5 shrink-0 check-icon"></i>
+          <i data-lucide="check-circle-2" class="w-4 h-4 opacity-0 mt-0.5 shrink-0 check-icon"></i>
         </button>
 
         <!-- Custom path -->
@@ -391,26 +390,26 @@
 
       <!-- 3 State Cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="rounded-lg border border-border bg-card p-4 shadow-sm border-l-4 border-l-zinc-500">
+        <div class="rounded-lg border border-border bg-card p-4 shadow-sm border-l-4 border-l-slate-400">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-zinc-400">RTE_LOCAL (None)</span>
-            <span class="text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 font-mono" id="statRteLocal">16</span>
+            <span class="text-xs font-semibold text-slate-700">RTE_LOCAL (None)</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-mono" id="statRteLocal">16</span>
           </div>
           <p class="text-xs text-muted-foreground mt-2">Connectors stay on the same physical ECU. No physical wire frame is generated, so SecOC is not applicable.</p>
         </div>
-        <div class="rounded-lg border border-border bg-card p-4 shadow-sm border-l-4 border-l-emerald-500">
+        <div class="rounded-lg border border-emerald-200 bg-emerald-50/60 p-4 shadow-sm border-l-4 border-l-emerald-500">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-emerald-400">AUTHENTICATED (True)</span>
-            <span class="text-xs px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-mono" id="statAuthenticated">4</span>
+            <span class="text-xs font-semibold text-emerald-800">AUTHENTICATED (True)</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 font-mono" id="statAuthenticated">4</span>
           </div>
-          <p class="text-xs text-muted-foreground mt-2">Bus traffic packaged into an I-PDU wrapped by a SECURED-I-PDU with cryptographic freshness and MAC.</p>
+          <p class="text-xs text-slate-600 mt-2">Bus traffic packaged into an I-PDU wrapped by a SECURED-I-PDU with cryptographic freshness and MAC.</p>
         </div>
-        <div class="rounded-lg border border-border bg-card p-4 shadow-sm border-l-4 border-l-rose-500">
+        <div class="rounded-lg border border-rose-200 bg-rose-50/60 p-4 shadow-sm border-l-4 border-l-rose-500">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-rose-400">UNPROTECTED (False)</span>
-            <span class="text-xs px-2 py-0.5 rounded bg-rose-950 text-rose-300 font-mono" id="statUnprotected">5</span>
+            <span class="text-xs font-semibold text-rose-800">UNPROTECTED (False)</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-300 font-mono" id="statUnprotected">5</span>
           </div>
-          <p class="text-xs text-muted-foreground mt-2">Cross-ECU bus traffic without a SecOC wrapper. Raw payload vulnerable to frame injection/spoofing.</p>
+          <p class="text-xs text-slate-600 mt-2">Cross-ECU bus traffic without a SecOC wrapper. Raw payload vulnerable to frame injection/spoofing.</p>
         </div>
       </div>
 
@@ -535,11 +534,11 @@
   </main>
 
   <!-- Upload Modal -->
-  <div id="uploadModal" class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+  <div id="uploadModal" class="hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-card border border-border rounded-xl max-w-xl w-full p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between pb-2 border-b border-border">
         <h3 class="text-base font-semibold flex items-center">
-          <i data-lucide="folder-open" class="w-4 h-4 mr-2 text-blue-400"></i> Browse & Upload Local ARXML Files
+          <i data-lucide="folder-open" class="w-4 h-4 mr-2 text-blue-600"></i> Browse & Upload Local ARXML Files
         </h3>
         <button onclick="closeUploadModal()" class="text-muted-foreground hover:text-foreground">
           <i data-lucide="x" class="w-5 h-5"></i>
@@ -549,17 +548,17 @@
       <div class="space-y-3 text-xs">
         <div>
           <label class="block font-medium mb-1 text-foreground">Before ARXML (Baseline Release):</label>
-          <input type="file" id="beforeFileInput" accept=".arxml,.xml" class="w-full bg-secondary border border-border rounded p-1.5 text-zinc-300">
+          <input type="file" id="beforeFileInput" accept=".arxml,.xml" class="w-full bg-secondary border border-border rounded p-1.5 text-foreground">
         </div>
 
         <div>
           <label class="block font-medium mb-1 text-foreground">After ARXML (Proposed Update):</label>
-          <input type="file" id="afterFileInput" accept=".arxml,.xml" class="w-full bg-secondary border border-border rounded p-1.5 text-zinc-300">
+          <input type="file" id="afterFileInput" accept=".arxml,.xml" class="w-full bg-secondary border border-border rounded p-1.5 text-foreground">
         </div>
 
         <div>
           <label class="block font-medium mb-1 text-foreground">Roles Config (YAML - Optional):</label>
-          <input type="file" id="rolesFileInput" accept=".yaml,.yml" class="w-full bg-secondary border border-border rounded p-1.5 text-zinc-300">
+          <input type="file" id="rolesFileInput" accept=".yaml,.yml" class="w-full bg-secondary border border-border rounded p-1.5 text-foreground">
         </div>
       </div>
 
@@ -658,17 +657,17 @@
       document.getElementById('folderBtnLabel').textContent = label;
       // Update active styles on preset buttons
       document.querySelectorAll('.dataset-opt').forEach(btn => {
-        btn.classList.remove('border-blue-500', 'bg-blue-500/10', 'text-blue-200');
-        btn.classList.add('border-border', 'bg-secondary/60', 'text-muted-foreground');
+        btn.classList.remove('border-blue-500', 'bg-blue-50', 'text-blue-900', 'shadow-sm', 'ring-1', 'ring-blue-500/20');
+        btn.classList.add('border-border', 'bg-card', 'text-muted-foreground');
         const icon = btn.querySelector('.check-icon');
-        if (icon) icon.classList.add('text-muted-foreground/0');
+        if (icon) icon.classList.add('opacity-0');
       });
       const active = document.getElementById('preset-' + (folder === 'real_time_scenarios_realistic' ? 'realistic' : 'original'));
       if (active) {
-        active.classList.add('border-blue-500', 'bg-blue-500/10', 'text-blue-200');
-        active.classList.remove('border-border', 'bg-secondary/60', 'text-muted-foreground');
+        active.classList.add('border-blue-500', 'bg-blue-50', 'text-blue-900', 'shadow-sm', 'ring-1', 'ring-blue-500/20');
+        active.classList.remove('border-border', 'bg-card', 'text-muted-foreground');
         const icon = active.querySelector('.check-icon');
-        if (icon) icon.classList.remove('text-muted-foreground/0');
+        if (icon) icon.classList.remove('opacity-0');
       }
       closeDatasetModal();
       loadScenarios(currentFolder);
@@ -836,20 +835,20 @@
       s3.edges.forEach(e => {
         let badge = '';
         if (e.security_state === 'RTE_LOCAL') {
-          badge = '<span class="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-zinc-800 text-zinc-300">RTE_LOCAL</span>';
+          badge = '<span class="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-slate-100 text-slate-700 border border-slate-200">RTE_LOCAL</span>';
         } else if (e.security_state === 'AUTHENTICATED') {
-          badge = '<span class="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-emerald-950 text-emerald-400 border border-emerald-800">AUTHENTICATED 🔒</span>';
+          badge = '<span class="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-emerald-100 text-emerald-800 border border-emerald-300">AUTHENTICATED 🔒</span>';
         } else {
-          badge = '<span class="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-rose-950 text-rose-400 border border-rose-800">UNPROTECTED ⚠️</span>';
+          badge = '<span class="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-rose-100 text-rose-800 border border-rose-300">UNPROTECTED ⚠️</span>';
         }
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-muted/30 transition-colors';
         tr.innerHTML = `
           <td class="px-4 py-2 font-medium text-foreground">${e.connector}</td>
-          <td class="px-4 py-2 text-zinc-300">${e.source.split('/').pop()} &rarr; ${e.target.split('/').pop()}</td>
+          <td class="px-4 py-2 text-slate-700">${e.source.split('/').pop()} &rarr; ${e.target.split('/').pop()}</td>
           <td class="px-4 py-2 text-muted-foreground">${e.bus_visible ? 'Bus Wire' : 'Internal Memory'}</td>
           <td class="px-4 py-2">${badge}</td>
-          <td class="px-4 py-2 text-zinc-400">${e.pdus.join(', ') || 'None'}</td>
+          <td class="px-4 py-2 text-slate-500">${e.pdus.join(', ') || 'None'}</td>
         `;
         secTable.appendChild(tr);
       });
@@ -860,7 +859,7 @@
       entryContainer.innerHTML = '';
       s4.roles.entry_points.forEach(ep => {
         const span = document.createElement('span');
-        span.className = 'inline-flex items-center rounded-md bg-blue-500/10 px-2.5 py-1 text-xs font-medium text-blue-400 ring-1 ring-inset ring-blue-500/20 font-mono';
+        span.className = 'inline-flex items-center rounded-md bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-200 font-mono';
         span.textContent = ep.label;
         entryContainer.appendChild(span);
       });
@@ -869,7 +868,7 @@
       critContainer.innerHTML = '';
       s4.roles.critical_targets.forEach(ct => {
         const span = document.createElement('span');
-        span.className = 'inline-flex items-center rounded-md bg-rose-500/10 px-2.5 py-1 text-xs font-medium text-rose-400 ring-1 ring-inset ring-rose-500/20 font-mono';
+        span.className = 'inline-flex items-center rounded-md bg-rose-50 px-2.5 py-1 text-xs font-medium text-rose-700 ring-1 ring-inset ring-rose-200 font-mono';
         span.textContent = `${ct.label} (ASIL-${ct.asil})`;
         critContainer.appendChild(span);
       });
@@ -884,14 +883,14 @@
       } else {
         newPaths.forEach((p, idx) => {
           const div = document.createElement('div');
-          div.className = 'rounded-md border border-rose-900/60 bg-rose-950/20 p-3 space-y-2';
+          div.className = 'rounded-md border border-rose-200 bg-rose-50/70 p-3 space-y-2 shadow-sm';
           div.innerHTML = `
-            <div class="flex items-center justify-between text-xs font-semibold text-rose-300">
-              <span class="flex items-center"><i data-lucide="alert-triangle" class="w-3.5 h-3.5 mr-1.5 text-rose-400"></i> Attack Route #${idx + 1} (${p.hops.length} Hops)</span>
-              <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-rose-950 border border-rose-800 text-rose-400">${p.unprotected ? 'Unprotected Bus Hop Included' : 'Secured'}</span>
+            <div class="flex items-center justify-between text-xs font-semibold text-rose-900">
+              <span class="flex items-center"><i data-lucide="alert-triangle" class="w-3.5 h-3.5 mr-1.5 text-rose-600"></i> Attack Route #${idx + 1} (${p.hops.length} Hops)</span>
+              <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-rose-100 border border-rose-300 text-rose-800">${p.unprotected ? 'Unprotected Bus Hop Included' : 'Secured'}</span>
             </div>
             <div class="font-mono text-xs flex items-center flex-wrap gap-2 text-foreground pt-1">
-              ${p.nodes.map((n, i) => `<span class="${i===0?'text-blue-400 font-bold':(i===p.nodes.length-1?'text-rose-400 font-bold':'text-zinc-300')}">${n}</span>`).join('<span class="text-muted-foreground">&rarr;</span>')}
+              ${p.nodes.map((n, i) => `<span class="${i===0?'text-blue-700 font-bold':(i===p.nodes.length-1?'text-rose-700 font-bold':'text-slate-700')}">${n}</span>`).join('<span class="text-muted-foreground">&rarr;</span>')}
             </div>
           `;
           pathsContainer.appendChild(div);
@@ -913,22 +912,22 @@
       document.getElementById('statTotalFindings').textContent = s5.findings.length;
 
       if (s5.verdict === 'BLOCK') {
-        verdictBanner.className = 'rounded-xl border border-rose-900/80 bg-rose-950/30 p-6 flex items-center justify-between shadow-lg';
+        verdictBanner.className = 'rounded-xl border border-rose-200 bg-rose-50 p-6 flex items-center justify-between shadow-md';
         verdictIconBox.className = 'h-12 w-12 rounded-lg bg-rose-600 text-white flex items-center justify-center';
         verdictIcon.setAttribute('data-lucide', 'ban');
-        verdictText.className = 'text-2xl font-black tracking-wider uppercase text-rose-400';
+        verdictText.className = 'text-2xl font-black tracking-wider uppercase text-rose-700';
         verdictSummary.textContent = 'Release Rejected: Critical ASIL-D safety targets are exposed to unauthenticated remote access.';
       } else if (s5.verdict === 'FLAG') {
-        verdictBanner.className = 'rounded-xl border border-amber-900/80 bg-amber-950/30 p-6 flex items-center justify-between shadow-lg';
+        verdictBanner.className = 'rounded-xl border border-amber-200 bg-amber-50 p-6 flex items-center justify-between shadow-md';
         verdictIconBox.className = 'h-12 w-12 rounded-lg bg-amber-600 text-white flex items-center justify-center';
         verdictIcon.setAttribute('data-lucide', 'flag');
-        verdictText.className = 'text-2xl font-black tracking-wider uppercase text-amber-400';
+        verdictText.className = 'text-2xl font-black tracking-wider uppercase text-amber-700';
         verdictSummary.textContent = 'Manual Review Required: Moderate architectural changes detected without verified safety degradation.';
       } else {
-        verdictBanner.className = 'rounded-xl border border-emerald-900/80 bg-emerald-950/30 p-6 flex items-center justify-between shadow-lg';
+        verdictBanner.className = 'rounded-xl border border-emerald-200 bg-emerald-50 p-6 flex items-center justify-between shadow-md';
         verdictIconBox.className = 'h-12 w-12 rounded-lg bg-emerald-600 text-white flex items-center justify-center';
         verdictIcon.setAttribute('data-lucide', 'check-circle-2');
-        verdictText.className = 'text-2xl font-black tracking-wider uppercase text-emerald-400';
+        verdictText.className = 'text-2xl font-black tracking-wider uppercase text-emerald-700';
         verdictSummary.textContent = 'Release Approved: Clean release, zero newly reachable safety targets over unprotected links.';
       }
 
@@ -943,7 +942,7 @@
           div.innerHTML = `
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-2">
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono ${f.risk >= 4 ? 'bg-rose-950 text-rose-400 border border-rose-800' : 'bg-amber-950 text-amber-400 border border-amber-800'}">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono ${f.risk >= 4 ? 'bg-rose-100 text-rose-800 border border-rose-300' : 'bg-amber-100 text-amber-800 border border-amber-300'}">
                   RISK ${f.risk} [${f.impact}/${f.feasibility}]
                 </span>
                 <span class="text-xs font-semibold text-foreground">${f.title}</span>
@@ -951,7 +950,7 @@
               <span class="text-[10px] font-mono text-muted-foreground uppercase">${f.category}</span>
             </div>
             <p class="text-xs text-muted-foreground leading-relaxed">${f.detail}</p>
-            ${f.rationale.length ? `<div class="text-[11px] font-mono text-zinc-400 bg-muted/30 p-2 rounded">${f.rationale.join('<br>')}</div>` : ''}
+            ${f.rationale.length ? `<div class="text-[11px] font-mono text-slate-700 bg-muted/30 p-2 rounded border border-border">${f.rationale.join('<br>')}</div>` : ''}
           `;
           findingsContainer.appendChild(div);
         });
@@ -1092,15 +1091,15 @@
           {
             selector: 'node.ecu-box',
             style: {
-              'background-color': '#141417',
+              'background-color': '#f1f5f9',
               'label': 'data(label)',
-              'color': '#94a3b8',
+              'color': '#475569',
               'font-size': '10px',
               'font-weight': 'bold',
               'text-valign': 'top',
               'text-halign': 'center',
               'border-width': 1.5,
-              'border-color': '#334155',
+              'border-color': '#cbd5e1',
               'border-style': 'dashed',
               'padding': 14
             }
